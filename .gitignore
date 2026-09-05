@@ -1,0 +1,56 @@
+# ===== Secrets / local only (NEVER commit) =====
+wp-config.php
+wp-config-local.php
+.env
+.env.*
+*.pem
+*.key
+
+# ===== Database & deploy dumps =====
+*.sql
+*.sql.gz
+*.sql.zip
+DEPLOY-TO-CPANEL/database-*.sql
+DEPLOY-TO-CPANEL/plugins-updated/
+DEPLOY-TO-CPANEL/*.zip
+
+# ===== Backups & logs =====
+wp-content/wpvividbackups/
+wp-content/backup*/
+wp-content/ai1wm-backups/
+error_log
+error_log.*
+*.log
+debug.log
+
+# ===== WordPress runtime / cache =====
+wp-content/cache/
+wp-content/upgrade/
+wp-content/updraft/
+wp-content/wflogs/
+wp-content/uploads/elementor/css/
+wp-content/uploads/elementor/google-fonts/
+wp-content/uploads/rank-math/
+wp-content/uploads/wp-file-manager-pro/
+.well-known/
+
+# ===== Large media (keep site code lean; media stays on server/cPanel) =====
+# Still track our small SEO CSS and allow listing the folder
+wp-content/uploads/**
+!wp-content/uploads/rbo-blog-responsive.css
+!wp-content/uploads/2026/
+!wp-content/uploads/2026/09/
+!wp-content/uploads/2026/09/**
+
+# ===== OS / editor =====
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+*~
+
+# ===== PHP / local server helpers that are fine to keep, but ignore temp =====
+node_modules/
+vendor/

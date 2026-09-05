@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/responsive.css" />
+    <title>Website Parked by AEserver.com</title>
+</head>
+<body>
+
+    <section class="main-wrapper">
+        <div class="main-center-block">
+            <div class="container">
+                <div class="logo-box">
+                    <a href="https://www.aeserver.com/"><img src="images/logo.svg" alt="Logo"></a>
+                </div>
+
+                <div class="banner-data">
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
+                            <div class="main-text">
+                                <h1>This is a default page for <span id="demo">aeserver.com</span></h1>
+
+                                <h6>Do you want a cool domain like this?</h6>
+                                <a href="https://www.aeserver.com/?utm_medium=domain_parking&amp;utm_source=" class="btn-main">Find your Domain</a>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                            <div class="offer-block">
+                                <h3>What we offer...</h3>
+
+                                <ul>
+                                    <li>
+                                        <div class="offer-row">
+                                            <div class="offer-ic">
+                                                <img src="images/offer-ic1.svg" alt="">
+                                            </div>
+                                            <div class="offer-dt">
+                                                <h4><a href="https://www.aeserver.com/domain-name-registration.php/?utm_medium=domain_parking&amp;utm_source="  class="btn-link">Affordable Domains</a></h4>
+                                                <p>UAE’s #1 Domain Registrar with real-time online registration.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="offer-row">
+                                            <div class="offer-ic">
+                                                <img src="images/offer-ic2.svg" alt="">
+                                            </div>
+                                            <div class="offer-dt">
+                                                <h4><a href="https://www.aeserver.com/hosting.php/?utm_medium=domain_parking&amp;utm_source=" class="btn-link">Secure Web Hosting</a></h4>
+                                                <p>Superior performance with 24/7 friendly UAE-based support.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="offer-row">
+                                            <div class="offer-ic">
+                                                <img src="images/offer-ic3.svg" alt="">
+                                            </div>
+                                            <div class="offer-dt">
+                                                <h4><a href="https://www.aeserver.com/vps-hosting.php/?utm_medium=domain_parking&amp;utm_source=" class="btn-link">Cloud Servers (UAE)</a></h4>
+                                                <p>Simplified Cloud Hosting with easy upgrade and configuration.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="offer-row">
+                                            <div class="offer-ic">
+                                                <img src="images/offer-ic4.svg" alt="">
+                                            </div>
+                                            <div class="offer-dt">
+                                                 <h4><a href="https://www.aeserver.com/dedicated-server-hosting.php/?utm_medium=domain_parking&amp;utm_source=" class="btn-link">Dedicated Servers (UAE)</a></h4>
+                                                <p>Powerful dedicated servers with full root access.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="copyright-box">
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
+                            <h5>Are you the owner of this domain? <a href="https://www.aeserver.com/my/clientarea.php/?utm_medium=domain_parking&amp;utm_source=" class="btn-link">Build your website now.</a></h5>
+                            <p>Copyright © 2021 AEserver.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <footer>
+            <script type="text/javascript" src="js/jquery-3.2.1.slim.min.js"></script> 
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/popper.min.js"></script>
+
+    <script type="text/javascript">
+        var x = location.hostname.replace('www.','')
+		document.getElementById("demo").innerHTML = x;
+    
+		$(document).on('click','a.btn-main',function(e){
+
+			e.preventDefault();
+			var href = e.target.getAttribute("href");
+			href = href + x;
+			$('<a href="'+ href +'" target="_blank">External Link</a>')[0].click();
+        
+		});
+
+		$(document).on('click','a.btn-link',function(e){
+
+			e.preventDefault();
+			var href = e.target.getAttribute("href");
+			href = href + x;
+			$('<a href="'+ href +'" target="_blank">External Link</a>')[0].click();
+        
+		});
+    </script>
+        
+    </footer>
+</body>
+</html>
