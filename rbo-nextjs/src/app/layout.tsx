@@ -86,8 +86,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="min-h-screen flex flex-col antialiased text-slate-900 bg-white selection:bg-amber-100 selection:text-amber-900">
-        <JsonLd data={generateOrganizationSchema()} />
+      <body className="min-h-screen flex flex-col antialiased text-white bg-[#0D1B2A] selection:bg-[#E8B84B] selection:text-[#0D1B2A]">
         <Navbar />
         <main className="flex-grow">{children}</main>
         <Footer />

@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { 
   ShieldCheck, 
   Award, 
@@ -12,7 +13,9 @@ import {
   FileCheck2, 
   BadgeCheck, 
   ArrowRight,
-  PhoneCall
+  PhoneCall,
+  Clock,
+  Landmark
 } from "lucide-react";
 import HeroBanner from "@/components/ui/HeroBanner";
 import ContactForm from "@/components/ui/ContactForm";
@@ -70,7 +73,7 @@ export default function AboutUsPage() {
   ];
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-[#0D1B2A] text-white">
       <HeroBanner
         badge="About RBO Accounting Services FZE"
         title="Your Trusted Financial & Tax Partners in the UAE"
@@ -81,18 +84,18 @@ export default function AboutUsPage() {
         ]}
       />
 
-      {/* Intro Section */}
-      <section className="py-20 bg-white">
+      {/* Intro Section with authentic images */}
+      <section className="py-20 bg-[#0D1B2A] border-b border-[#E8B84B]/15">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--gold-primary)]/10 text-[var(--gold-dark)] text-xs font-semibold tracking-wider uppercase mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E8B84B]/15 text-[#E8B84B] text-xs font-semibold tracking-wider uppercase mb-4 border border-[#E8B84B]/30">
                 Who We Are
               </div>
-              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[var(--navy-primary)] leading-tight mb-6">
+              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white leading-tight mb-6">
                 Pioneering FTA Tax Compliance & Financial Excellence in the UAE
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed">
+              <div className="space-y-4 text-gray-300 leading-relaxed text-sm">
                 <p>
                   <strong>RBO Accounting Services FZE</strong> is an established accounting, auditing, and tax advisory firm based in the UAE. We specialize in navigating the dynamic fiscal regulatory landscape introduced by the UAE Federal Tax Authority (FTA), including <strong>Federal Decree-Law No. 8 of 2017 (VAT)</strong> and <strong>Federal Decree-Law No. 47 of 2022 (Corporate Tax)</strong>.
                 </p>
@@ -105,18 +108,18 @@ export default function AboutUsPage() {
               </div>
 
               <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex items-start gap-3 p-4 rounded-xl bg-[var(--navy-light)] border border-gray-100">
-                  <BadgeCheck className="w-6 h-6 text-[var(--gold-primary)] shrink-0 mt-0.5" />
+                <div className="flex items-start gap-3 p-4 rounded-xl bg-[#091522] border border-[#E8B84B]/20">
+                  <BadgeCheck className="w-6 h-6 text-[#E8B84B] shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-bold text-[var(--navy-primary)] text-sm">FTA EmaraTax Experts</h4>
-                    <p className="text-xs text-gray-600 mt-1">Full lifecycle management on the official EmaraTax portal.</p>
+                    <h4 className="font-bold text-white text-sm">FTA EmaraTax Experts</h4>
+                    <p className="text-xs text-gray-400 mt-1">Full lifecycle management on the official EmaraTax portal.</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3 p-4 rounded-xl bg-[var(--navy-light)] border border-gray-100">
-                  <FileCheck2 className="w-6 h-6 text-[var(--gold-primary)] shrink-0 mt-0.5" />
+                <div className="flex items-start gap-3 p-4 rounded-xl bg-[#091522] border border-[#E8B84B]/20">
+                  <FileCheck2 className="w-6 h-6 text-[#E8B84B] shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-bold text-[var(--navy-primary)] text-sm">IFRS Standardized</h4>
-                    <p className="text-xs text-gray-600 mt-1">Audit-ready balance sheets and financial statements.</p>
+                    <h4 className="font-bold text-white text-sm">IFRS Standardized</h4>
+                    <p className="text-xs text-gray-400 mt-1">Audit-ready balance sheets and financial statements.</p>
                   </div>
                 </div>
               </div>
@@ -124,8 +127,8 @@ export default function AboutUsPage() {
 
             {/* Visual Box / Metrics Card */}
             <div className="relative">
-              <div className="bg-gradient-to-br from-[var(--navy-primary)] to-[var(--navy-secondary)] text-white p-8 sm:p-10 rounded-3xl shadow-2xl relative overflow-hidden border border-[var(--gold-primary)]/20">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--gold-primary)]/10 rounded-full blur-3xl -z-0" />
+              <div className="bg-[#112233] text-white p-8 sm:p-10 rounded-3xl shadow-2xl relative overflow-hidden border border-[#E8B84B]/30">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-[#E8B84B]/10 rounded-full blur-3xl -z-0" />
                 
                 <h3 className="text-2xl font-serif font-bold text-white mb-6 relative z-10">
                   Proven Track Record Across the Emirates
@@ -134,7 +137,7 @@ export default function AboutUsPage() {
                 <div className="grid grid-cols-2 gap-6 relative z-10">
                   {milestones.map((m, idx) => (
                     <div key={idx} className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
-                      <div className="text-3xl sm:text-4xl font-extrabold text-[var(--gold-light)] font-serif">
+                      <div className="text-3xl sm:text-4xl font-extrabold text-[#E8B84B] font-serif">
                         {m.number}
                       </div>
                       <div className="text-xs sm:text-sm text-gray-300 mt-2 font-medium">
@@ -153,7 +156,7 @@ export default function AboutUsPage() {
                     href="https://wa.me/971508051857"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--gold-primary)] text-[var(--navy-primary)] font-bold text-xs hover:bg-[var(--gold-light)] transition-all shadow-md"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#E8B84B] text-[#0D1B2A] font-bold text-xs hover:bg-[#d8a83b] transition-all shadow-md"
                   >
                     <PhoneCall className="w-3.5 h-3.5" />
                     <span>Talk to an Advisor</span>
@@ -166,19 +169,19 @@ export default function AboutUsPage() {
       </section>
 
       {/* Mission & Vision Section */}
-      <section className="py-16 bg-[var(--navy-light)] border-y border-gray-200/80">
+      <section className="py-16 bg-[#091522] border-b border-[#E8B84B]/15">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {pillars.map((p, idx) => (
               <div
                 key={idx}
-                className="bg-white p-8 sm:p-10 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+                className="bg-[#0D1B2A] p-8 sm:p-10 rounded-2xl border border-[#E8B84B]/20 shadow-sm relative overflow-hidden"
               >
-                <div className="w-2 h-full bg-gradient-to-b from-[var(--gold-primary)] to-[var(--navy-primary)] absolute top-0 left-0" />
-                <h3 className="text-2xl font-serif font-bold text-[var(--navy-primary)] mb-4 pl-2">
+                <div className="w-2 h-full bg-gradient-to-b from-[#E8B84B] to-[#0D1B2A] absolute top-0 left-0" />
+                <h3 className="text-2xl font-serif font-bold text-white mb-4 pl-2">
                   {p.title}
                 </h3>
-                <p className="text-gray-700 leading-relaxed pl-2">
+                <p className="text-gray-300 leading-relaxed pl-2 text-sm">
                   {p.content}
                 </p>
               </div>
@@ -188,16 +191,16 @@ export default function AboutUsPage() {
       </section>
 
       {/* Core Values */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-[#0D1B2A]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--gold-primary)]/10 text-[var(--gold-dark)] text-xs font-semibold tracking-wider uppercase mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E8B84B]/15 text-[#E8B84B] text-xs font-semibold tracking-wider uppercase mb-3 border border-[#E8B84B]/30">
               Why Partner With RBO
             </div>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[var(--navy-primary)]">
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white">
               Our Guiding Principles & Commitments
             </h2>
-            <p className="mt-4 text-gray-600">
+            <p className="mt-4 text-xs sm:text-sm text-gray-400">
               We stand apart through deep UAE fiscal knowledge, uncompromising integrity, and proactive tax risk mitigation.
             </p>
           </div>
@@ -208,15 +211,15 @@ export default function AboutUsPage() {
               return (
                 <div
                   key={idx}
-                  className="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm hover:border-[var(--gold-primary)] hover:shadow-xl transition-all duration-300 group"
+                  className="p-6 rounded-2xl bg-[#091522] border border-[#E8B84B]/20 hover:border-[#E8B84B] shadow-xl transition-all duration-300 group"
                 >
-                  <div className="w-14 h-14 rounded-xl bg-[var(--navy-primary)] text-[var(--gold-primary)] flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-[var(--gold-primary)] group-hover:text-[var(--navy-primary)] transition-all">
+                  <div className="w-14 h-14 rounded-xl bg-[#E8B84B]/10 text-[#E8B84B] flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-[#E8B84B] group-hover:text-[#0D1B2A] transition-all">
                     <Icon className="w-7 h-7" />
                   </div>
-                  <h3 className="text-lg font-bold text-[var(--navy-primary)] mb-2">
+                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#E8B84B] transition-colors">
                     {v.title}
                   </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">
+                  <p className="text-xs text-gray-400 leading-relaxed">
                     {v.desc}
                   </p>
                 </div>
@@ -226,14 +229,14 @@ export default function AboutUsPage() {
         </div>
       </section>
 
-      {/* Contact Form Section */}
-      <section className="py-20 bg-[var(--navy-light)]">
+      {/* Consultation Section */}
+      <section className="py-20 bg-[#091522] border-t border-[#E8B84B]/15">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-serif font-bold text-[var(--navy-primary)]">
+            <h2 className="text-3xl font-serif font-bold text-white">
               Schedule a Direct Consultation
             </h2>
-            <p className="text-gray-600 mt-2">
+            <p className="text-gray-400 mt-2 text-xs sm:text-sm">
               Speak with a Senior UAE Tax Consultant today to review your business accounts and compliance status.
             </p>
           </div>

@@ -66,7 +66,7 @@ export default async function EmirateDetailPage({ params }: Props) {
   }
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-[#0D1B2A] text-white">
       {emirate.faqs && emirate.faqs.length > 0 && (
         <FaqJsonLd faqs={emirate.faqs} />
       )}
@@ -83,7 +83,7 @@ export default async function EmirateDetailPage({ params }: Props) {
       />
 
       {/* Main Content & Sidebar */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-[#0D1B2A] border-b border-[#E8B84B]/15">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
@@ -92,13 +92,13 @@ export default async function EmirateDetailPage({ params }: Props) {
               
               {/* Introduction */}
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--gold-primary)]/10 text-[var(--gold-dark)] text-xs font-semibold tracking-wider uppercase mb-3">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E8B84B]/15 text-[#E8B84B] text-xs font-semibold tracking-wider uppercase mb-3 border border-[#E8B84B]/30">
                   Local Tax Compliance
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[var(--navy-primary)] mb-6">
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white mb-6">
                   Trusted Financial Advisory for {emirate.name} Businesses
                 </h2>
-                <div className="prose max-w-none text-gray-700 leading-relaxed text-base space-y-4">
+                <div className="prose prose-invert max-w-none text-gray-300 leading-relaxed text-sm space-y-4">
                   {emirate.fullContent.split("\n\n").map((para, pIdx) => (
                     <p key={pIdx}>{para}</p>
                   ))}
@@ -106,21 +106,21 @@ export default async function EmirateDetailPage({ params }: Props) {
               </div>
 
               {/* Free Zones Supported */}
-              <div className="p-8 rounded-3xl bg-[var(--navy-light)] border border-gray-200">
-                <h3 className="text-xl font-serif font-bold text-[var(--navy-primary)] mb-4 flex items-center gap-2">
-                  <Building2 className="w-5 h-5 text-[var(--gold-primary)]" />
+              <div className="p-8 rounded-3xl bg-[#091522] border border-[#E8B84B]/20 shadow-xl">
+                <h3 className="text-xl font-serif font-bold text-white mb-4 flex items-center gap-2">
+                  <Building2 className="w-5 h-5 text-[#E8B84B]" />
                   <span>Key Free Zones & Economic Hubs in {emirate.name}</span>
                 </h3>
-                <p className="text-sm text-gray-600 mb-6">
+                <p className="text-xs text-gray-400 mb-6">
                   We support businesses across all major economic jurisdictions in {emirate.name}, ensuring seamless corporate compliance, qualifying 0% tax substantiation, and audited financials.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {emirate.freeZones.map((zone, zIdx) => (
                     <div
                       key={zIdx}
-                      className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-gray-200 text-xs font-semibold text-[var(--navy-primary)] shadow-sm"
+                      className="flex items-center gap-2.5 p-3 rounded-xl bg-[#0D1B2A] border border-white/5 text-xs font-semibold text-gray-200 shadow-sm"
                     >
-                      <CheckCircle2 className="w-4 h-4 text-[var(--gold-primary)] shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-[#E8B84B] shrink-0" />
                       <span>{zone}</span>
                     </div>
                   ))}
@@ -129,7 +129,7 @@ export default async function EmirateDetailPage({ params }: Props) {
 
               {/* Key Services Offered in this Emirate */}
               <div>
-                <h3 className="text-xl sm:text-2xl font-serif font-bold text-[var(--navy-primary)] mb-6">
+                <h3 className="text-xl sm:text-2xl font-serif font-bold text-white mb-6">
                   Our Core Services in {emirate.name}
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -137,19 +137,19 @@ export default async function EmirateDetailPage({ params }: Props) {
                     <Link
                       key={s.id}
                       href={`/our-services/${s.slug}`}
-                      className="p-5 rounded-2xl bg-white border border-gray-200 hover:border-[var(--gold-primary)] hover:shadow-md transition-all group flex flex-col justify-between"
+                      className="p-5 rounded-2xl bg-[#091522] border border-[#E8B84B]/20 hover:border-[#E8B84B] hover:shadow-xl transition-all group flex flex-col justify-between"
                     >
                       <div>
-                        <h4 className="font-bold text-[var(--navy-primary)] text-sm mb-1 group-hover:text-[var(--gold-dark)] transition-colors">
+                        <h4 className="font-bold text-white text-sm mb-1 group-hover:text-[#E8B84B] transition-colors">
                           {s.title}
                         </h4>
-                        <p className="text-xs text-gray-600 line-clamp-2">
+                        <p className="text-xs text-gray-400 line-clamp-2">
                           {s.shortDesc}
                         </p>
                       </div>
-                      <div className="mt-3 flex items-center text-xs font-bold text-[var(--navy-primary)] group-hover:text-[var(--gold-dark)] gap-1">
+                      <div className="mt-3 flex items-center text-xs font-bold text-[#E8B84B] gap-1 group-hover:translate-x-1 transition-transform">
                         <span>Read More</span>
-                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight className="w-3.5 h-3.5" />
                       </div>
                     </Link>
                   ))}
@@ -159,7 +159,7 @@ export default async function EmirateDetailPage({ params }: Props) {
               {/* FAQs Accordion */}
               {emirate.faqs && emirate.faqs.length > 0 && (
                 <div>
-                  <h3 className="text-2xl font-serif font-bold text-[var(--navy-primary)] mb-6">
+                  <h3 className="text-2xl font-serif font-bold text-white mb-6">
                     Frequently Asked Questions for {emirate.name}
                   </h3>
                   <FaqAccordion items={emirate.faqs} />
@@ -171,8 +171,8 @@ export default async function EmirateDetailPage({ params }: Props) {
             <div className="lg:col-span-4 space-y-8">
               
               {/* All Emirates Navigation */}
-              <div className="bg-[var(--navy-light)] p-6 rounded-3xl border border-gray-200 shadow-sm">
-                <h4 className="font-serif font-bold text-lg text-[var(--navy-primary)] mb-4">
+              <div className="bg-[#091522] p-6 rounded-3xl border border-[#E8B84B]/20 shadow-xl">
+                <h4 className="font-serif font-bold text-lg text-white mb-4 border-l-2 border-[#E8B84B] pl-3">
                   Areas We Serve
                 </h4>
                 <div className="space-y-2">
@@ -182,17 +182,17 @@ export default async function EmirateDetailPage({ params }: Props) {
                       <Link
                         key={e.id}
                         href={`/areas-we-serve/${e.slug}`}
-                        className={`flex items-center justify-between p-3 rounded-xl text-sm font-medium transition-all ${
+                        className={`flex items-center justify-between p-3 rounded-xl text-xs font-semibold transition-all ${
                           isCurrent
-                            ? "bg-[var(--navy-primary)] text-[var(--gold-light)] shadow-md"
-                            : "bg-white text-gray-700 hover:bg-[var(--gold-primary)]/10 hover:text-[var(--navy-primary)] border border-gray-100"
+                            ? "bg-[#E8B84B] text-[#0D1B2A] shadow-md font-bold"
+                            : "bg-[#0D1B2A] text-gray-300 hover:bg-[#E8B84B]/10 hover:text-[#E8B84B] border border-white/5"
                         }`}
                       >
                         <div className="flex items-center gap-2">
-                          <MapPin className="w-4 h-4 text-[var(--gold-primary)]" />
+                          <MapPin className="w-3.5 h-3.5 text-[#E8B84B]" />
                           <span>{e.name}</span>
                         </div>
-                        <ArrowRight className="w-4 h-4" />
+                        <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     );
                   })}
@@ -200,8 +200,8 @@ export default async function EmirateDetailPage({ params }: Props) {
               </div>
 
               {/* Direct WhatsApp Callout */}
-              <div className="bg-gradient-to-br from-[var(--navy-primary)] to-[var(--navy-secondary)] text-white p-6 rounded-3xl border border-[var(--gold-primary)]/20 shadow-xl">
-                <div className="w-12 h-12 rounded-2xl bg-[var(--gold-primary)] text-[var(--navy-primary)] flex items-center justify-center mb-4">
+              <div className="bg-gradient-to-br from-[#112233] to-[#091522] text-white p-6 rounded-3xl border border-[#E8B84B]/30 shadow-xl">
+                <div className="w-12 h-12 rounded-2xl bg-[#E8B84B] text-[#0D1B2A] flex items-center justify-center mb-4">
                   <PhoneCall className="w-6 h-6" />
                 </div>
                 <h4 className="font-serif font-bold text-lg text-white mb-2">
@@ -229,12 +229,12 @@ export default async function EmirateDetailPage({ params }: Props) {
               </div>
 
               {/* Headquarters Info */}
-              <div className="p-6 rounded-3xl bg-white border border-gray-200">
-                <h4 className="font-bold text-sm text-[var(--navy-primary)] mb-3 flex items-center gap-2">
-                  <Building className="w-4 h-4 text-[var(--gold-primary)]" />
+              <div className="p-6 rounded-3xl bg-[#091522] border border-white/10">
+                <h4 className="font-bold text-xs text-white mb-3 flex items-center gap-2 uppercase tracking-wider">
+                  <Building className="w-4 h-4 text-[#E8B84B]" />
                   <span>Head Office Address</span>
                 </h4>
-                <p className="text-xs text-gray-600 leading-relaxed">
+                <p className="text-xs text-gray-400 leading-relaxed">
                   RBO Accounting Services FZE<br />
                   Ajman Free Zone C1 Building<br />
                   Ajman, United Arab Emirates
@@ -251,13 +251,13 @@ export default async function EmirateDetailPage({ params }: Props) {
       </section>
 
       {/* Booking Form */}
-      <section className="py-20 bg-[var(--navy-light)] border-t border-gray-200">
+      <section className="py-20 bg-[#091522]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-serif font-bold text-[var(--navy-primary)]">
+            <h2 className="text-3xl font-serif font-bold text-white">
               Schedule Your {emirate.name} Consultation
             </h2>
-            <p className="text-gray-600 mt-2 text-sm">
+            <p className="text-gray-400 mt-2 text-xs sm:text-sm">
               Connect with our senior consultants for comprehensive accounting and tax solutions.
             </p>
           </div>

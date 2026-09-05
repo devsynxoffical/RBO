@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function BlogArchivePage() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-[#0D1B2A] text-white">
       <HeroBanner
         badge="UAE Fiscal Intelligence"
         title="Tax Guides, VAT Insights & Compliance News"
@@ -36,14 +36,14 @@ export default function BlogArchivePage() {
       />
 
       {/* Blog Grid Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-[#0D1B2A] border-b border-[#E8B84B]/15">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {blogPosts.map((post) => (
               <article
                 key={post.id}
-                className="bg-white rounded-3xl border border-gray-200 overflow-hidden shadow-sm hover:border-[var(--gold-primary)] hover:shadow-2xl transition-all duration-300 flex flex-col group"
+                className="bg-[#091522] rounded-3xl border border-[#E8B84B]/20 overflow-hidden shadow-xl hover:border-[#E8B84B] hover:shadow-2xl transition-all duration-300 flex flex-col group"
               >
                 {/* Image Container */}
                 <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-900">
@@ -55,7 +55,7 @@ export default function BlogArchivePage() {
                     priority
                   />
                   <div className="absolute top-4 left-4">
-                    <span className="px-3.5 py-1.5 rounded-full bg-[var(--navy-primary)]/90 backdrop-blur-md text-[var(--gold-light)] text-xs font-bold uppercase tracking-wider border border-[var(--gold-primary)]/30">
+                    <span className="px-3.5 py-1.5 rounded-full bg-[#0D1B2A]/90 backdrop-blur-md text-[#E8B84B] text-xs font-bold uppercase tracking-wider border border-[#E8B84B]/30">
                       {post.category}
                     </span>
                   </div>
@@ -65,43 +65,43 @@ export default function BlogArchivePage() {
                 <div className="p-8 flex flex-col flex-1 justify-between">
                   <div>
                     {/* Meta info */}
-                    <div className="flex items-center gap-4 text-xs text-gray-500 mb-4 flex-wrap">
+                    <div className="flex items-center gap-4 text-xs text-gray-400 mb-4 flex-wrap">
                       <span className="flex items-center gap-1.5 font-medium">
-                        <Calendar className="w-3.5 h-3.5 text-[var(--gold-dark)]" />
+                        <Calendar className="w-3.5 h-3.5 text-[#E8B84B]" />
                         {post.date}
                       </span>
                       <span className="flex items-center gap-1.5 font-medium">
-                        <Clock className="w-3.5 h-3.5 text-[var(--gold-dark)]" />
+                        <Clock className="w-3.5 h-3.5 text-[#E8B84B]" />
                         {post.readTime}
                       </span>
                       <span className="flex items-center gap-1.5 font-medium">
-                        <User className="w-3.5 h-3.5 text-[var(--gold-dark)]" />
+                        <User className="w-3.5 h-3.5 text-[#E8B84B]" />
                         {post.author}
                       </span>
                     </div>
 
-                    <h2 className="text-2xl font-serif font-bold text-[var(--navy-primary)] mb-4 group-hover:text-[var(--gold-dark)] transition-colors leading-tight">
+                    <h2 className="text-2xl font-serif font-bold text-white mb-4 group-hover:text-[#E8B84B] transition-colors leading-tight">
                       <Link href={`/blog/${post.slug}`}>
                         {post.title}
                       </Link>
                     </h2>
 
-                    <p className="text-sm text-gray-600 leading-relaxed mb-6">
+                    <p className="text-xs text-gray-300 leading-relaxed mb-6">
                       {post.excerpt}
                     </p>
                   </div>
 
                   {/* Read More Link */}
-                  <div className="pt-6 border-t border-gray-100 flex items-center justify-between">
+                  <div className="pt-6 border-t border-white/10 flex items-center justify-between">
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="inline-flex items-center gap-2 text-xs font-bold text-[var(--navy-primary)] group-hover:text-[var(--gold-dark)] uppercase tracking-wider transition-colors"
+                      className="inline-flex items-center gap-2 text-xs font-bold text-[#E8B84B] group-hover:text-white uppercase tracking-wider transition-colors"
                     >
                       <span>Read Complete Guide</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
 
-                    <span className="text-xs font-semibold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                    <span className="text-xs font-semibold text-emerald-400 bg-emerald-950/60 px-3 py-1 rounded-full border border-emerald-500/30">
                       Updated for 2026
                     </span>
                   </div>
@@ -114,22 +114,22 @@ export default function BlogArchivePage() {
       </section>
 
       {/* Newsletter / Tax Advisory Banner */}
-      <section className="py-16 bg-[var(--navy-light)] border-t border-gray-200">
+      <section className="py-16 bg-[#091522]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="w-12 h-12 rounded-2xl bg-[var(--gold-primary)] text-[var(--navy-primary)] flex items-center justify-center mx-auto mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-[#E8B84B] text-[#0D1B2A] flex items-center justify-center mx-auto mb-4">
             <TrendingUp className="w-6 h-6" />
           </div>
-          <h3 className="text-2xl font-serif font-bold text-[var(--navy-primary)] mb-2">
+          <h3 className="text-2xl font-serif font-bold text-white mb-2">
             Stay Ahead of UAE Tax Law Amendments
           </h3>
-          <p className="text-gray-600 text-sm max-w-xl mx-auto mb-6">
+          <p className="text-gray-400 text-xs sm:text-sm max-w-xl mx-auto mb-6">
             Get actionable UAE tax updates, FTA decision summaries, and compliance alerts directly from RBO chartered accountants.
           </p>
           <Link
             href="https://wa.me/971508051857"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--navy-primary)] text-[var(--gold-light)] font-bold text-xs hover:bg-[var(--navy-secondary)] transition-all shadow-md"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#E8B84B] text-[#0D1B2A] font-bold text-xs uppercase tracking-wider hover:bg-[#d8a83b] transition-all shadow-md"
           >
             <span>Subscribe via WhatsApp Updates</span>
           </Link>

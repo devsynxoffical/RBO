@@ -80,7 +80,7 @@ export default async function ServiceDetailPage({ params }: Props) {
   const Icon = iconMap[service.icon] || Calculator;
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-[#0D1B2A] text-white">
       <ServiceJsonLd
         name={service.title}
         description={service.shortDesc}
@@ -102,7 +102,7 @@ export default async function ServiceDetailPage({ params }: Props) {
       />
 
       {/* Main Content & Sidebar */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-[#0D1B2A] border-b border-[#E8B84B]/15">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
@@ -111,13 +111,13 @@ export default async function ServiceDetailPage({ params }: Props) {
               
               {/* Comprehensive Overview */}
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--gold-primary)]/10 text-[var(--gold-dark)] text-xs font-semibold tracking-wider uppercase mb-3">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E8B84B]/15 text-[#E8B84B] text-xs font-semibold tracking-wider uppercase mb-3 border border-[#E8B84B]/30">
                   Service Overview
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[var(--navy-primary)] mb-6">
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white mb-6">
                   Expert {service.title} for UAE Businesses
                 </h2>
-                <div className="prose max-w-none text-gray-700 leading-relaxed text-base space-y-4">
+                <div className="prose prose-invert max-w-none text-gray-300 leading-relaxed text-sm space-y-4">
                   {service.fullContent.split("\n\n").map((para, pIdx) => (
                     <p key={pIdx}>{para}</p>
                   ))}
@@ -126,22 +126,22 @@ export default async function ServiceDetailPage({ params }: Props) {
 
               {/* Sub-Services Grid */}
               <div>
-                <h3 className="text-xl sm:text-2xl font-serif font-bold text-[var(--navy-primary)] mb-6">
+                <h3 className="text-xl sm:text-2xl font-serif font-bold text-white mb-6">
                   What We Offer in {service.title}
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {service.subServices.map((sub, sIdx) => (
                     <div
                       key={sIdx}
-                      className="p-6 rounded-2xl bg-[var(--navy-light)] border border-gray-200 hover:border-[var(--gold-primary)] hover:shadow-md transition-all group"
+                      className="p-6 rounded-2xl bg-[#091522] border border-[#E8B84B]/20 hover:border-[#E8B84B] hover:shadow-xl transition-all group"
                     >
-                      <div className="w-10 h-10 rounded-xl bg-[var(--navy-primary)] text-[var(--gold-primary)] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                      <div className="w-10 h-10 rounded-xl bg-[#E8B84B]/10 text-[#E8B84B] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
                         <CheckCircle2 className="w-5 h-5" />
                       </div>
-                      <h4 className="font-bold text-[var(--navy-primary)] text-base mb-2">
+                      <h4 className="font-bold text-white text-base mb-2 group-hover:text-[#E8B84B] transition-colors">
                         {sub.title}
                       </h4>
-                      <p className="text-sm text-gray-600 leading-relaxed">
+                      <p className="text-xs text-gray-400 leading-relaxed">
                         {sub.shortDesc || sub.fullDesc}
                       </p>
                     </div>
@@ -150,16 +150,16 @@ export default async function ServiceDetailPage({ params }: Props) {
               </div>
 
               {/* Regulatory Highlights / Features */}
-              <div className="bg-[var(--navy-primary)] text-white p-8 rounded-3xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-[var(--gold-primary)]/10 rounded-full blur-3xl -z-0" />
+              <div className="bg-[#112233] text-white p-8 rounded-3xl border border-[#E8B84B]/30 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-[#E8B84B]/10 rounded-full blur-3xl -z-0" />
                 <h3 className="text-xl font-serif font-bold text-white mb-4 relative z-10">
                   Why Choose RBO for {service.title}?
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10">
                   {service.highlights.map((h, hIdx) => (
                     <div key={hIdx} className="flex items-start gap-3">
-                      <ShieldCheck className="w-5 h-5 text-[var(--gold-primary)] shrink-0 mt-0.5" />
-                      <span className="text-sm text-gray-200 font-medium">{h}</span>
+                      <ShieldCheck className="w-5 h-5 text-[#E8B84B] shrink-0 mt-0.5" />
+                      <span className="text-xs text-gray-300 font-medium">{h}</span>
                     </div>
                   ))}
                 </div>
@@ -168,7 +168,7 @@ export default async function ServiceDetailPage({ params }: Props) {
               {/* FAQs Accordion */}
               {service.faqs && service.faqs.length > 0 && (
                 <div>
-                  <h3 className="text-2xl font-serif font-bold text-[var(--navy-primary)] mb-6">
+                  <h3 className="text-2xl font-serif font-bold text-white mb-6">
                     Frequently Asked Questions
                   </h3>
                   <FaqAccordion items={service.faqs} />
@@ -180,8 +180,8 @@ export default async function ServiceDetailPage({ params }: Props) {
             <div className="lg:col-span-4 space-y-8">
               
               {/* All Services Navigation */}
-              <div className="bg-[var(--navy-light)] p-6 rounded-3xl border border-gray-200 shadow-sm">
-                <h4 className="font-serif font-bold text-lg text-[var(--navy-primary)] mb-4">
+              <div className="bg-[#091522] p-6 rounded-3xl border border-[#E8B84B]/20 shadow-xl">
+                <h4 className="font-serif font-bold text-lg text-white mb-4 border-l-2 border-[#E8B84B] pl-3">
                   Our Complete Services
                 </h4>
                 <div className="space-y-2">
@@ -191,14 +191,14 @@ export default async function ServiceDetailPage({ params }: Props) {
                       <Link
                         key={s.id}
                         href={`/our-services/${s.slug}`}
-                        className={`flex items-center justify-between p-3 rounded-xl text-sm font-medium transition-all ${
+                        className={`flex items-center justify-between p-3 rounded-xl text-xs font-semibold transition-all ${
                           isCurrent
-                            ? "bg-[var(--navy-primary)] text-[var(--gold-light)] shadow-md"
-                            : "bg-white text-gray-700 hover:bg-[var(--gold-primary)]/10 hover:text-[var(--navy-primary)] border border-gray-100"
+                            ? "bg-[#E8B84B] text-[#0D1B2A] shadow-md font-bold"
+                            : "bg-[#0D1B2A] text-gray-300 hover:bg-[#E8B84B]/10 hover:text-[#E8B84B] border border-white/5"
                         }`}
                       >
                         <span>{s.title}</span>
-                        <ArrowRight className="w-4 h-4" />
+                        <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     );
                   })}
@@ -206,8 +206,8 @@ export default async function ServiceDetailPage({ params }: Props) {
               </div>
 
               {/* Urgent Help Callout */}
-              <div className="bg-gradient-to-br from-[var(--navy-primary)] to-[var(--navy-secondary)] text-white p-6 rounded-3xl border border-[var(--gold-primary)]/20 shadow-xl">
-                <div className="w-12 h-12 rounded-2xl bg-[var(--gold-primary)] text-[var(--navy-primary)] flex items-center justify-center mb-4">
+              <div className="bg-gradient-to-br from-[#112233] to-[#091522] text-white p-6 rounded-3xl border border-[#E8B84B]/30 shadow-xl">
+                <div className="w-12 h-12 rounded-2xl bg-[#E8B84B] text-[#0D1B2A] flex items-center justify-center mb-4">
                   <PhoneCall className="w-6 h-6" />
                 </div>
                 <h4 className="font-serif font-bold text-lg text-white mb-2">
@@ -235,17 +235,17 @@ export default async function ServiceDetailPage({ params }: Props) {
               </div>
 
               {/* NAP Location Info Card */}
-              <div className="p-6 rounded-3xl bg-white border border-gray-200">
-                <h4 className="font-bold text-sm text-[var(--navy-primary)] mb-3 flex items-center gap-2">
-                  <Building className="w-4 h-4 text-[var(--gold-primary)]" />
+              <div className="p-6 rounded-3xl bg-[#091522] border border-white/10">
+                <h4 className="font-bold text-xs text-white mb-3 flex items-center gap-2 uppercase tracking-wider">
+                  <Building className="w-4 h-4 text-[#E8B84B]" />
                   <span>Headquarters Office</span>
                 </h4>
-                <p className="text-xs text-gray-600 leading-relaxed">
+                <p className="text-xs text-gray-400 leading-relaxed">
                   RBO Accounting Services FZE<br />
                   Ajman Free Zone C1 Building<br />
                   Ajman, United Arab Emirates
                 </p>
-                <p className="text-xs text-[var(--gold-dark)] font-semibold mt-3">
+                <p className="text-xs text-[#E8B84B] font-semibold mt-3">
                   Serving All 7 Emirates (Dubai, Abu Dhabi, Sharjah, Ajman, RAK, Fujairah, UAQ)
                 </p>
               </div>
@@ -257,13 +257,13 @@ export default async function ServiceDetailPage({ params }: Props) {
       </section>
 
       {/* Booking Form */}
-      <section className="py-20 bg-[var(--navy-light)] border-t border-gray-200">
+      <section className="py-20 bg-[#091522]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-serif font-bold text-[var(--navy-primary)]">
+            <h2 className="text-3xl font-serif font-bold text-white">
               Get Started with {service.title}
             </h2>
-            <p className="text-gray-600 mt-2 text-sm">
+            <p className="text-gray-400 mt-2 text-xs sm:text-sm">
               Submit your details below and an RBO tax specialist will reach out with a tailored quotation and checklist.
             </p>
           </div>

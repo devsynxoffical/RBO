@@ -1,75 +1,75 @@
-import React from "react";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
-interface BreadcrumbItem {
+interface Breadcrumb {
   label: string;
   href?: string;
 }
 
 interface HeroBannerProps {
-  title: string;
-  subtitle?: string;
   badge?: string;
-  breadcrumbs?: BreadcrumbItem[];
-  bgImage?: string;
+  title: string;
+  subtitle: string;
+  breadcrumbs?: Breadcrumb[];
 }
 
 export default function HeroBanner({
+  badge,
   title,
   subtitle,
-  badge,
   breadcrumbs,
-  bgImage
 }: HeroBannerProps) {
   return (
-    <section className="relative bg-slate-950 text-white py-16 sm:py-20 lg:py-24 overflow-hidden border-b border-slate-800">
-      {/* Background Graphic & Overlay */}
-      {bgImage && (
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-25 filter blur-xs"
-          style={{ backgroundImage: `url(${bgImage})` }}
-        />
-      )}
-      <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/90 to-slate-950/80" />
-      
-      {/* Decorative Golden Accent Glow */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full filter blur-3xl pointer-events-none" />
+    <section className="relative bg-gradient-to-b from-[#091522] via-[#0D1B2A] to-[#0D1B2A] text-white py-16 sm:py-20 border-b border-[#E8B84B]/20 overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#E8B84B]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-10 left-10 w-80 h-80 bg-[#091522]/50 rounded-full blur-2xl pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         {/* Breadcrumbs */}
         {breadcrumbs && breadcrumbs.length > 0 && (
-          <nav aria-label="Breadcrumb" className="flex items-center justify-center sm:justify-start space-x-2 text-xs text-slate-400 mb-5">
-            {breadcrumbs.map((crumb, idx) => (
-              <React.Fragment key={idx}>
-                {idx > 0 && <ChevronRight className="w-3.5 h-3.5 text-slate-600" />}
-                {crumb.href ? (
-                  <Link href={crumb.href} className="hover:text-amber-400 transition-colors">
-                    {crumb.label}
-                  </Link>
-                ) : (
-                  <span className="text-amber-300 font-medium">{crumb.label}</span>
-                )}
-              </React.Fragment>
-            ))}
+          <nav className="inline-flex items-center justify-center gap-2 text-xs text-gray-400 mb-6 bg-white/5 px-4 py-1.5 rounded-full border border-white/10">
+            {breadcrumbs.map((b, idx) => {
+              const isLast = idx === breadcrumbs.length - 1;
+              return (
+                <div key={idx} className="inline-flex items-center gap-2">
+                  {b.href && !isLast ? (
+                    <Link
+                      href={b.href}
+                      className="hover:text-[#E8B84B] transition-colors"
+                    >
+                      {b.label}
+                    </Link>
+                  ) : (
+                    <span className={isLast ? "text-[#E8B84B] font-semibold" : ""}>
+                      {b.label}
+                    </span>
+                  )}
+                  {!isLast && <ChevronRight className="w-3 h-3 text-gray-500" />}
+                </div>
+              );
+            })}
           </nav>
         )}
 
+        {/* Badge */}
         {badge && (
-          <div className="inline-block bg-amber-500/20 border border-amber-400/40 text-amber-300 font-semibold px-3 py-1 rounded-full text-xs uppercase tracking-wider mb-3">
-            {badge}
+          <div className="mb-4">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#E8B84B]/15 border border-[#E8B84B]/30 text-[#E8B84B] text-xs font-bold uppercase tracking-wider">
+              {badge}
+            </span>
           </div>
         )}
 
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif-heading tracking-tight text-white max-w-4xl leading-tight">
+        {/* Title */}
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-white max-w-4xl mx-auto leading-tight mb-4">
           {title}
         </h1>
 
-        {subtitle && (
-          <p className="mt-4 text-base sm:text-lg text-slate-300 max-w-3xl leading-relaxed">
-            {subtitle}
-          </p>
-        )}
+        {/* Subtitle */}
+        <p className="text-sm sm:text-base text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          {subtitle}
+        </p>
       </div>
     </section>
   );

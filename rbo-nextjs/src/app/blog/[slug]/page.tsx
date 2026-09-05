@@ -81,7 +81,7 @@ export default async function BlogPostPage({ params }: Props) {
   }
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-[#0D1B2A] text-white">
       <ArticleJsonLd
         headline={post.title}
         description={post.excerpt}
@@ -95,19 +95,19 @@ export default async function BlogPostPage({ params }: Props) {
       )}
 
       {/* Article Header */}
-      <section className="bg-gradient-to-b from-[var(--navy-primary)] to-[var(--navy-secondary)] text-white pt-16 pb-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--gold-primary)]/10 rounded-full blur-3xl -z-0" />
+      <section className="bg-gradient-to-b from-[#091522] via-[#0D1B2A] to-[#0D1B2A] text-white pt-16 pb-20 relative overflow-hidden border-b border-[#E8B84B]/20">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#E8B84B]/10 rounded-full blur-3xl -z-0" />
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-xs font-semibold text-[var(--gold-light)] hover:text-white mb-6 transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-semibold text-[#E8B84B] hover:text-white mb-6 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to All Guides</span>
           </Link>
 
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--gold-primary)]/20 text-[var(--gold-light)] text-xs font-bold uppercase tracking-wider mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E8B84B]/15 text-[#E8B84B] text-xs font-bold uppercase tracking-wider mb-4 border border-[#E8B84B]/30">
             {post.category}
           </div>
 
@@ -117,15 +117,15 @@ export default async function BlogPostPage({ params }: Props) {
 
           <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm text-gray-300 border-t border-white/10 pt-4">
             <span className="flex items-center gap-1.5">
-              <Calendar className="w-4 h-4 text-[var(--gold-primary)]" />
+              <Calendar className="w-4 h-4 text-[#E8B84B]" />
               {post.date}
             </span>
             <span className="flex items-center gap-1.5">
-              <Clock className="w-4 h-4 text-[var(--gold-primary)]" />
+              <Clock className="w-4 h-4 text-[#E8B84B]" />
               {post.readTime}
             </span>
             <span className="flex items-center gap-1.5">
-              <User className="w-4 h-4 text-[var(--gold-primary)]" />
+              <User className="w-4 h-4 text-[#E8B84B]" />
               {post.author}
             </span>
           </div>
@@ -133,7 +133,7 @@ export default async function BlogPostPage({ params }: Props) {
       </section>
 
       {/* Main Content Body */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-[#0D1B2A] border-b border-[#E8B84B]/15">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
@@ -141,7 +141,7 @@ export default async function BlogPostPage({ params }: Props) {
             <div className="lg:col-span-8 space-y-10">
               
               {/* Featured Image */}
-              <div className="relative aspect-[16/9] w-full rounded-3xl overflow-hidden shadow-xl border border-gray-200 bg-slate-900">
+              <div className="relative aspect-[16/9] w-full rounded-3xl overflow-hidden shadow-2xl border border-[#E8B84B]/30 bg-slate-900">
                 <Image
                   src={post.featuredImage}
                   alt={post.title}
@@ -153,9 +153,9 @@ export default async function BlogPostPage({ params }: Props) {
 
               {/* In-Article Infographic Highlight */}
               {post.infographicImage && (
-                <div className="my-8 rounded-3xl overflow-hidden border-2 border-[var(--gold-primary)]/40 shadow-xl bg-slate-950 p-2 sm:p-4">
-                  <div className="p-3 bg-[var(--navy-primary)] text-center rounded-2xl mb-3">
-                    <p className="text-xs sm:text-sm font-bold text-[var(--gold-light)] uppercase tracking-wider">
+                <div className="my-8 rounded-3xl overflow-hidden border-2 border-[#E8B84B]/40 shadow-2xl bg-[#091522] p-3 sm:p-5">
+                  <div className="p-3 bg-[#0D1B2A] text-center rounded-2xl mb-3 border border-white/5">
+                    <p className="text-xs sm:text-sm font-bold text-[#E8B84B] uppercase tracking-wider">
                       Official 2026 Reference Infographic
                     </p>
                   </div>
@@ -172,24 +172,25 @@ export default async function BlogPostPage({ params }: Props) {
 
               {/* Rich HTML Content */}
               <div 
-                className="prose prose-lg max-w-none text-gray-800 leading-relaxed 
-                  prose-headings:font-serif prose-headings:text-[var(--navy-primary)] prose-headings:font-bold
-                  prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-gray-200 prose-h2:pb-2
-                  prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-                  prose-p:text-base prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-4
-                  prose-ul:list-disc prose-ul:pl-6 prose-ul:my-4 prose-li:my-1 prose-li:text-gray-700
-                  prose-table:w-full prose-table:border-collapse prose-table:my-6
-                  prose-th:bg-[var(--navy-primary)] prose-th:text-white prose-th:p-3 prose-th:text-left prose-th:text-xs prose-th:font-semibold
-                  prose-td:p-3 prose-td:border-b prose-td:border-gray-200 prose-td:text-xs sm:prose-td:text-sm
-                  prose-strong:text-[var(--navy-primary)] prose-strong:font-bold"
+                className="prose prose-invert max-w-none text-gray-300 leading-relaxed text-sm sm:text-base
+                  prose-headings:font-serif prose-headings:text-white prose-headings:font-bold
+                  prose-h2:text-2xl prose-h2:text-[#E8B84B] prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-white/10 prose-h2:pb-2
+                  prose-h3:text-xl prose-h3:text-white prose-h3:mt-8 prose-h3:mb-3
+                  prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-4
+                  prose-ul:list-disc prose-ul:pl-6 prose-ul:my-4 prose-li:my-1 prose-li:text-gray-300
+                  prose-table:w-full prose-table:border-collapse prose-table:my-6 prose-table:rounded-xl prose-table:overflow-hidden prose-table:border prose-table:border-white/10
+                  prose-th:bg-[#112233] prose-th:text-[#E8B84B] prose-th:p-3 prose-th:text-left prose-th:text-xs prose-th:font-semibold
+                  prose-td:p-3 prose-td:border-b prose-td:border-white/5 prose-td:text-xs sm:prose-td:text-sm prose-td:text-gray-300
+                  prose-strong:text-white prose-strong:font-bold
+                  prose-a:text-[#E8B84B] prose-a:underline hover:prose-a:text-white"
                 dangerouslySetInnerHTML={{ __html: post.contentHtml }}
               />
 
               {/* FAQ Accordion */}
               {post.faqs && post.faqs.length > 0 && (
-                <div className="pt-8 border-t border-gray-200">
-                  <h3 className="text-2xl font-serif font-bold text-[var(--navy-primary)] mb-6 flex items-center gap-2">
-                    <HelpCircle className="w-6 h-6 text-[var(--gold-primary)]" />
+                <div className="pt-8 border-t border-white/10">
+                  <h3 className="text-2xl font-serif font-bold text-white mb-6 flex items-center gap-2">
+                    <HelpCircle className="w-6 h-6 text-[#E8B84B]" />
                     <span>Frequently Asked Questions</span>
                   </h3>
                   <FaqAccordion items={post.faqs} />
@@ -197,15 +198,20 @@ export default async function BlogPostPage({ params }: Props) {
               )}
 
               {/* Author Bio Box */}
-              <div className="p-8 rounded-3xl bg-[var(--navy-light)] border border-gray-200 flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                <div className="w-16 h-16 rounded-2xl bg-[var(--navy-primary)] text-[var(--gold-primary)] flex items-center justify-center font-serif text-2xl font-bold shrink-0">
-                  RBO
+              <div className="p-8 rounded-3xl bg-[#091522] border border-[#E8B84B]/20 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#E8B84B] relative shrink-0 bg-white">
+                  <Image
+                    src="/images/rbo-logo.jpg"
+                    alt="RBO Accounting Services FZE"
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 <div>
-                  <h4 className="font-serif font-bold text-lg text-[var(--navy-primary)]">
+                  <h4 className="font-serif font-bold text-lg text-white">
                     Published by {post.author}
                   </h4>
-                  <p className="text-xs text-gray-600 mt-1 leading-relaxed">
+                  <p className="text-xs text-gray-400 mt-1 leading-relaxed">
                     Senior Tax Advisors and Chartered Accountants at RBO Accounting Services FZE. Specializing in FTA VAT compliance, Corporate Tax structuring, and IFRS-certified financial auditing across the UAE.
                   </p>
                 </div>
@@ -217,8 +223,8 @@ export default async function BlogPostPage({ params }: Props) {
             <div className="lg:col-span-4 space-y-8">
               
               {/* WhatsApp CTA */}
-              <div className="bg-gradient-to-br from-[var(--navy-primary)] to-[var(--navy-secondary)] text-white p-6 rounded-3xl border border-[var(--gold-primary)]/20 shadow-xl">
-                <div className="w-12 h-12 rounded-2xl bg-[var(--gold-primary)] text-[var(--navy-primary)] flex items-center justify-center mb-4">
+              <div className="bg-gradient-to-br from-[#112233] to-[#091522] text-white p-6 rounded-3xl border border-[#E8B84B]/30 shadow-xl">
+                <div className="w-12 h-12 rounded-2xl bg-[#E8B84B] text-[#0D1B2A] flex items-center justify-center mb-4">
                   <MessageCircle className="w-6 h-6" />
                 </div>
                 <h4 className="font-serif font-bold text-lg text-white mb-2">
@@ -238,19 +244,19 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
 
               {/* Consultation Form Card */}
-              <div className="bg-[var(--navy-light)] p-6 rounded-3xl border border-gray-200 shadow-sm">
-                <h4 className="font-serif font-bold text-lg text-[var(--navy-primary)] mb-1">
+              <div className="bg-[#091522] p-6 rounded-3xl border border-[#E8B84B]/20 shadow-xl">
+                <h4 className="font-serif font-bold text-lg text-white mb-1">
                   Book Free Tax Review
                 </h4>
-                <p className="text-xs text-gray-600 mb-4">
+                <p className="text-xs text-gray-400 mb-4">
                   Get a personalized FTA compliance review for your business.
                 </p>
                 <ContactForm />
               </div>
 
               {/* Other Guides Links */}
-              <div className="p-6 rounded-3xl bg-white border border-gray-200">
-                <h4 className="font-serif font-bold text-base text-[var(--navy-primary)] mb-4">
+              <div className="p-6 rounded-3xl bg-[#091522] border border-white/10">
+                <h4 className="font-serif font-bold text-base text-white mb-4 border-l-2 border-[#E8B84B] pl-3">
                   More UAE Tax Guides
                 </h4>
                 <div className="space-y-4">
@@ -262,10 +268,10 @@ export default async function BlogPostPage({ params }: Props) {
                         href={`/blog/${otherPost.slug}`}
                         className="block group"
                       >
-                        <h5 className="font-bold text-xs text-[var(--navy-primary)] group-hover:text-[var(--gold-dark)] transition-colors line-clamp-2">
+                        <h5 className="font-bold text-xs text-white group-hover:text-[#E8B84B] transition-colors line-clamp-2">
                           {otherPost.title}
                         </h5>
-                        <p className="text-[11px] text-gray-500 mt-1">
+                        <p className="text-[11px] text-gray-400 mt-1">
                           {otherPost.readTime} &bull; {otherPost.date}
                         </p>
                       </Link>
