@@ -91,21 +91,13 @@ export default function Footer() {
           {/* Col 1: Brand & NAP */}
           <div className="lg:col-span-4 space-y-6">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#E8B84B] bg-white shadow-md">
+              <div className="relative w-36 h-20">
                 <Image
-                  src="/images/rbo-logo.jpg"
+                  src="/images/download-1.png"
                   alt="RBO Accounting Services FZE"
                   fill
-                  className="object-cover"
+                  className="object-contain object-left"
                 />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-serif text-lg font-bold text-white group-hover:text-[#E8B84B] transition-colors">
-                  RBO ACCOUNTING
-                </span>
-                <span className="text-[10px] tracking-widest text-[#E8B84B] font-semibold uppercase">
-                  Services FZE &bull; UAE
-                </span>
               </div>
             </Link>
 
