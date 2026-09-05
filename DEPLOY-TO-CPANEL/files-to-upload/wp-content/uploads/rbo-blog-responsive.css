@@ -104,11 +104,16 @@ html, body {
 }
 
 /* ----- Single post layout ----- */
+.elementor-5229 .elementor-element-a920448 {
+  justify-content: center !important;
+}
+
 @media (min-width: 1025px) {
   .elementor-5229 .elementor-element-a920448 {
     --flex-direction: row !important;
     --flex-wrap: nowrap !important;
     align-items: flex-start !important;
+    justify-content: center !important;
   }
 
   .elementor-5229 .elementor-element-a920448 > .e-con-inner,
@@ -116,17 +121,28 @@ html, body {
     flex-direction: row !important;
     flex-wrap: nowrap !important;
     align-items: flex-start !important;
+    justify-content: center !important;
   }
 
-  .elementor-5229 .elementor-element-a920448 > .elementor-element:first-child,
-  .elementor-5229 .elementor-element-a920448 > .e-con-inner > .elementor-element:first-child {
+  /* When only 1 container exists, center it elegantly at optimal reading width */
+  .elementor-5229 .elementor-element-a920448 > .elementor-element:only-child,
+  .elementor-5229 .elementor-element-a920448 > .e-con-inner > .elementor-element:only-child {
+    width: 100% !important;
+    max-width: 960px !important;
+    margin: 0 auto !important;
+    flex: 0 0 100% !important;
+  }
+
+  /* When sidebar is present, use 68% / 32% split */
+  .elementor-5229 .elementor-element-a920448 > .elementor-element:first-child:not(:only-child),
+  .elementor-5229 .elementor-element-a920448 > .e-con-inner > .elementor-element:first-child:not(:only-child) {
     width: 68% !important;
     max-width: 68% !important;
     flex: 0 0 68% !important;
   }
 
-  .elementor-5229 .elementor-element-a920448 > .elementor-element:last-child,
-  .elementor-5229 .elementor-element-a920448 > .e-con-inner > .elementor-element:last-child,
+  .elementor-5229 .elementor-element-a920448 > .elementor-element:last-child:not(:only-child),
+  .elementor-5229 .elementor-element-a920448 > .e-con-inner > .elementor-element:last-child:not(:only-child),
   .elementor-5229 .rbo-single-sidebar {
     width: 32% !important;
     max-width: 32% !important;
@@ -266,11 +282,39 @@ html, body {
   .elementor-5229 .elementor-widget-theme-post-content .rbo-blog {
     max-width: none;
     background: transparent;
-    padding: 18px 18px 28px;
+    padding: 24px 32px 36px;
     border-radius: 0;
   }
+}
+
+/* Infographics and in-content images */
+.rbo-infographic-box {
+  margin: 2.2em 0;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 6px 20px rgba(9, 32, 59, 0.06);
+  text-align: center;
+}
+
+.rbo-infographic-box img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
+
+.rbo-img-caption {
+  font-size: 13px !important;
+  color: #64748b !important;
+  margin: 10px 0 2px !important;
+  font-style: italic;
+  text-align: center;
+  line-height: 1.4 !important;
 }
 
 .rbo-side-card a {
   word-break: break-word;
 }
+

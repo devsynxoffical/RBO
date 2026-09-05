@@ -1,122 +1,164 @@
-# How to Make RBO Website Live (cPanel) — No “Build” Needed
+# Make RBO Website Live — Easy Steps (cPanel)
 
-WordPress is **not** like React/Vue. There is **no** `npm run build` zip.
+WordPress has **no build button** (not like React).  
+You make it live by: **backup → upload files → import database → check website**.
 
-You go live by uploading **files** + importing the **database** (or using WPvivid).
-
-A ready package is on your PC:
+Your ready folder is here:
 
 `C:\Users\New Moon\Desktop\RBO\DEPLOY-TO-CPANEL\`
 
 ---
 
-## Important warnings (read first)
+## Before you start
 
-1. **Backup live first** in cPanel (or WPvivid on live) before changing anything.
-2. Importing `database-FOR-LIVE-rboaccounting.sql` **replaces** the live database content with your local SEO work. Any edits made only on live after the last backup will be lost.
-3. **Do NOT upload** local `wp-config.php` or `wp-config-local.php` (those have localhost DB passwords).
-4. After import, live admin login may be the local one:  
-   - User: `rbofounder`  
-   - Password: `RBOLocal2026!`  
-   Change it immediately on live after deploy.
+You need:
+1. cPanel login for **rboaccounting.ae**
+2. That `DEPLOY-TO-CPANEL` folder on your computer
+3. About 20–30 minutes
 
 ---
 
-## Method A — Recommended (simple, full update)
+## STEP 1 — Backup the live site (safety)
 
-### Step 1 — Backup live site
-1. Log in to **cPanel** for rboaccounting.ae  
-2. Open **WPvivid** in live WP Admin **or** use cPanel → Backup  
-3. Download a full backup to your computer
+1. Open **cPanel**
+2. Open the live website admin: `https://www.rboaccounting.ae/wp-admin`
+3. Go to **WPvivid Backup** (left menu)
+4. Click **Backup Now** / create a full backup
+5. **Download** that backup to your computer
 
-### Step 2 — Upload new files (File Manager or FTP)
-Go to your WordPress root (usually `public_html/`).
-
-Upload / merge these folders from:
-
-`DEPLOY-TO-CPANEL\files-to-upload\`
-
-Into the live site so you end up with:
-
-```
-public_html/wp-content/mu-plugins/rbo-seo-extras.php
-public_html/wp-content/mu-plugins/rbo-single-sidebar.php
-public_html/wp-content/uploads/rbo-blog-responsive.css
-public_html/wp-content/uploads/2026/09/   (all blog images)
-```
-
-Optional (plugin updates):
-
-Copy folders from `DEPLOY-TO-CPANEL\plugins-updated\` over:
-
-```
-public_html/wp-content/plugins/seo-by-rank-math/
-public_html/wp-content/plugins/wp-reviews-plugin-for-google/
-public_html/wp-content/plugins/wpvivid-backuprestore/
-```
-
-### Step 3 — Import the database
-1. cPanel → **phpMyAdmin**  
-2. Select the **live WordPress database** (same one named in live `wp-config.php`)  
-3. **Export** a backup of live DB first (safety)  
-4. Click **Import**  
-5. Choose: `DEPLOY-TO-CPANEL\database-FOR-LIVE-rboaccounting.sql`  
-6. Run import  
-
-This SQL already uses `https://www.rboaccounting.ae` (not localhost).
-
-### Step 4 — Final checks in live WP Admin
-1. Settings → Permalinks → **Save** (flush links)  
-2. Elementor → Tools → **Regenerate CSS & Data**  
-3. Rank Math → sitemap OK  
-4. Visit:
-   - https://www.rboaccounting.ae/blog/
-   - a VAT / Corporate Tax blog post
-   - https://www.rboaccounting.ae/areas-we-serve/dubai/
-5. Change admin password  
-6. Send the client report
+If something goes wrong, you can restore this backup.
 
 ---
 
-## Method B — WPvivid only (if you prefer one restore)
+## STEP 2 — Upload the new files
 
-1. On **localhost** WP Admin → WPvivid → create **Database + Content** backup  
-2. Download the backup zip  
-3. On **live** WP Admin → WPvivid → Upload → Restore  
-4. When asked, set site URL to `https://www.rboaccounting.ae`
+1. In cPanel, open **File Manager**
+2. Open `public_html` (this is your live website folder)
+3. Open `wp-content`
 
-(If local WPvivid UI is hard to use, Method A is clearer.)
+### 2A) Upload MU plugins
+1. Open (or create) folder: `public_html/wp-content/mu-plugins`
+2. Upload these 2 files from your PC:
+
+From:  
+`DEPLOY-TO-CPANEL\files-to-upload\wp-content\mu-plugins\`
+
+- `rbo-seo-extras.php`
+- `rbo-single-sidebar.php`
+
+### 2B) Upload CSS
+1. Go to `public_html/wp-content/uploads`
+2. Upload:
+
+`DEPLOY-TO-CPANEL\files-to-upload\wp-content\uploads\rbo-blog-responsive.css`
+
+### 2C) Upload blog images
+1. Go to `public_html/wp-content/uploads`
+2. Create folders if needed: `2026` → then `09`
+3. Open `2026/09`
+4. Upload **all files** from:
+
+`DEPLOY-TO-CPANEL\files-to-upload\wp-content\uploads\2026\09\`
+
+**Easy tip:** You can also upload `1-UPLOAD-these-files.zip`, extract it in File Manager, then move the folders into `wp-content`.
+
+### Do NOT upload
+- `wp-config.php`
+- `wp-config-local.php`
+- the big `.sql` file into File Manager as a website file (SQL goes in phpMyAdmin only)
 
 ---
 
-## What you should NOT do
+## STEP 3 — Import the database (this adds blogs + SEO)
 
-- Do not look for a “build” folder like a React app  
-- Do not upload the whole Desktop `RBO` folder blindly (includes local config, MariaDB junk, etc.)  
-- Do not upload `wp-config-local.php`
+1. In cPanel, open **phpMyAdmin**
+2. In the left list, click your **WordPress database**  
+   (same name as in live `wp-config.php`)
+3. Click **Export** → download a backup of the current live DB (extra safety)
+4. Click **Import**
+5. Click **Choose File**
+6. Select this file from your PC:
+
+`DEPLOY-TO-CPANEL\database-FOR-LIVE-rboaccounting.sql`
+
+7. Click **Go** / **Import**
+8. Wait until it says success
+
+This file is already set for `https://www.rboaccounting.ae` (not localhost).
+
+**If import fails because file is too big:**  
+Ask your host to raise upload limit, or tell me and we’ll use another method.
 
 ---
 
-## Quick checklist after go-live
+## STEP 4 — Refresh WordPress settings
 
-- [ ] Blog shows 2 posts  
-- [ ] Mobile header shows “Free VAT Check”  
-- [ ] Dubai/Ajman pages show local SEO block  
-- [ ] VAT / Corporate Tax / Bookkeeping pages show FAQ section  
-- [ ] No `localhost:8080` links in page source  
-- [ ] Admin password changed  
-- [ ] Client report sent  
+1. Login to live admin: `https://www.rboaccounting.ae/wp-admin`
+2. If login changed after import, try:
+   - Username: `rbofounder`
+   - Password: `RBOLocal2026!`
+3. Go to **Settings → Permalinks**
+4. Click **Save Changes** (don’t change anything, just save)
+5. Go to **Elementor → Tools**
+6. Click **Regenerate CSS & Data**
+7. **Change your admin password** to a strong new one
 
 ---
 
-## Need help?
+## STEP 5 — Check the live website
 
-If phpMyAdmin import fails (file too large), use cPanel **Terminal** / SSH:
+Open these links and confirm they look correct:
 
-```bash
-mysql -u DB_USER -p DB_NAME < database-FOR-LIVE-rboaccounting.sql
-```
+1. https://www.rboaccounting.ae/blog/  
+   → should show 2 blog posts
+2. Open each blog post  
+   → readable on phone too
+3. https://www.rboaccounting.ae/areas-we-serve/dubai/  
+   → local SEO section near bottom
+4. https://www.rboaccounting.ae/our-services/vat-registration-filing/  
+   → FAQ section visible
+5. Header button should say **Free VAT Check**
 
-Or split/import via WPvivid.
+Also search page source (Ctrl+U) and confirm there is **no** `localhost:8080`.
 
-After this is live, next project = **Business Setup pages**.
+---
+
+## STEP 6 — Send client report
+
+After everything looks good, send:
+
+`RBO-SEO-Client-Progress-Report-2026-09-05.md`
+
+That report is written as if the work is already live.
+
+---
+
+## Quick checklist
+
+- [ ] Live backup downloaded
+- [ ] MU plugin files uploaded
+- [ ] CSS uploaded
+- [ ] Blog images uploaded
+- [ ] Database imported
+- [ ] Permalinks saved
+- [ ] Elementor CSS regenerated
+- [ ] Admin password changed
+- [ ] Blog + Dubai + VAT pages checked
+- [ ] Client report sent
+
+---
+
+## If you get stuck
+
+| Problem | What to do |
+|--------|------------|
+| Can’t find `public_html` | In File Manager, look for `www` or ask host “WordPress root folder” |
+| phpMyAdmin import too large | Tell me — we’ll split SQL or use WPvivid |
+| Website white screen | Restore the backup from Step 1 |
+| Still shows old content | Clear host cache / SpeedyCache / Cloudflare if used |
+
+---
+
+## After this is live
+
+Next project: **Business Setup pages** (for more leads).
