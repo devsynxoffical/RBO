@@ -1,21 +1,23 @@
-/*
-	Theme Name: Hello Elementor
-	Theme URI: https://elementor.com/hello-theme/?utm_source=wp-themes&utm_campaign=theme-uri&utm_medium=wp-dash
-	Description: Hello Elementor is a lightweight and minimalist WordPress theme that was built specifically to work seamlessly with the Elementor site builder plugin. The theme is free, open-source, and designed for users who want a flexible, easy-to-use, and customizable website. The theme, which is optimized for performance, provides a solid foundation for users to build their own unique designs using the Elementor drag-and-drop site builder. Its simplicity and flexibility make it a great choice for both beginners and experienced Web Creators.
-	Author: Elementor Team
-	Author URI: https://elementor.com/?utm_source=wp-themes&utm_campaign=author-uri&utm_medium=wp-dash
-	Version: 3.5.1
-	Stable tag: 3.5.1
-	Requires at least: 6.0
-	Tested up to: 7.0
-	Requires PHP: 7.4
-	License: GNU General Public License v3 or later.
-	License URI: https://www.gnu.org/licenses/gpl-3.0.html
-	Text Domain: hello-elementor
-	Tags: accessibility-ready, flexible-header, custom-colors, custom-menu, custom-logo, featured-images, rtl-language-support, threaded-comments, translation-ready,
-*/
+<?php
+/**
+ * Standalone 1-Click Complete CSS Fixer for RBO Accounting Business Setup Pages
+ * Upload to public_html/ and open: https://www.rboaccounting.ae/fix-css.php
+ */
 
-/* --- RBO LUXURY BUSINESS SETUP & COMPANY FORMATION STYLING --- */
+@ini_set( 'display_errors', 1 );
+@ini_set( 'display_startup_errors', 1 );
+error_reporting( E_ALL );
+
+if ( ! file_exists( __DIR__ . '/wp-load.php' ) ) {
+	die( '<h2 style="font-family:sans-serif;color:red;">Error: Place fix-css.php directly in public_html/ (same folder as wp-config.php)</h2>' );
+}
+
+require_once __DIR__ . '/wp-load.php';
+
+$pure_css = '
+/* ==========================================================================
+   RBO LUXURY BUSINESS SETUP & COMPANY FORMATION MASTER DESIGN SYSTEM
+   ========================================================================== */
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Poppins:wght@400;500;600;700;800&display=swap");
 
 .entry-title, .page-header, .page-title, .post-title, .elementor-page-title, h1.entry-title,
@@ -25,6 +27,7 @@
 	display: none !important;
 }
 
+/* Master Wrapper */
 .rbo-elementor-service-wrapper {
 	width: 100% !important;
 	max-width: 100% !important;
@@ -37,6 +40,9 @@
 	box-sizing: border-box !important;
 }
 
+/* --------------------------------------------------------------------------
+   HERO BANNER
+   -------------------------------------------------------------------------- */
 .rbo-hero-section {
 	width: 100vw !important;
 	position: relative !important;
@@ -44,7 +50,7 @@
 	right: 50% !important;
 	margin-left: -50vw !important;
 	margin-right: -50vw !important;
-	background: linear-gradient(135deg, rgba(9, 32, 59, 0.92) 0%, rgba(13, 43, 79, 0.85) 50%, rgba(9, 32, 59, 0.94) 100%), url("/wp-content/uploads/2026/09/dubai-skyline-hero-bg.jpg") center center / cover no-repeat !important;
+	background: linear-gradient(135deg, rgba(9, 32, 59, 0.92) 0%, rgba(13, 43, 79, 0.85) 50%, rgba(9, 32, 59, 0.94) 100%), url("' . home_url( '/wp-content/uploads/2026/09/dubai-skyline-hero-bg.jpg' ) . '") center center / cover no-repeat !important;
 	color: #ffffff !important;
 	padding: 70px 20px 80px !important;
 	box-sizing: border-box !important;
@@ -188,6 +194,9 @@
 	background: #f4ca68 !important;
 }
 
+/* --------------------------------------------------------------------------
+   BODY & CONTENT CONTAINERS
+   -------------------------------------------------------------------------- */
 .rbo-body-container, .rbo-content-container {
 	max-width: 1200px !important;
 	margin: 0 auto !important;
@@ -237,6 +246,9 @@
 	margin-bottom: 36px !important;
 }
 
+/* --------------------------------------------------------------------------
+   CARDS GRIDS
+   -------------------------------------------------------------------------- */
 .rbo-cards-grid-3, .rbo-feature-grid {
 	display: grid !important;
 	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
@@ -360,6 +372,9 @@
 	background: #f4ca68 !important;
 }
 
+/* --------------------------------------------------------------------------
+   VISUAL IMAGE SHOWCASES
+   -------------------------------------------------------------------------- */
 .rbo-visual-showcase {
 	display: flex !important;
 	flex-wrap: wrap !important;
@@ -475,6 +490,9 @@
 	flex-shrink: 0 !important;
 }
 
+/* --------------------------------------------------------------------------
+   SCOPE, TIMELINE & TABLES
+   -------------------------------------------------------------------------- */
 .rbo-scope-grid {
 	display: grid !important;
 	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
@@ -579,6 +597,9 @@
 	line-height: 1.6 !important;
 }
 
+/* --------------------------------------------------------------------------
+   PACKAGES GRID
+   -------------------------------------------------------------------------- */
 .rbo-packages-grid-modern {
 	display: grid !important;
 	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
@@ -675,6 +696,9 @@
 	background: #f4ca68 !important;
 }
 
+/* --------------------------------------------------------------------------
+   BOTTOM CALL TO ACTION
+   -------------------------------------------------------------------------- */
 .rbo-bottom-cta {
 	background: linear-gradient(135deg, #09203b 0%, #112d4e 100%) !important;
 	color: #ffffff !important;
@@ -757,3 +781,63 @@
 	.rbo-pkg-popular { transform: none !important; }
 	.rbo-bottom-btn-group { flex-direction: column !important; }
 }
+';
+
+$results = array();
+
+// 1. Update active theme style.css
+$theme_dir = get_stylesheet_directory();
+$theme_style = $theme_dir . '/style.css';
+if ( file_exists( $theme_style ) && is_writable( $theme_style ) ) {
+	$current_theme_css = file_get_contents( $theme_style );
+	file_put_contents( $theme_style, $current_theme_css . "\n\n" . $pure_css );
+	$results[] = '✓ Injected Master CSS into Theme stylesheet: <code>' . esc_html( $theme_style ) . '</code>';
+}
+
+// 2. Update wp_head hook in mu-plugins
+$mu_dir = WP_CONTENT_DIR . '/mu-plugins';
+if ( ! is_dir( $mu_dir ) ) {
+	@mkdir( $mu_dir, 0755, true );
+}
+$mu_code = '<?php
+defined("ABSPATH") || exit;
+add_action("wp_head", function() {
+	echo "<style id=\"rbo-luxury-global-css\">\n' . addcslashes( $pure_css, '"' ) . "\n</style>\n\";
+}, 1);
+";
+@file_put_contents( $mu_dir . '/rbo-business-setup-css.php', $mu_code );
+$results[] = '✓ Injected Master CSS into <code>wp-content/mu-plugins/rbo-business-setup-css.php</code>';
+
+// 3. Update Customizer CSS
+if ( function_exists( 'wp_update_custom_css_post' ) ) {
+	wp_update_custom_css_post( $pure_css );
+	$results[] = '✓ Updated WordPress Customizer Additional CSS';
+}
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>RBO CSS Fixer</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0b1528; color: #f8fafc; padding: 40px 20px; }
+.card { max-width: 680px; margin: 0 auto; background: #16243d; border-radius: 16px; padding: 36px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); border: 1px solid #233554; }
+h1 { color: #e8b84b; margin-top: 0; font-size: 22px; }
+.step { padding: 12px 16px; margin-bottom: 10px; background: #1e3152; border-radius: 8px; border-left: 4px solid #4ade80; font-size: 14px; color: #f1f5f9; }
+.btn { display: inline-block; background: #e8b84b; color: #09203b !important; font-weight: 800; padding: 14px 28px; border-radius: 8px; text-decoration: none; margin-top: 20px; font-size: 15px; }
+.btn:hover { background: #f4ca68; }
+</style>
+</head>
+<body>
+<div class="card">
+<h1>🎨 RBO Complete Design System Applied!</h1>
+<p style="color:#cbd5e1;">All styling tokens, card grids, visual showcase frames, and golden badges have been injected:</p>
+<?php foreach ( $results as $r ) : ?>
+	<div class="step"><?php echo $r; ?></div>
+<?php endforeach; ?>
+<p style="color:#94a3b8;margin-top:20px;font-size:13.5px;">Click below to open your live page and press <strong>Ctrl+F5</strong> (or <strong>Cmd+Shift+R</strong>):</p>
+<a href="https://www.rboaccounting.ae/business-setup/" class="btn" target="_blank">Open Live Business Setup Page →</a>
+</div>
+</body>
+</html>

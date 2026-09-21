@@ -45,6 +45,7 @@ From:
 
 - `rbo-seo-extras.php`
 - `rbo-single-sidebar.php`
+- `rbo-business-setup.php` (Auto-creates and optimizes the 6 Business Setup pages)
 
 ### 2B) Upload CSS
 1. Go to `public_html/wp-content/uploads`
@@ -59,6 +60,12 @@ From:
 4. Upload **all files** from:
 
 `DEPLOY-TO-CPANEL\files-to-upload\wp-content\uploads\2026\09\`
+
+### 2D) Upload .htaccess & 301 SEO Engine (CRITICAL for GSC Indexing)
+1. In `public_html`, make sure "Show Hidden Files (dotfiles)" is enabled in File Manager Settings.
+2. Upload `DEPLOY-TO-CPANEL\files-to-upload\.htaccess` directly to `public_html/`.
+3. Alternatively, upload `DEPLOY-TO-CPANEL\apply-301-redirects.php` to `public_html/` and visit:
+   `https://www.rboaccounting.ae/apply-301-redirects.php` in your browser and click **"Apply / Update .htaccess Rules Now"**.
 
 **Easy tip:** You can also upload `1-UPLOAD-these-files.zip`, extract it in File Manager, then move the folders into `wp-content`.
 
@@ -91,7 +98,7 @@ Ask your host to raise upload limit, or tell me and we’ll use another method.
 
 ---
 
-## STEP 4 — Refresh WordPress settings
+## STEP 4 — Refresh WordPress settings & Run SEO Powerhouse
 
 1. Login to live admin: `https://www.rboaccounting.ae/wp-admin`
 2. If login changed after import, try:
@@ -101,7 +108,11 @@ Ask your host to raise upload limit, or tell me and we’ll use another method.
 4. Click **Save Changes** (don’t change anything, just save)
 5. Go to **Elementor → Tools**
 6. Click **Regenerate CSS & Data**
-7. **Change your admin password** to a strong new one
+7. **Run SEO Powerhouse (Ajman + 2 New Blogs):**
+   - Upload `DEPLOY-TO-CPANEL\publish-seo-powerhouse.php` to `public_html/`
+   - Open in browser: `https://www.rboaccounting.ae/publish-seo-powerhouse.php`
+   - This automatically publishes the Ajman local power page and the 2 new UAE Corporate Tax & AFZ Audit blog posts with full interlinking and FAQ schemas.
+8. **Change your admin password** to a strong new one
 
 ---
 
