@@ -258,7 +258,8 @@ add_action(
    ========================================================================= */
 html, body {
   overflow-x: hidden !important;
-  max-width: 100vw !important;
+  max-width: 100% !important;
+  width: 100% !important;
   box-sizing: border-box !important;
   -webkit-text-size-adjust: 100%;
 }
@@ -290,7 +291,9 @@ img, video, iframe, svg, canvas {
     align-items: center !important;
     padding: 8px 12px !important;
     width: 100% !important;
+    max-width: 100% !important;
     box-sizing: border-box !important;
+    position: relative !important;
   }
 
   /* Logo: Left */
@@ -298,7 +301,7 @@ img, video, iframe, svg, canvas {
   .elementor-location-header .elementor-element-f22dfcf {
     --width: auto !important;
     width: auto !important;
-    max-width: 48% !important;
+    max-width: 46% !important;
     flex: 0 0 auto !important;
     order: 1 !important;
     --justify-content: flex-start !important;
@@ -313,8 +316,9 @@ img, video, iframe, svg, canvas {
   .elementor-location-header .elementor-widget-theme-site-logo img {
     width: auto !important;
     max-height: 38px !important;
-    max-width: 130px !important;
+    max-width: 125px !important;
     display: block !important;
+    object-fit: contain !important;
   }
 
   /* CTA Button: Right Center */
@@ -336,6 +340,8 @@ img, video, iframe, svg, canvas {
     line-height: 1.2 !important;
     white-space: nowrap !important;
     border-radius: 6px !important;
+    background: #e8b84b !important;
+    color: #09203b !important;
   }
   .elementor-location-header .elementor-button-text {
     font-size: 11px !important;
@@ -349,6 +355,7 @@ img, video, iframe, svg, canvas {
     flex: 0 0 auto !important;
     order: 3 !important;
     margin: 0 !important;
+    position: static !important;
   }
   .elementor-5241 .elementor-element.elementor-element-18681ca .elementor-menu-toggle,
   .elementor-location-header .elementor-menu-toggle {
@@ -359,40 +366,61 @@ img, video, iframe, svg, canvas {
     margin: 0 !important;
     border-radius: 4px !important;
     background: transparent !important;
+    color: #09203b !important;
   }
 
   /* Dropdown Menu Full Width Overlay */
   .elementor-5241 .elementor-nav-menu--dropdown.elementor-nav-menu__container,
-  .elementor-location-header .elementor-nav-menu--dropdown.elementor-nav-menu__container {
+  .elementor-location-header .elementor-nav-menu--dropdown.elementor-nav-menu__container,
+  .elementor-nav-menu--dropdown.elementor-nav-menu__container {
     position: absolute !important;
     top: 100% !important;
     left: 0 !important;
     right: 0 !important;
-    width: 100vw !important;
-    max-width: 100vw !important;
+    width: 100% !important;
+    max-width: 100% !important;
     background: #ffffff !important;
-    box-shadow: 0 10px 30px rgba(9, 32, 59, 0.15) !important;
-    z-index: 99999 !important;
+    box-shadow: 0 12px 36px rgba(9, 32, 59, 0.15) !important;
+    border-top: 2px solid #e8b84b !important;
+    z-index: 999999 !important;
+    padding: 10px 0 !important;
+  }
+  .elementor-nav-menu--dropdown .elementor-item,
+  .elementor-nav-menu--dropdown .elementor-sub-item {
+    font-size: 14.5px !important;
+    padding: 10px 18px !important;
+    color: #09203b !important;
+    display: block !important;
+  }
+  .elementor-nav-menu--dropdown .elementor-sub-item {
+    padding-left: 32px !important;
+    font-size: 13.5px !important;
+    color: #475569 !important;
   }
 }
 
 /* =========================================================================
-   3. UNIVERSAL TYPOGRAPHY & HEADING SCALING (< 767px)
+   3. UNIVERSAL TYPOGRAPHY & HEADING SCALING (< 768px)
    ========================================================================= */
 @media (max-width: 767px) {
   h1, .elementor-heading-title.elementor-size-xl, .elementor-heading-title.elementor-size-xxl {
-    font-size: 26px !important;
+    font-size: clamp(22px, 6vw, 28px) !important;
     line-height: 1.25 !important;
     word-break: break-word !important;
   }
   h2, .elementor-heading-title.elementor-size-large {
-    font-size: 22px !important;
+    font-size: clamp(19px, 5vw, 24px) !important;
     line-height: 1.3 !important;
     word-break: break-word !important;
   }
   h3, .elementor-heading-title.elementor-size-medium {
-    font-size: 18px !important;
+    font-size: clamp(16px, 4vw, 20px) !important;
     line-height: 1.35 !important;
+    word-break: break-word !important;
+  }
+  h4, h5, h6 {
+    font-size: 15px !important;
+    line-height: 1.4 !important;
     word-break: break-word !important;
   }
   p, li, span {
@@ -418,6 +446,7 @@ img, video, iframe, svg, canvas {
     max-width: 100% !important;
     padding-left: 12px !important;
     padding-right: 12px !important;
+    box-sizing: border-box !important;
   }
   .elementor-column, .elementor-col-100, .elementor-col-50, .elementor-col-33, .elementor-col-25 {
     width: 100% !important;
@@ -432,6 +461,12 @@ img, video, iframe, svg, canvas {
 table {
   width: 100% !important;
   border-collapse: collapse !important;
+}
+.rbo-table-wrap, .rbo-pricing-table-wrap {
+  width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  margin: 16px 0 !important;
 }
 @media (max-width: 767px) {
   table {
@@ -449,19 +484,27 @@ table {
 }
 
 /* =========================================================================
-   6. BUSINESS SETUP & SERVICE TEMPLATES RESPONSIVENESS
+   6. BUSINESS SETUP & SERVICE TEMPLATES RESPONSIVENESS (< 768px)
    ========================================================================= */
 @media (max-width: 767px) {
   .rbo-hero-section {
-    padding: 35px 14px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 !important;
+    padding: 35px 14px 45px !important;
+    box-sizing: border-box !important;
   }
   .rbo-hero-container {
     flex-direction: column !important;
-    gap: 24px !important;
+    gap: 22px !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
   .rbo-hero-left, .rbo-hero-right {
     width: 100% !important;
-    flex: 0 0 100% !important;
+    flex: 1 1 100% !important;
     max-width: 100% !important;
   }
   .rbo-hero-heading {
@@ -469,23 +512,63 @@ table {
     line-height: 1.25 !important;
   }
   .rbo-consult-card {
-    padding: 22px 16px !important;
+    padding: 20px 14px !important;
     border-radius: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
-  .rbo-body-container {
-    padding: 0 12px !important;
+  .rbo-body-container, .rbo-content-container {
+    padding: 30px 12px 50px !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
   .rbo-trust-card {
     flex-direction: column !important;
-    padding: 16px !important;
+    padding: 16px 14px !important;
     gap: 12px !important;
   }
+
+  /* All Grids single column on mobile */
+  .rbo-cards-grid-3,
+  .rbo-cards-grid-2,
+  .rbo-feature-grid,
+  .rbo-scope-grid,
+  .rbo-feature-checklist-grid,
+  .rbo-pkg-grid,
+  .rbo-process-grid,
+  .rbo-steps-grid,
+  .rbo-stats-grid,
   .rbo-pricing-cards {
     grid-template-columns: 1fr !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 16px !important;
   }
+
+  /* Visual Showcases */
+  .rbo-visual-showcase,
+  .rbo-showcase-reverse {
+    flex-direction: column !important;
+    padding: 18px 14px !important;
+    gap: 20px !important;
+    border-radius: 14px !important;
+  }
+  .rbo-showcase-image-wrap,
+  .rbo-showcase-content {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .rbo-feature-box {
+    padding: 22px 18px !important;
+    border-radius: 12px !important;
+  }
+
   .rbo-bottom-cta {
-    padding: 30px 16px !important;
-    margin: 30px 0 15px !important;
+    padding: 28px 14px !important;
+    margin: 28px 0 15px !important;
+    border-radius: 14px !important;
   }
   .rbo-bottom-cta h2 {
     font-size: 22px !important;
@@ -494,16 +577,53 @@ table {
     flex-direction: column !important;
     gap: 10px !important;
   }
-  .rbo-btn-gold-big, .rbo-btn-whatsapp-big {
+  .rbo-btn-gold-big,
+  .rbo-btn-whatsapp-big,
+  .rbo-btn-gold-full,
+  .rbo-pkg-action-btn {
     width: 100% !important;
     text-align: center !important;
     padding: 12px 18px !important;
+    box-sizing: border-box !important;
   }
 }
 
 /* =========================================================================
-   7. BLOG LISTING & SINGLE POST RESPONSIVENESS
+   7. BLOG ARCHIVE GRID & SINGLE POST RESPONSIVENESS (< 768px)
    ========================================================================= */
+@media (max-width: 767px) {
+  /* Blog Grid List Page */
+  .elementor-posts-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 22px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .elementor-post {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 100% !important;
+  }
+  .elementor-post__thumbnail {
+    aspect-ratio: 16/9 !important;
+    height: auto !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    border-radius: 8px 8px 0 0 !important;
+  }
+  .elementor-post__thumbnail img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+  .elementor-post__card {
+    border-radius: 10px !important;
+    overflow: hidden !important;
+  }
+}
+
+/* Single Post Centered Article Card */
 body.single-post .elementor-element-a920448,
 body.single-post .elementor-element-a920448 > .e-con-inner,
 .elementor-5229 .elementor-element-a920448,
@@ -514,7 +634,7 @@ body.single-post .elementor-element-a920448 > .e-con-inner,
   width: 100% !important;
   max-width: 100% !important;
   margin: 0 auto !important;
-  padding: 20px 12px 40px !important;
+  padding: 24px 14px 44px !important;
   background-color: #f4f6f9 !important;
 }
 
@@ -529,9 +649,9 @@ body.single-post .elementor-element-a920448 > .e-con-inner > .elementor-element,
   flex: 0 0 100% !important;
   margin: 0 auto !important;
   background: #ffffff !important;
-  border-radius: 12px !important;
+  border-radius: 14px !important;
   box-shadow: 0 4px 24px rgba(9, 32, 59, 0.08) !important;
-  padding: 8px !important;
+  padding: 10px !important;
   box-sizing: border-box !important;
 }
 
@@ -592,13 +712,19 @@ body.single-post .elementor-element-a920448 > .e-con-inner > .elementor-element,
 }
 
 @media (max-width: 767px) {
+  body.single-post .elementor-element-a920448 { padding: 16px 8px 30px !important; }
   .rbo-blog { padding: 14px 10px 22px !important; font-size: 15px !important; }
   .rbo-blog h2 { font-size: 20px !important; }
   .rbo-blog h3 { font-size: 17px !important; }
   .rbo-blog .rbo-cta a { width: 100% !important; text-align: center !important; }
 }
+
+/* Floating WhatsApp Fix */
+.joinchat, .e-joinchat, [class*="whatsapp"], .chat-with-us {
+  z-index: 99999 !important;
+}
 ';
-		wp_register_style( 'rbo-seo-extras', false, array(), '2.4.0' );
+		wp_register_style( 'rbo-seo-extras', false, array(), '2.5.0' );
 		wp_enqueue_style( 'rbo-seo-extras' );
 		wp_add_inline_style( 'rbo-seo-extras', $css );
 	},
