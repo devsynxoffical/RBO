@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: RBO SEO Extras, UAE Geo-Targeting & Universal Mobile Responsiveness Engine
- * Description: Master 301 redirects, UAE Geo-Targeting (en-AE, geo.region, hreflang), sitewide LocalBusiness schema, FAQ/Service JSON-LD, and universal mobile responsiveness for 100% of pages.
- * Version: 2.4.0
+ * Plugin Name: RBO SEO Extras, UAE Geo-Targeting, Live Maps & Universal Mobile Responsiveness Engine
+ * Description: Master 301 redirects, UAE Geo-Targeting (en-AE, geo.region, hreflang), sitewide LocalBusiness schema, FAQ/Service JSON-LD, UAE coverage maps fast-loader, and universal mobile responsiveness for 100% of pages.
+ * Version: 2.6.0
  * Author: RBO Accounting Services FZE
  */
 
@@ -266,73 +266,127 @@ html, body {
 *, *:before, *:after {
   box-sizing: border-box !important;
 }
-
 img, video, iframe, svg, canvas {
   max-width: 100% !important;
   height: auto !important;
 }
 
 /* =========================================================================
+   FOOTER LOGO & SERVICES ALIGNMENT (48px)
+   ========================================================================= */
+body:not(.elementor-editor-active) footer img[src*="download-1"],
+body:not(.elementor-editor-active) footer .elementor-widget-theme-site-logo img,
+body:not(.elementor-editor-active) .elementor-location-footer img[src*="download-1"],
+body:not(.elementor-editor-active) .elementor-location-footer .elementor-widget-theme-site-logo img,
+body:not(.elementor-editor-active) .elementor-element-24c19e2 img,
+footer img[src*="download-1"],
+footer .wp-image-1445,
+.elementor-location-footer .elementor-element-24c19e2 img,
+footer .attachment-full.size-full.wp-image-1445 {
+  max-width: 48px !important;
+  width: 48px !important;
+  height: auto !important;
+  object-fit: contain !important;
+  display: block !important;
+  margin-bottom: 12px !important;
+}
+.elementor-editor-active .elementor-element-24c19e2 img {
+  max-width: 100%;
+}
+.elementor-location-footer .elementor-element-c0125b4 .elementor-icon-list-icon,
+footer .elementor-element-c0125b4 .elementor-icon-list-icon {
+  display: none !important;
+}
+.elementor-location-footer .elementor-element-c0125b4 .elementor-icon-list-item,
+.elementor-location-footer .elementor-element-c0125b4 .elementor-icon-list-item a,
+footer .elementor-element-c0125b4 .elementor-icon-list-item,
+footer .elementor-element-c0125b4 .elementor-icon-list-item a {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  text-indent: 0 !important;
+}
+
+/* =========================================================================
    2. HEADER & NAVIGATION MOBILE OPTIMIZATIONS (< 768px)
    ========================================================================= */
 @media (max-width: 767px) {
-  /* Header Container: 1 Clean Horizontal Row */
-  .elementor-5241.elementor-location-header .elementor-element-98a0aca.e-parent,
-  .elementor-5241 .elementor-element.elementor-element-98a0aca,
-  .elementor-location-header .elementor-element-98a0aca,
-  .elementor-location-header.e-con,
+  /* ── HEADER WRAPPER: sticky white bar ── */
+  header.elementor-5241,
+  header.elementor-location-header,
+  .elementor-location-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 99999 !important;
+    overflow: visible !important;
+    width: 100% !important;
+    background: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(9, 32, 59, 0.12) !important;
+  }
+
+  /* ── MAIN HEADER ROW (98a0aca): force horizontal, no wrap ── */
+  .elementor-element-98a0aca,
+  .elementor-element.elementor-element-98a0aca,
   .elementor-location-header .e-con-inner {
-    --flex-direction: row !important;
-    --flex-wrap: nowrap !important;
-    --flex-wrap-mobile: nowrap !important;
+    display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
+    --flex-direction: row !important;
+    --flex-wrap-mobile: nowrap !important;
     justify-content: space-between !important;
     align-items: center !important;
-    padding: 8px 12px !important;
+    padding: 8px 14px !important;
     width: 100% !important;
     max-width: 100% !important;
+    min-height: 56px !important;
     box-sizing: border-box !important;
+    gap: 8px !important;
+    overflow: visible !important;
     position: relative !important;
   }
 
-  /* Logo: Left */
-  .elementor-5241 .elementor-element.elementor-element-f22dfcf,
-  .elementor-location-header .elementor-element-f22dfcf {
-    --width: auto !important;
-    width: auto !important;
-    max-width: 46% !important;
+  /* ── LOGO CONTAINER (f22dfcf): left side ── */
+  .elementor-element-98a0aca > .elementor-element-f22dfcf,
+  .elementor-element.elementor-element-f22dfcf {
+    display: flex !important;
+    align-items: center !important;
     flex: 0 0 auto !important;
-    order: 1 !important;
-    --justify-content: flex-start !important;
-    justify-content: flex-start !important;
-    margin: 0 !important;
-  }
-  .elementor-5241 .elementor-element.elementor-element-1b09eee {
     width: auto !important;
+    max-width: 48% !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    justify-content: flex-start !important;
+    overflow: visible !important;
+    --width: auto !important;
+  }
+  .elementor-element-1b09eee {
+    width: auto !important;
+    max-width: 100% !important;
+    padding: 0 !important;
     margin: 0 !important;
   }
-  .elementor-5241 .elementor-element.elementor-element-1b09eee img,
+  .elementor-element-1b09eee img,
   .elementor-location-header .elementor-widget-theme-site-logo img {
     width: auto !important;
     max-height: 38px !important;
     max-width: 125px !important;
+    height: auto !important;
     display: block !important;
     object-fit: contain !important;
   }
 
-  /* CTA Button: Right Center */
-  .elementor-5241 .elementor-element.elementor-element-828eb16,
-  .elementor-location-header .elementor-element-828eb16 {
-    --width: auto !important;
-    width: auto !important;
+  /* ── CTA BUTTON (828eb16) ── */
+  .elementor-element-98a0aca > .elementor-element-828eb16,
+  .elementor-element.elementor-element-828eb16 {
+    display: flex !important;
+    align-items: center !important;
     flex: 0 0 auto !important;
-    order: 2 !important;
+    width: auto !important;
     margin-left: auto !important;
-    margin-right: 8px !important;
+    margin-right: 4px !important;
     padding: 0 !important;
   }
-  .elementor-5241 .elementor-element.elementor-element-154ac3e .elementor-button,
+  .elementor-element-154ac3e .elementor-button,
   .elementor-location-header .elementor-button {
     padding: 7px 11px !important;
     font-size: 11px !important;
@@ -343,59 +397,129 @@ img, video, iframe, svg, canvas {
     background: #e8b84b !important;
     color: #09203b !important;
   }
-  .elementor-location-header .elementor-button-text {
-    font-size: 11px !important;
+
+  /* ── NAV / HAMBURGER CONTAINER (c7f9cbf) ── */
+  .elementor-element-98a0aca > .elementor-element-c7f9cbf,
+  .elementor-element.elementor-element-c7f9cbf {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    position: static !important;
+    --width: auto !important;
   }
 
-  /* Hamburger Menu: Far Right */
-  .elementor-5241 .elementor-element.elementor-element-c7f9cbf,
-  .elementor-location-header .elementor-element-c7f9cbf {
-    --width: auto !important;
-    width: auto !important;
-    flex: 0 0 auto !important;
-    order: 3 !important;
-    margin: 0 !important;
+  .elementor-element.elementor-element-18681ca,
+  .elementor-widget-nav-menu {
     position: static !important;
+    overflow: visible !important;
+    width: auto !important;
+    flex-shrink: 0 !important;
   }
-  .elementor-5241 .elementor-element.elementor-element-18681ca .elementor-menu-toggle,
-  .elementor-location-header .elementor-menu-toggle {
+
+  /* Hamburger Button */
+  .elementor-menu-toggle {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 6px 8px !important;
+    width: 38px !important;
+    height: 38px !important;
+    padding: 6px !important;
     margin: 0 !important;
-    border-radius: 4px !important;
-    background: transparent !important;
-    color: #09203b !important;
+    border-radius: 6px !important;
+    background: #09203b !important;
+    border: none !important;
+    cursor: pointer !important;
+    color: #ffffff !important;
+  }
+  .elementor-menu-toggle i,
+  .elementor-menu-toggle svg {
+    width: 20px !important;
+    height: 20px !important;
+    fill: #ffffff !important;
+    color: #ffffff !important;
+  }
+  .elementor-menu-toggle.elementor-active {
+    background: #c9a227 !important;
   }
 
-  /* Dropdown Menu Full Width Overlay */
-  .elementor-5241 .elementor-nav-menu--dropdown.elementor-nav-menu__container,
-  .elementor-location-header .elementor-nav-menu--dropdown.elementor-nav-menu__container,
-  .elementor-nav-menu--dropdown.elementor-nav-menu__container {
+  /* Dropdown Menu Flyout Container */
+  .elementor-nav-menu--dropdown.elementor-nav-menu__container,
+  .elementor-location-header .elementor-nav-menu--dropdown.elementor-nav-menu__container {
     position: absolute !important;
     top: 100% !important;
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
-    background: #ffffff !important;
-    box-shadow: 0 12px 36px rgba(9, 32, 59, 0.15) !important;
-    border-top: 2px solid #e8b84b !important;
+    background: #0d1b2a !important;
+    border-top: 3px solid #c9a227 !important;
+    box-shadow: 0 16px 40px rgba(9, 32, 59, 0.4) !important;
     z-index: 999999 !important;
-    padding: 10px 0 !important;
+    padding: 8px 0 16px !important;
+    box-sizing: border-box !important;
+    border-radius: 0 0 12px 12px !important;
+    max-height: calc(100vh - 56px) !important;
+    overflow-y: auto !important;
   }
-  .elementor-nav-menu--dropdown .elementor-item,
-  .elementor-nav-menu--dropdown .elementor-sub-item {
-    font-size: 14.5px !important;
-    padding: 10px 18px !important;
-    color: #09203b !important;
+
+  .elementor-nav-menu--dropdown ul.elementor-nav-menu {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    list-style: none !important;
+    background: transparent !important;
+  }
+
+  .elementor-nav-menu--dropdown li.menu-item {
+    width: 100% !important;
     display: block !important;
+    border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
-  .elementor-nav-menu--dropdown .elementor-sub-item {
-    padding-left: 32px !important;
+  .elementor-nav-menu--dropdown li.menu-item:last-child {
+    border-bottom: none !important;
+  }
+
+  .elementor-nav-menu--dropdown a.elementor-item,
+  .elementor-nav-menu--dropdown a {
+    display: flex !important;
+    align-items: center !important;
+    padding: 12px 18px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .elementor-nav-menu--dropdown a.elementor-item:hover,
+  .elementor-nav-menu--dropdown a.elementor-item-active,
+  .elementor-nav-menu--dropdown a.highlighted {
+    color: #e8b84b !important;
+    background: rgba(232, 184, 75, 0.1) !important;
+  }
+
+  .elementor-nav-menu--dropdown ul.sub-menu {
+    background: #08131e !important;
+    padding: 4px 0 4px 14px !important;
+  }
+  .elementor-nav-menu--dropdown ul.sub-menu a.elementor-sub-item {
     font-size: 13.5px !important;
-    color: #475569 !important;
+    color: #cbd5e1 !important;
+    padding: 9px 18px !important;
+  }
+  .elementor-nav-menu--dropdown ul.sub-menu a.elementor-sub-item:hover {
+    color: #e8b84b !important;
   }
 }
 
@@ -425,11 +549,12 @@ img, video, iframe, svg, canvas {
   }
   p, li, span {
     word-break: break-word !important;
+    overflow-wrap: break-word !important;
   }
 }
 
 /* =========================================================================
-   4. ELEMENTOR CONTAINERS, GRIDS & COLUMNS RESPONSIVENESS (< 1024px & < 767px)
+   4. CONTAINERS, GRIDS & HOMEPAGE HERO (< 1024px & < 767px)
    ========================================================================= */
 @media (max-width: 1024px) {
   .elementor-section.elementor-section-boxed > .elementor-container,
@@ -447,11 +572,38 @@ img, video, iframe, svg, canvas {
     padding-left: 12px !important;
     padding-right: 12px !important;
     box-sizing: border-box !important;
+    overflow: visible !important;
   }
   .elementor-column, .elementor-col-100, .elementor-col-50, .elementor-col-33, .elementor-col-25 {
     width: 100% !important;
     flex: 0 0 100% !important;
     max-width: 100% !important;
+  }
+
+  /* Homepage Hero section (4ccdd10e) */
+  .elementor-172 .elementor-element.elementor-element-4ccdd10e {
+    flex-direction: column !important;
+    padding-top: 45px !important;
+    padding-bottom: 45px !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    min-height: auto !important;
+  }
+  .elementor-172 .elementor-element.elementor-element-4ccdd10e > .e-con-inner {
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    gap: 20px !important;
+  }
+  .elementor-172 .elementor-element.elementor-element-4ccdd10e > .e-con-inner > .e-con {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+  .elementor-172 .elementor-element.elementor-element-4ccdd10e .elementor-widget-heading .elementor-heading-title {
+    font-size: 26px !important;
+    line-height: 1.25 !important;
   }
 }
 
@@ -592,7 +744,6 @@ table {
    7. BLOG ARCHIVE GRID & SINGLE POST RESPONSIVENESS (< 768px)
    ========================================================================= */
 @media (max-width: 767px) {
-  /* Blog Grid List Page */
   .elementor-posts-container {
     display: flex !important;
     flex-direction: column !important;
@@ -719,14 +870,140 @@ body.single-post .elementor-element-a920448 > .e-con-inner > .elementor-element,
   .rbo-blog .rbo-cta a { width: 100% !important; text-align: center !important; }
 }
 
+/* =========================================================================
+   8. UAE COVERAGE MAPS - 100% FULL-HEIGHT VIEWPORT & CONTAINER ALIGNMENT
+   ========================================================================= */
+.elementor-element-2a738b8 .e-n-tabs {
+  align-items: stretch !important;
+}
+.elementor-element-2a738b8 .e-n-tabs-heading {
+  flex: 0 0 240px !important;
+  width: 240px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+.elementor-element-2a738b8 .e-n-tabs-content {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 480px !important;
+  height: 100% !important;
+}
+.elementor-element-2a738b8 .e-n-tabs-content > .e-con {
+  flex: 1 1 100% !important;
+  min-height: 480px !important;
+  height: 100% !important;
+  width: 100% !important;
+}
+.elementor-element-2a738b8 .e-n-tabs-content > .e-con.e-active {
+  display: flex !important;
+  flex-direction: column !important;
+}
+.elementor-element-2a738b8 .elementor-widget-google_maps,
+.elementor-element-2a738b8 .elementor-widget-container,
+.elementor-element-2a738b8 .elementor-custom-embed {
+  flex: 1 1 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 480px !important;
+  height: 100% !important;
+  width: 100% !important;
+}
+.elementor-element-2a738b8 iframe {
+  width: 100% !important;
+  min-height: 480px !important;
+  height: 480px !important;
+  border-radius: 8px !important;
+  flex: 1 1 100% !important;
+  display: block !important;
+}
+@media (max-width: 767px) {
+  .elementor-element-2a738b8 .e-n-tabs-heading {
+    width: 100% !important;
+  }
+  .elementor-element-2a738b8 .e-n-tabs-content,
+  .elementor-element-2a738b8 .e-n-tabs-content > .e-con,
+  .elementor-element-2a738b8 .elementor-widget-google_maps,
+  .elementor-element-2a738b8 .elementor-widget-container,
+  .elementor-element-2a738b8 .elementor-custom-embed,
+  .elementor-element-2a738b8 iframe {
+    min-height: 320px !important;
+    height: 320px !important;
+  }
+}
+
 /* Floating WhatsApp Fix */
 .joinchat, .e-joinchat, [class*="whatsapp"], .chat-with-us {
   z-index: 99999 !important;
 }
 ';
-		wp_register_style( 'rbo-seo-extras', false, array(), '2.5.0' );
+		wp_register_style( 'rbo-seo-extras', false, array(), '2.6.0' );
 		wp_enqueue_style( 'rbo-seo-extras' );
 		wp_add_inline_style( 'rbo-seo-extras', $css );
 	},
 	40
+);
+
+/**
+ * 7. UAE Coverage Maps Speed & Full-Height Viewport Optimizer
+ */
+add_action(
+	'wp_footer',
+	function () {
+		if ( ! is_front_page() ) {
+			return;
+		}
+		?>
+<script id="rbo-coverage-maps-fast-loader">
+(function() {
+	function setupCoverageMaps() {
+		var tabWidget = document.querySelector('.elementor-element-2a738b8');
+		if (!tabWidget) return;
+
+		var tabs = tabWidget.querySelectorAll('.e-n-tabs-content > .e-con');
+		var buttons = tabWidget.querySelectorAll('.e-n-tab-title');
+
+		function ensureTabMap(idx) {
+			var targetTab = tabs[idx - 1] || tabWidget.querySelector('#e-n-tab-content-44513464' + idx);
+			if (!targetTab) return;
+			var iframe = targetTab.querySelector('iframe');
+			if (!iframe) return;
+
+			if (iframe.getAttribute('data-lazy-map-src')) {
+				iframe.src = iframe.getAttribute('data-lazy-map-src');
+				iframe.removeAttribute('data-lazy-map-src');
+			}
+			iframe.style.height = '480px';
+			iframe.style.minHeight = '480px';
+
+			setTimeout(function() {
+				window.dispatchEvent(new Event('resize'));
+			}, 150);
+		}
+
+		buttons.forEach(function(btn) {
+			var idx = parseInt(btn.getAttribute('data-tab-index'), 10);
+			btn.addEventListener('click', function() {
+				ensureTabMap(idx);
+			});
+			btn.addEventListener('mouseenter', function() {
+				ensureTabMap(idx);
+			});
+		});
+
+		// Trigger initial tab load
+		ensureTabMap(1);
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', setupCoverageMaps);
+	} else {
+		setupCoverageMaps();
+	}
+})();
+</script>
+		<?php
+	},
+	99
 );
