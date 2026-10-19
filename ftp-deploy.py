@@ -42,24 +42,12 @@ def upload_file(ftp, local_path, remote_path):
     print(f" ✅ Uploaded: {remote_path}")
 
 def main():
-    if len(sys.argv) < 4:
-        print("\n" + "="*60)
-        print(" RBO Accounting — Automated FTP Deployment")
-        print("="*60)
-        print("Usage:")
-        print("  python3 ftp-deploy.py <FTP_HOST> <FTP_USER> <FTP_PASS> [REMOTE_DIR]")
-        print("\nParameters:")
-        print("  FTP_HOST   : e.g. ftp.rboaccounting.ae or server IP")
-        print("  FTP_USER   : Your FTP username (e.g. hassan@rboaccounting.ae or cPanel user)")
-        print("  FTP_PASS   : Your FTP password")
-        print("  REMOTE_DIR : Default is '/public_html' (or '/' depending on FTP account root)")
-        print("="*60 + "\n")
-        sys.exit(1)
+    # Pre-configured credentials with CLI override support
+    host = sys.argv[1] if len(sys.argv) > 1 else "185.243.77.60"
+    user = sys.argv[2] if len(sys.argv) > 2 else "devsynx@rboaccounting.ae"
+    password = sys.argv[3] if len(sys.argv) > 3 else "Devsynx2026!#"
+    remote_base = sys.argv[4] if len(sys.argv) > 4 else "/"
 
-    host = sys.argv[1]
-    user = sys.argv[2]
-    password = sys.argv[3]
-    remote_base = sys.argv[4] if len(sys.argv) > 4 else "/public_html"
 
     print(f"\n🔌 Connecting to FTP: {host} as {user}...")
     try:
