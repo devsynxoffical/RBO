@@ -186,6 +186,7 @@ class FTPClient:
 def trigger_live_endpoints():
     """Trigger key live publisher scripts to execute database and content updates."""
     endpoints = [
+        f"{LIVE_URL}/upgrade-top-3-gsc-pages.php",
         f"{LIVE_URL}/upgrade-top-gsc-performance.php",
         f"{LIVE_URL}/publish-vat-refund-blog.php",
         f"{LIVE_URL}/publish-ct-returns-blog.php",
@@ -217,12 +218,14 @@ def deploy_all(client, specific_file=None):
 
     deploy_roster = [
         # 1. Master publishing and optimization scripts
+        "upgrade-top-3-gsc-pages.php",
         "upgrade-top-gsc-performance.php",
         "publish-vat-refund-blog.php",
         "publish-ct-returns-blog.php",
         "publish-tax-reconsideration-blog.php",
         "update-top-gsc-pages.php",
         "rbo-seo-master.php",
+
         # 2. Featured & Content images
         "wp-content/uploads/2026/09/vat-refund-claim-landlords-consultants-contractors-uae.jpg",
 
