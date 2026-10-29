@@ -54,3 +54,11 @@ Desktop.ini
 # ===== PHP / local server helpers that are fine to keep, but ignore temp =====
 node_modules/
 vendor/
+
+# ===== Temporary testing & screenshot artifacts =====
+/*.png
+/*.html
+/*.localbak
+/*.7z
+/*.exe
+

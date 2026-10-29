@@ -186,6 +186,8 @@ class FTPClient:
 def trigger_live_endpoints():
     """Trigger key live publisher scripts to execute database and content updates."""
     endpoints = [
+        f"{LIVE_URL}/fix-nav-titles.php",
+        f"{LIVE_URL}/publish-two-new-blogs.php",
         f"{LIVE_URL}/upgrade-top-3-gsc-pages.php",
         f"{LIVE_URL}/upgrade-top-gsc-performance.php",
         f"{LIVE_URL}/publish-vat-refund-blog.php",
@@ -218,6 +220,8 @@ def deploy_all(client, specific_file=None):
 
     deploy_roster = [
         # 1. Master publishing and optimization scripts
+        "publish-two-new-blogs.php",
+        "fix-nav-titles.php",
         "upgrade-top-3-gsc-pages.php",
         "upgrade-top-gsc-performance.php",
         "publish-vat-refund-blog.php",
@@ -227,6 +231,26 @@ def deploy_all(client, specific_file=None):
         "rbo-seo-master.php",
 
         # 2. Featured & Content images
+        "wp-content/uploads/2026/09/uae-free-zone-corporate-tax-qualifying-income-qfzp-guide-2026.jpg",
+        "wp-content/uploads/2026/09/uae-free-zone-corporate-tax-qualifying-income-qfzp-guide-2026-1024x572.jpg",
+        "wp-content/uploads/2026/09/uae-free-zone-corporate-tax-qualifying-income-qfzp-guide-2026-768x429.jpg",
+        "wp-content/uploads/2026/09/uae-free-zone-corporate-tax-qualifying-income-qfzp-guide-2026-300x167.jpg",
+        "wp-content/uploads/2026/09/uae-free-zone-corporate-tax-qualifying-income-qfzp-guide-2026-150x150.jpg",
+        "wp-content/uploads/2026/09/qfzp-qualifying-income-de-minimis-flowchart-uae-2026.jpg",
+        "wp-content/uploads/2026/09/qfzp-qualifying-income-de-minimis-flowchart-uae-2026-1024x572.jpg",
+        "wp-content/uploads/2026/09/qfzp-qualifying-income-de-minimis-flowchart-uae-2026-768x429.jpg",
+        "wp-content/uploads/2026/09/qfzp-qualifying-income-de-minimis-flowchart-uae-2026-300x167.jpg",
+        "wp-content/uploads/2026/09/qfzp-qualifying-income-de-minimis-flowchart-uae-2026-150x150.jpg",
+        "wp-content/uploads/2026/09/fta-voluntary-disclosure-form-211-uae-correct-tax-errors-guide.jpg",
+        "wp-content/uploads/2026/09/fta-voluntary-disclosure-form-211-uae-correct-tax-errors-guide-1024x572.jpg",
+        "wp-content/uploads/2026/09/fta-voluntary-disclosure-form-211-uae-correct-tax-errors-guide-768x429.jpg",
+        "wp-content/uploads/2026/09/fta-voluntary-disclosure-form-211-uae-correct-tax-errors-guide-300x167.jpg",
+        "wp-content/uploads/2026/09/fta-voluntary-disclosure-form-211-uae-correct-tax-errors-guide-150x150.jpg",
+        "wp-content/uploads/2026/09/fta-voluntary-disclosure-vs-tax-audit-penalties-uae-2026.jpg",
+        "wp-content/uploads/2026/09/fta-voluntary-disclosure-vs-tax-audit-penalties-uae-2026-1024x572.jpg",
+        "wp-content/uploads/2026/09/fta-voluntary-disclosure-vs-tax-audit-penalties-uae-2026-768x429.jpg",
+        "wp-content/uploads/2026/09/fta-voluntary-disclosure-vs-tax-audit-penalties-uae-2026-300x167.jpg",
+        "wp-content/uploads/2026/09/fta-voluntary-disclosure-vs-tax-audit-penalties-uae-2026-150x150.jpg",
         "wp-content/uploads/2026/09/vat-refund-claim-landlords-consultants-contractors-uae.jpg",
 
         "wp-content/uploads/2026/09/vat-refund-claim-landlords-consultants-contractors-uae-1024x572.jpg",

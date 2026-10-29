@@ -220,7 +220,7 @@ if ( ! $mr_page ) {
 if ( $mr_page ) {
 	wp_update_post( array(
 		'ID'           => $mr_page->ID,
-		'post_title'   => 'Management Reporting Services UAE | MIS Reports & Virtual CFO KPI Dashboards | RBO',
+		'post_title'   => 'Management Reporting',
 		'post_content' => $mr_content,
 		'post_status'  => 'publish',
 	) );
@@ -339,7 +339,7 @@ $about_page = get_page_by_path( 'about-us' );
 if ( $about_page ) {
 	wp_update_post( array(
 		'ID'           => $about_page->ID,
-		'post_title'   => 'About RBO Accounting Services FZE | FTA-Approved Tax Agents & Chartered Accountants in UAE',
+		'post_title'   => 'About Us',
 		'post_content' => $about_content,
 		'post_status'  => 'publish',
 	) );
@@ -476,7 +476,7 @@ $services_page = get_page_by_path( 'our-services' );
 if ( $services_page ) {
 	wp_update_post( array(
 		'ID'           => $services_page->ID,
-		'post_title'   => 'Accounting, Tax & Financial Advisory Services UAE | Corporate Tax & VAT | RBO',
+		'post_title'   => 'Our Services',
 		'post_content' => $services_content,
 		'post_status'  => 'publish',
 	) );
@@ -608,7 +608,7 @@ if ( ! $fta_page ) {
 if ( $fta_page ) {
 	wp_update_post( array(
 		'ID'           => $fta_page->ID,
-		'post_title'   => 'FTA Records Amendment UAE | Update Trade Licence, Bank & Address on EmaraTax | RBO',
+		'post_title'   => 'FTA Records Amendment',
 		'post_content' => $fta_amend_content,
 		'post_status'  => 'publish',
 	) );

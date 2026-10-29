@@ -501,12 +501,12 @@ $ct_deadline_content = <<<HTML
     When filing late returns, ensure your revenue reported in Box 1 and Box 4 of your four quarterly <a href="{$site_url}/our-services/vat-registration-filing/return-filing/">VAT Returns (Form VAT201)</a> matches your gross revenue declared on Form CT201. Unexplained discrepancies between VAT turnover and Corporate Tax revenue automatically trigger an FTA tax audit.
   </p>
 
-  <div class="rbo-cta" style="background: linear-gradient(135deg, #09203b 0%, #1e3a8a 100%); color: #ffffff; padding: 35px 25px; border-radius: 12px; margin: 35px 0; text-align: center;">
-    <h3 style="color: #ffffff; margin-top: 0; font-size: 24px;">Need Immediate Help Filing Form CT201 or Waiving Late Penalties?</h3>
-    <p style="font-size: 16px; max-width: 750px; margin: 15px auto 25px; color: #e2e8f0;">
+  <div class="rbo-cta" style="background: linear-gradient(135deg, #09203b 0%, #1e3a8a 100%) !important; color: #ffffff !important; padding: 38px 25px !important; border-radius: 12px !important; margin: 35px 0 !important; text-align: center !important;">
+    <h3 style="color: #ffffff !important; margin-top: 0 !important; font-size: 26px !important; font-family: 'Playfair Display', Georgia, serif !important; font-weight: 700 !important; line-height: 1.35 !important; text-align: center !important;"><span style="color: #ffffff !important;">Need Immediate Help Filing Form CT201 or Waiving Late Penalties?</span></h3>
+    <p style="font-size: 16px !important; max-width: 750px !important; margin: 15px auto 25px !important; color: #f1f5f9 !important; line-height: 1.75 !important;">
       RBO Accounting Services FZE helps late filers regularize their Corporate Tax standing within 48 hours, claim Small Business Relief, and submit formal penalty reconsideration petitions.
     </p>
-    <a href="https://wa.me/971524473871?text=Hello%20RBO,%20I%20missed%20the%20Corporate%20Tax%20deadline%20and%20need%20urgent%20filing" style="background: #22c55e; color: #ffffff; font-weight: 700; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-size: 16px; display: inline-block; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);">💬 File Late Return on WhatsApp (+971 52 447 3871)</a>
+    <a href="https://wa.me/971524473871?text=Hello%20RBO,%20I%20missed%20the%20Corporate%20Tax%20deadline%20and%20need%20urgent%20filing" target="_blank" rel="noopener" style="background: #22c55e !important; color: #ffffff !important; font-weight: 700 !important; padding: 14px 28px !important; border-radius: 8px !important; text-decoration: none !important; font-size: 16px !important; display: inline-block !important; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4) !important;"><span style="color: #ffffff !important; text-decoration: none !important;">💬 File Late Return on WhatsApp (+971 52 447 3871)</span></a>
   </div>
 </div>
 HTML;
