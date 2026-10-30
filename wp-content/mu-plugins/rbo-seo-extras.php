@@ -418,6 +418,16 @@ body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first
 add_action(
 	'template_redirect',
 	function () {
+		// 301 Redirect UTM & Tracking Query Strings on Homepage to Clean Canonical URL
+		if ( is_front_page() && ! empty( $_GET ) ) {
+			foreach ( array_keys( $_GET ) as $qk ) {
+				if ( 0 === stripos( (string) $qk, 'utm_' ) || in_array( strtolower( (string) $qk ), array( 'gclid', 'fbclid', 'ref' ), true ) ) {
+					wp_safe_redirect( home_url( '/' ), 301 );
+					exit;
+				}
+			}
+		}
+
 		if ( isset( $_GET['page_id'] ) && '3351' === $_GET['page_id'] ) {
 			wp_safe_redirect( home_url( '/' ), 301 );
 			exit;
@@ -1782,6 +1792,90 @@ HTML;
 </div>
 HTML;
 			$content .= $callout;
+		}
+
+
+		// 4. Master Internal Linking Directory on Homepage (ID 172) and Services Hub (ID 178)
+		if ( is_front_page() || $post_id === 172 || $post_id === 178 || ( is_page() && get_post_field( 'post_name', $post_id ) === 'our-services' ) ) {
+			$directory = <<<HTML
+<section id="rbo-internal-directory" style="background: linear-gradient(180deg, #f8fafd 0%, #ffffff 100%); border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 60px 20px; margin-top: 50px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; box-sizing: border-box; width: 100%;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div style="text-align: center; margin-bottom: 40px;">
+      <span style="display: inline-block; padding: 5px 14px; background: rgba(212,160,23,0.12); color: #9c6c08; font-size: 12px; font-weight: 700; text-transform: uppercase; border-radius: 20px; letter-spacing: 1px; margin-bottom: 10px;">UAE Regional Hubs &amp; Core Practice Index</span>
+      <h2 style="font-size: 28px; font-weight: 800; color: #09203B; margin: 0 0 10px 0; line-height: 1.3;">Nationwide Accounting, Tax &amp; Audit Services Across All 7 Emirates</h2>
+      <p style="font-size: 15px; color: #556987; max-width: 780px; margin: 0 auto; line-height: 1.6;">FTA-approved tax agents, chartered accountants, and AFZA-accredited statutory auditors supporting mainland LLCs, free zone entities, and offshore corporations with end-to-end financial compliance.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px;">
+      <!-- Column 1: Emirates Regional Presence -->
+      <div style="background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.04); border: 1px solid #edf2f7; border-top: 4px solid #09203B;">
+        <h3 style="font-size: 17px; font-weight: 700; color: #09203B; margin: 0 0 16px 0; display: flex; align-items: center; gap: 8px;">
+          <span>📍</span> Emirates Regional Hubs
+        </h3>
+        <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px; line-height: 1.8;">
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/areas-we-serve/ajman/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Bookkeeping services in Ajman</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/areas-we-serve/dubai/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Accounting services in Dubai</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/areas-we-serve/abu-dhabi/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Accounting firm in Abu Dhabi</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/areas-we-serve/sharjah/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Accounting services in Sharjah</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/areas-we-serve/ras-al-khaimah/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Accounting firm in Ras Al Khaimah</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/areas-we-serve/fujairah/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Accounting firm in Fujairah</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/areas-we-serve/umm-al-quwain/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Accounting firm in Umm Al Quwain</a></li>
+          <li style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #e2e8f0;"><a href="https://www.rboaccounting.ae/areas-we-serve/" style="color: #d4a017; text-decoration: none; font-weight: 700;">Explore All 7 UAE Emirates Coverage ➔</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 2: Corporate Tax & VAT Compliance -->
+      <div style="background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.04); border: 1px solid #edf2f7; border-top: 4px solid #d4a017;">
+        <h3 style="font-size: 17px; font-weight: 700; color: #09203B; margin: 0 0 16px 0; display: flex; align-items: center; gap: 8px;">
+          <span>⚖️</span> Corporate Tax &amp; VAT
+        </h3>
+        <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px; line-height: 1.8;">
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/our-services/corporate-tax/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Corporate tax consultant UAE</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/our-services/corporate-tax/corporate-tax-planning/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Corporate tax planning UAE</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/our-services/corporate-tax/registration/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Corporate tax registration UAE</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/our-services/corporate-tax/return-filing/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Corporate tax return filing UAE</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/our-services/vat-registration-filing/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 VAT registration &amp; return filing UAE</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/our-services/vat-registration-filing/penalty-reconsideration/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 FTA penalty reconsideration &amp; appeals</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/our-services/corporate-tax/transfer-pricing/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Transfer pricing documentation UAE</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Audit, Assurance & Outsource -->
+      <div style="background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.04); border: 1px solid #edf2f7; border-top: 4px solid #1e5a96;">
+        <h3 style="font-size: 17px; font-weight: 700; color: #09203B; margin: 0 0 16px 0; display: flex; align-items: center; gap: 8px;">
+          <span>🔍</span> Audit &amp; Outsourcing
+        </h3>
+        <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px; line-height: 1.8;">
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/our-services/audit-assurance/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Audit and assurance UAE</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/our-services/audit-assurance/statutory-audit/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Statutory audit services UAE</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/our-services/audit-assurance/free-zone-audit/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Free zone audit UAE</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/our-services/accounting/accounts-payable-and-receivable/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Accounts payable outsourcing UAE</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/our-services/accounting/bookkeeping-and-accounting/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Bookkeeping services UAE</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/our-services/accounting/bank-reconciliation/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Bank reconciliation services UAE</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/our-services/accounting/financial-reporting/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Financial reporting services UAE</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Virtual CFO, Payroll & Setup -->
+      <div style="background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.04); border: 1px solid #edf2f7; border-top: 4px solid #07192E;">
+        <h3 style="font-size: 17px; font-weight: 700; color: #09203B; margin: 0 0 16px 0; display: flex; align-items: center; gap: 8px;">
+          <span>📈</span> CFO, Payroll &amp; Setup
+        </h3>
+        <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px; line-height: 1.8;">
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/our-services/virtual-cfo/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Virtual CFO services UAE</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/our-services/virtual-cfo/business-advisory/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Business tax consulting services</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/our-services/payroll/wps/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 WPS payroll services UAE</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/our-services/payroll/end-of-service-benefits-calculation/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 End of service benefits (EOSB) UAE</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/business-setup/ajman-free-zone/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Ajman free zone channel partner</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/business-setup/dubai/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Business setup in Dubai</a></li>
+          <li style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #e2e8f0;"><a href="https://www.rboaccounting.ae/our-services/" style="color: #d4a017; text-decoration: none; font-weight: 700;">View All 36 Specialized Services ➔</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+HTML;
+			$content .= $directory;
 		}
 
 		return $content;

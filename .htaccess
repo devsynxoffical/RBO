@@ -19,6 +19,13 @@ RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
 RewriteRule ^ https://www.%1%{REQUEST_URI} [L,NE,R=301]
 
 # -----------------------------------------------------------------------
+# 1b. 301 Redirect UTM & Tracking Query Strings on Homepage to Clean URL
+# -----------------------------------------------------------------------
+RewriteCond %{THE_REQUEST} \s/+\?(?:.*&)?utm_[^&\s]+ [NC,OR]
+RewriteCond %{THE_REQUEST} \s/+\?(?:.*&)?gclid=[^&\s]+ [NC]
+RewriteRule ^$ https://www.rboaccounting.ae/? [R=301,L]
+
+# -----------------------------------------------------------------------
 # 2. Fix Specific Parameter 404 URL (?page_id=3351)
 # -----------------------------------------------------------------------
 RewriteCond %{QUERY_STRING} ^page_id=3351$ [NC]
