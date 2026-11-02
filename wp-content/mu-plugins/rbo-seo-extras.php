@@ -154,8 +154,8 @@ body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first
 body.rbo-services-page .site-main > .page-content > .elementor > .e-con:first-of-type,
 body.rbo-services-page .site-main > .page-content > .elementor > .elementor-element:first-of-type,
 body.rbo-services-page .site-main > .page-content > .elementor > .elementor-section:first-of-type,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-con:first-of-type,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-con:first-of-type,
 .elementor-element.elementor-element-418bd202,
 .elementor-element.elementor-element-59af0b31 {
   background-color: #09203B !important;
@@ -173,7 +173,7 @@ body.rbo-services-subpage .site-main > .page-content > .elementor > .e-con:first
 body.rbo-services-subpage .site-main > .page-content > .elementor > .elementor-element:first-of-type > .e-con-inner,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-con:first-of-type > .e-con-inner,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner,
 .elementor-element.elementor-element-418bd202 > .e-con-inner,
 .elementor-element.elementor-element-59af0b31 > .e-con-inner {
   display: flex !important;
@@ -197,8 +197,8 @@ body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:fi
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-con:first-of-type > .e-con-inner > .e-child:first-child,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:first-child,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:first-child,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:first-child,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child,
 .elementor-element.elementor-element-2980c6b,
 .elementor-element.elementor-element-2929b55e {
   flex: 1 1 58% !important;
@@ -221,7 +221,7 @@ body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:fi
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-heading-title,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-heading-title,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1,
 .elementor-element.elementor-element-7c28979c h1,
 .elementor-element.elementor-element-6272ca2c h1 {
   color: #FFFFFF !important;
@@ -238,7 +238,7 @@ body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:fi
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 strong,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 i,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 span,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 span,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 span,
 .elementor-element.elementor-element-7c28979c h1 span,
 .elementor-element.elementor-element-6272ca2c h1 span {
   color: #E8B84B !important;
@@ -247,7 +247,7 @@ body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-paren
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child p,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-text-editor,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child p,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child p,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child p,
 .elementor-element.elementor-element-76acde04,
 .elementor-element.elementor-element-627f2eda {
   color: #C5D0DC !important;
@@ -261,7 +261,7 @@ body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:fi
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"],
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href^="tel:"],
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"],
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"],
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"],
 .elementor-element.elementor-element-6c5725b3 .elementor-button,
 .elementor-element.elementor-element-6e0fa4bb .elementor-button {
   background: #E8B84B !important;
@@ -274,7 +274,7 @@ body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:fi
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="whatsapp"],
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="wa.me"],
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="whatsapp"],
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="wa.me"],
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="wa.me"],
 .elementor-element.elementor-element-268e22d2 .elementor-button,
 .elementor-element.elementor-element-7d20ce91 .elementor-button {
   background: #25D366 !important;
@@ -288,7 +288,7 @@ body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:fi
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:last-child,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:last-child,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:last-child,
 .elementor-element.elementor-element-34bbbe42,
 .elementor-element.elementor-element-2ad320ba {
   flex: 0 0 38% !important;
@@ -330,7 +330,7 @@ body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:fi
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form textarea.elementor-field,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form .elementor-select-wrapper select,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form input.elementor-field,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form input.elementor-field,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form input.elementor-field,
 .elementor-element.elementor-element-53e74aaa input.elementor-field,
 .elementor-element.elementor-element-53e74aaa select.elementor-field {
   background: #F8FAFC !important;
@@ -366,13 +366,13 @@ body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first
 @media (max-width: 991px) {
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type,
   body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type,
-  body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type,
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type,
   .elementor-element.elementor-element-418bd202 {
     padding: 40px 16px !important;
   }
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner,
   body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner,
-  body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner,
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner,
   .elementor-element.elementor-element-418bd202 > .e-con-inner {
     flex-direction: column !important;
     gap: 32px !important;
@@ -380,7 +380,7 @@ body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first
   }
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child,
   body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child,
-  body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child,
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child,
   .elementor-element.elementor-element-2980c6b {
     flex: 1 1 100% !important;
     max-width: 100% !important;
@@ -388,7 +388,7 @@ body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first
   }
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child,
   body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child,
-  body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child,
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child,
   .elementor-element.elementor-element-34bbbe42 {
     flex: 1 1 100% !important;
     max-width: 480px !important;
@@ -1369,7 +1369,7 @@ body[class*="page-id-3368"] .site-main > .page-content > .elementor > .e-parent:
 /* Hero Inner Container (Flex 2 Columns on Desktop) */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .elementor-section:first-of-type > .elementor-container,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner {
   display: flex !important;
   flex-direction: row !important;
   align-items: center !important;
@@ -1387,7 +1387,7 @@ body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-paren
 /* Hero Left Column (Title, Text, Buttons, Trust Badges) */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:first-child,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:first-child {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:first-child {
   flex: 1 1 58% !important;
   max-width: 58% !important;
   width: 58% !important;
@@ -1400,7 +1400,7 @@ body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-paren
 /* Hero H1 Heading */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-heading-title,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 {
   color: #FFFFFF !important;
   font-family: "Playfair Display", Georgia, serif !important;
   font-weight: 700 !important;
@@ -1414,14 +1414,14 @@ body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-paren
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 span,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 strong,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 i,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 span {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 span {
   color: #E8B84B !important;
 }
 
 /* Hero Lead Paragraph */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child p,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-text-editor,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child p {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child p {
   color: #C5D0DC !important;
   font-size: 15.5px !important;
   line-height: 1.7 !important;
@@ -1430,13 +1430,13 @@ body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-paren
 
 /* CTA Buttons Row */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-button,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-button {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-button {
   display: inline-block !important;
   margin-right: 12px !important;
   margin-bottom: 12px !important;
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-button,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-button {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-button {
   font-weight: 700 !important;
   border-radius: 8px !important;
   padding: 13px 24px !important;
@@ -1448,26 +1448,26 @@ body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-paren
   transition: transform 0.2s, box-shadow 0.2s !important;
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"],
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"] {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"] {
   background: #E8B84B !important;
   color: #09203B !important;
   box-shadow: 0 4px 14px rgba(232, 184, 75, 0.3) !important;
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"]:hover,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"]:hover {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"]:hover {
   background: #d4a017 !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 6px 18px rgba(212, 160, 23, 0.45) !important;
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="wa.me"],
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="whatsapp"],
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="wa.me"] {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="wa.me"] {
   background: #25D366 !important;
   color: #FFFFFF !important;
   box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3) !important;
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="wa.me"]:hover,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="wa.me"]:hover {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="wa.me"]:hover {
   background: #20ba5a !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45) !important;
@@ -1475,11 +1475,11 @@ body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-paren
 
 /* Trust Badges (Icon List) */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-icon-list,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-icon-list {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-icon-list {
   margin-top: 18px !important;
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-icon-list-items,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-icon-list-items {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-icon-list-items {
   display: flex !important;
   flex-wrap: wrap !important;
   gap: 16px !important;
@@ -1488,7 +1488,7 @@ body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-paren
   list-style: none !important;
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-icon-list-item,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-icon-list-item {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-icon-list-item {
   color: #E2E8F0 !important;
   font-size: 13.5px !important;
   font-weight: 500 !important;
@@ -1497,7 +1497,7 @@ body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-paren
   gap: 8px !important;
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-icon-list-icon svg,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-icon-list-icon svg {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-icon-list-icon svg {
   fill: #E8B84B !important;
   color: #E8B84B !important;
   width: 14px !important;
@@ -1507,7 +1507,7 @@ body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-paren
 /* Hero Right Column (Consultation Card) */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:last-child,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:last-child {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:last-child {
   flex: 0 0 38% !important;
   max-width: 440px !important;
   width: 38% !important;
@@ -1523,7 +1523,7 @@ body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-paren
 /* Card Heading & Subtitle */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child h3,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child .elementor-heading-title,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child h3 {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child h3 {
   color: #09203B !important;
   font-family: "Playfair Display", Georgia, serif !important;
   font-size: 22px !important;
@@ -1532,7 +1532,7 @@ body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-paren
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child p,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child .elementor-widget-text-editor,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child p {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child p {
   color: #64748B !important;
   font-size: 13.5px !important;
   line-height: 1.4 !important;
@@ -1544,8 +1544,8 @@ body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:fi
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form select.elementor-field,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form textarea.elementor-field,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form .elementor-select-wrapper select,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form input.elementor-field,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form select.elementor-field {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form input.elementor-field,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form select.elementor-field {
   background: #F8FAFC !important;
   border: 1.5px solid #CBD5E1 !important;
   border-radius: 8px !important;
@@ -1561,7 +1561,7 @@ body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-paren
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form input.elementor-field:focus,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form select.elementor-field:focus,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form .elementor-select-wrapper select:focus,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form input.elementor-field:focus {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form input.elementor-field:focus {
   border-color: #E8B84B !important;
   background: #FFFFFF !important;
   box-shadow: 0 0 0 3px rgba(232, 184, 75, 0.25) !important;
@@ -1570,7 +1570,7 @@ body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-paren
 /* Submit Button */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form button[type="submit"],
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form .elementor-button[type="submit"],
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form button[type="submit"] {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form button[type="submit"] {
   background: linear-gradient(135deg, #E8B84B 0%, #D4A017 100%) !important;
   color: #09203B !important;
   font-weight: 700 !important;
@@ -1586,7 +1586,7 @@ body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-paren
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form button[type="submit"]:hover,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form .elementor-button[type="submit"]:hover,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form button[type="submit"]:hover {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form button[type="submit"]:hover {
   background: #D4A017 !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 6px 20px rgba(212, 160, 23, 0.45) !important;
@@ -1595,7 +1595,7 @@ body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-paren
 /* Quick Answer Section (Section 2) */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:nth-of-type(2),
 body.rbo-services-subpage .site-main > .page-content > .elementor > .elementor-section:nth-of-type(2),
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:nth-of-type(2) {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:nth-of-type(2) {
   background-color: #F8F6F1 !important;
   padding: 48px 20px !important;
   box-sizing: border-box !important;
@@ -1603,7 +1603,7 @@ body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-paren
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:nth-of-type(2) h2,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:nth-of-type(2) h3,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:nth-of-type(2) .elementor-heading-title,
-body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:nth-of-type(2) h2 {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:nth-of-type(2) h2 {
   color: #09203B !important;
   font-family: "Playfair Display", Georgia, serif !important;
 }
@@ -1611,38 +1611,38 @@ body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-paren
 /* Mobile & Tablet (< 992px) Responsive Stacking */
 @media (max-width: 991px) {
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type,
-  body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type {
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type {
     padding: 40px 16px !important;
     min-height: auto !important;
   }
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner,
-  body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner {
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner {
     flex-direction: column !important;
     gap: 32px !important;
     padding: 0 !important;
   }
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child,
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:first-child,
-  body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child {
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child {
     flex: 1 1 100% !important;
     max-width: 100% !important;
     width: 100% !important;
   }
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child,
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:last-child,
-  body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child {
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child {
     flex: 1 1 100% !important;
     max-width: 480px !important;
     width: 100% !important;
     margin: 0 auto !important;
   }
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-button,
-  body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-button {
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-button {
     width: 100% !important;
     margin-right: 0 !important;
   }
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-button,
-  body[class*="parent-pageid-"] .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-button {
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-button {
     width: 100% !important;
     justify-content: center !important;
   }
@@ -1885,3 +1885,129 @@ HTML;
 
 
 
+
+
+/**
+ * Scoped styling fix for Sharjah Regional Hub (Page ID 2225)
+ */
+add_action( 'wp_head', function () {
+	if ( ! is_page( 2225 ) ) {
+		return;
+	}
+	?>
+	<style id="rbo-sharjah-polished-styles">
+	/* 1. Hero Container & Gradient */
+	.elementor-2225 .elementor-element.elementor-element-2578a63a {
+		background: linear-gradient(135deg, #07192E 0%, #09203B 60%, #0c2d53 100%) !important;
+		color: #ffffff !important;
+		padding: 60px 20px 80px !important;
+		display: flex !important;
+		flex-direction: column !important;
+		align-items: center !important;
+		justify-content: center !important;
+		width: 100% !important;
+		box-sizing: border-box !important;
+	}
+	.elementor-2225 .elementor-element.elementor-element-2578a63a .e-con-inner {
+		max-width: 1100px !important;
+		width: 100% !important;
+		margin: 0 auto !important;
+		display: flex !important;
+		flex-direction: column !important;
+		align-items: center !important;
+		justify-content: center !important;
+		text-align: center !important;
+	}
+	/* 2. Text Container & Headings */
+	.elementor-2225 .elementor-element.elementor-element-44202be9 {
+		width: 100% !important;
+		max-width: 900px !important;
+		margin: 0 auto !important;
+		background: transparent !important;
+		box-shadow: none !important;
+		border: none !important;
+		padding: 0 !important;
+		text-align: center !important;
+	}
+	.elementor-2225 .elementor-element.elementor-element-166f0532 .elementor-heading-title {
+		color: #FFFFFF !important;
+		font-family: "Playfair Display", Georgia, serif !important;
+		font-size: 42px !important;
+		font-weight: 700 !important;
+		line-height: 1.25 !important;
+		text-align: center !important;
+		margin: 0 auto 16px !important;
+	}
+	.elementor-2225 .elementor-element.elementor-element-166f0532 .elementor-heading-title span {
+		color: #E8B84B !important;
+	}
+	.elementor-2225 .elementor-element.elementor-element-3901b1c1 {
+		max-width: 820px !important;
+		margin: 0 auto !important;
+		text-align: center !important;
+	}
+	.elementor-2225 .elementor-element.elementor-element-3901b1c1 p {
+		color: #C5D0DC !important;
+		font-size: 16px !important;
+		line-height: 1.65 !important;
+		text-align: center !important;
+		margin: 0 auto !important;
+	}
+	.elementor-2225 .elementor-element.elementor-element-3901b1c1 a {
+		color: #E8B84B !important;
+		text-decoration: underline !important;
+	}
+	/* 3. Form Container */
+	.elementor-2225 .elementor-element.elementor-element-7f79b28 {
+		margin-top: -50px !important;
+		margin-bottom: 50px !important;
+		display: flex !important;
+		justify-content: center !important;
+		width: 100% !important;
+	}
+	.elementor-2225 .elementor-element.elementor-element-49163807 {
+		max-width: 1050px !important;
+		width: 92% !important;
+		margin: 0 auto !important;
+	}
+	/* 4. Content Containers 2 & 3 (Side by Side 2-Column Row) */
+	.elementor-2225 .elementor-element.elementor-element-7488cca6 > .e-con-inner,
+	.elementor-2225 .elementor-element.elementor-element-65f4f848 > .e-con-inner {
+		display: flex !important;
+		flex-direction: row !important;
+		align-items: center !important;
+		justify-content: space-between !important;
+		gap: 40px !important;
+		max-width: 1140px !important;
+		margin: 0 auto !important;
+	}
+	.elementor-2225 .elementor-element.elementor-element-35420176,
+	.elementor-2225 .elementor-element.elementor-element-2645132a {
+		flex: 1 1 52% !important;
+		max-width: 52% !important;
+	}
+	.elementor-2225 .elementor-element.elementor-element-33d3ac44,
+	.elementor-2225 .elementor-element.elementor-element-3f19cf5d {
+		flex: 1 1 44% !important;
+		max-width: 44% !important;
+		min-height: 380px !important;
+	}
+	@media (max-width: 767px) {
+		.elementor-2225 .elementor-element.elementor-element-166f0532 .elementor-heading-title {
+			font-size: 28px !important;
+		}
+		.elementor-2225 .elementor-element.elementor-element-7488cca6 > .e-con-inner,
+		.elementor-2225 .elementor-element.elementor-element-65f4f848 > .e-con-inner {
+			flex-direction: column !important;
+		}
+		.elementor-2225 .elementor-element.elementor-element-35420176,
+		.elementor-2225 .elementor-element.elementor-element-2645132a,
+		.elementor-2225 .elementor-element.elementor-element-33d3ac44,
+		.elementor-2225 .elementor-element.elementor-element-3f19cf5d {
+			flex: 1 1 100% !important;
+			max-width: 100% !important;
+		}
+	}
+	</style>
+	<?php
+}, 999 );
