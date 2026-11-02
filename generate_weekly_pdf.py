@@ -236,6 +236,12 @@ def build_pdf():
     story.append(Paragraph("– <b>Trending Topics & Visuals:</b> Integrates the MoF 2026 UAE E-Invoicing mandate, FTA Article 55 input VAT substantiation, 2 bespoke 16:9 infographics, and 8 Schema.org <font face='Courier'>FAQPage</font> rich snippets.", subbullet_style))
 
     story.append(Spacer(1, 3))
+    story.append(Paragraph("• <b>Top GSC Impression Pages Overhaul — Homepage & Sharjah Hub (November 2, 2026):</b>", bullet_style))
+    story.append(Paragraph("– <b>Master Homepage (ID: 172 — 1,035+ Combined Impressions):</b> Injected 2026 Corporate Tax & Compliance Governance Framework (4 Pillars: CT Form CT201, MoF 2026 E-Invoicing Peppol, Approved Statutory Audits, VAT Waivers), expanded Elementor accordion to 10 rich FAQs, and injected Schema.org <font face='Courier'>FAQPage</font> rich snippets.", subbullet_style))
+    story.append(Paragraph("– <b>Sharjah Regional Hub (ID: 2225 — /areas-we-serve/sharjah/):</b> Transformed into a regional Super-Page with Hamriyah Free Zone (HFZA) & SAIF Zone vs. SEDD Mainland Regulatory Matrix, 3-Phase Turnkey Roadmap, 10 Schema FAQs, and permanent 301 redirect for <font face='Courier'>/?page_id=2225</font>.", subbullet_style))
+    story.append(Paragraph("– <b>Strict Styling Isolation:</b> 100% scoped inline styles; all existing site templates and global styles strictly preserved.", subbullet_style))
+
+    story.append(Spacer(1, 3))
     story.append(Paragraph("• <b>Authority Phase 3 — Google Business Profile Optimization & UAE Citations:</b>", bullet_style))
     story.append(Paragraph("– <b>GBP Services List:</b> Added 7 core practice areas (Corporate Tax, VAT, Statutory Audit, AP/AR, WPS Payroll, Penalty Reconsideration, Business Setup) with tailored descriptions.", subbullet_style))
     story.append(Paragraph("– <b>GBP Weekly Post #1 Published:</b> Live post published with instant \"Call now\" conversion action for corporate tax & audit inquiries.", subbullet_style))
