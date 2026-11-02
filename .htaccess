@@ -26,10 +26,13 @@ RewriteCond %{THE_REQUEST} \s/+\?(?:.*&)?gclid=[^&\s]+ [NC]
 RewriteRule ^$ https://www.rboaccounting.ae/? [R=301,L]
 
 # -----------------------------------------------------------------------
-# 2. Fix Specific Parameter 404 URL (?page_id=3351)
+# 2. Fix Specific Parameter URLs (?page_id=3351 & ?page_id=2225)
 # -----------------------------------------------------------------------
 RewriteCond %{QUERY_STRING} ^page_id=3351$ [NC]
 RewriteRule ^$ /? [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^page_id=2225$ [NC]
+RewriteRule ^$ /areas-we-serve/sharjah/? [R=301,L]
 
 # -----------------------------------------------------------------------
 # 3. 301 Redirects: Old Location Pages -> New Emirates Local SEO Pages
