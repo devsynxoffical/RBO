@@ -440,7 +440,7 @@ if ( is_wp_error( $post_id ) ) {
 
 // Assign Categories & Tags
 $cat_id = wp_create_category( 'Accounts Payable & Outsourcing' );
-wp_set_post_categories( $post_id, array( $cat_id, 1 ) );
+wp_set_post_categories( $post_id, array( $cat_id ) );
 wp_set_post_tags( $post_id, array(
 	'Accounts Payable Outsourcing UAE',
 	'Accounts Receivable Outsourcing Dubai',
