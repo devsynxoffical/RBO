@@ -175,13 +175,13 @@ def build_pdf():
     # 1. Title Banner
     story.append(Paragraph("RBO ACCOUNTING SERVICES FZE", ParagraphStyle('TopSub', fontName='Helvetica-Bold', fontSize=8.5, textColor=c_secondary, leading=11, spaceAfter=2)))
     story.append(Paragraph("Master Weekly SEO, Technical Engineering & Growth Report", title_style))
-    story.append(Paragraph("<b>Reporting Period:</b> October 23, 2026 – October 30, 2026 &nbsp;|&nbsp; <b>Website:</b> https://www.rboaccounting.ae &nbsp;|&nbsp; <b>Status:</b> 100% Live & Verified", subtitle_style))
+    story.append(Paragraph("<b>Reporting Period:</b> October 23, 2026 – November 2, 2026 &nbsp;|&nbsp; <b>Website:</b> https://www.rboaccounting.ae &nbsp;|&nbsp; <b>Status:</b> 100% Live & Verified", subtitle_style))
     story.append(HRFlowable(width="100%", thickness=1.5, color=c_primary, spaceBefore=0, spaceAfter=8))
 
     # 2. Executive Scorecard Table
     scorecard_data = [
         [
-            Paragraph("<b>4 Master Pillar Blogs</b><br/><font color='#64748b'>14,500+ Words Technical Law</font>", body_style),
+            Paragraph("<b>5 Master Pillar Blogs</b><br/><font color='#64748b'>17,500+ Words Technical Law</font>", body_style),
             Paragraph("<b>50 Titles Standardized</b><br/><font color='#64748b'>Strict [Service] in [Emirate]</font>", body_style),
             Paragraph("<b>Canonical & 301 UTM</b><br/><font color='#64748b'>Zero Duplicate Indexing</font>", body_style),
             Paragraph("<b>Internal Links Hub</b><br/><font color='#64748b'>Homepage & Services Live</font>", body_style),
@@ -230,10 +230,16 @@ def build_pdf():
     story.append(Paragraph("– Boosted 4 striking distance targets with exact meta titles, internal links, and live FAQ schemas: <i>Audit & Assurance UAE (Pos 5)</i>, <i>Corporate Tax Consultant UAE (Pos 11)</i>, <i>Business Tax Consulting Services (Pos 9)</i>, and <i>Accounts Payable Outsourcing UAE (Pos 24)</i>.", subbullet_style))
 
     story.append(Spacer(1, 3))
+    story.append(Paragraph("• <b>Master Pillar Blog #5 Published (November 2, 2026):</b>", bullet_style))
+    story.append(Paragraph("– <b>Title:</b> <i>UAE Accounts Payable & Receivable (AP/AR) Outsourcing Guide 2026: 3-Way Matching, E-Invoicing Mandates, Cash Flow & Fraud Prevention</i>.", subbullet_style))
+    story.append(Paragraph("– <b>Primary Ranking Target:</b> Injected authoritative contextual links directly powering the striking-distance service page <font face='Courier'>/our-services/accounting/accounts-payable-and-receivable/</font> (GSC Position 24 -> Target: Page 1).", subbullet_style))
+    story.append(Paragraph("– <b>Trending Topics & Visuals:</b> Integrates the MoF 2026 UAE E-Invoicing mandate, FTA Article 55 input VAT substantiation, 2 bespoke 16:9 infographics, and 8 Schema.org <font face='Courier'>FAQPage</font> rich snippets.", subbullet_style))
+
+    story.append(Spacer(1, 3))
     story.append(Paragraph("• <b>Authority Phase 3 — Google Business Profile Optimization & UAE Citations:</b>", bullet_style))
     story.append(Paragraph("– <b>GBP Services List:</b> Added 7 core practice areas (Corporate Tax, VAT, Statutory Audit, AP/AR, WPS Payroll, Penalty Reconsideration, Business Setup) with tailored descriptions.", subbullet_style))
     story.append(Paragraph("– <b>GBP Weekly Post #1 Published:</b> Live post published with instant \"Call now\" conversion action for corporate tax & audit inquiries.", subbullet_style))
-    story.append(Paragraph("– <b>High-Authority UAE Citation #1:</b> Verified profile successfully registered and live on EnrollBusiness UAE (<font color='#09203b'>uae.enrollbusiness.com/BusinessProfile/8027551/RBO%20Accounting%20Services%20FZE</font>).", subbullet_style))
+    story.append(Paragraph("– <b>High-Authority UAE Citation #1 (Live & Verified):</b> Successfully registered and live on <b>EnrollBusiness UAE</b> (<font color='#09203b'><b>uae.enrollbusiness.com/BusinessProfile/8027551/RBO%20Accounting%20Services%20FZE</b></font>). Listed with exact NAP (C1 Building, Umm Al Quwain Free Zone), full service portfolio, and website backlink.", subbullet_style))
 
     story.append(Spacer(1, 6))
 
