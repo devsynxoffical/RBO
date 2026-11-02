@@ -1896,20 +1896,39 @@ add_action( 'wp_head', function () {
 	}
 	?>
 	<style id="rbo-sharjah-polished-styles">
-	/* 1. Hero Container & Gradient */
+	/* 1. Hero Container & Gradient (Exact Mirror to Ras Al Khaimah / Image 1) */
 	.elementor-2225 .elementor-element.elementor-element-2578a63a {
-		background: linear-gradient(135deg, #07192E 0%, #09203B 60%, #0c2d53 100%) !important;
-		color: #ffffff !important;
-		padding: 60px 20px 80px !important;
+		position: relative !important;
+		background-color: transparent !important;
+		background-image: linear-gradient(195deg, #E8B84B 0%, #0D1B2A 95%) !important;
+		padding-top: 60px !important;
+		padding-bottom: 120px !important;
+		padding-left: 23px !important;
+		padding-right: 20px !important;
 		display: flex !important;
 		flex-direction: column !important;
 		align-items: center !important;
 		justify-content: center !important;
 		width: 100% !important;
 		box-sizing: border-box !important;
+		overflow: hidden !important;
+	}
+	.elementor-2225 .elementor-element.elementor-element-2578a63a::before {
+		content: '' !important;
+		position: absolute !important;
+		top: 0 !important;
+		left: 0 !important;
+		width: 100% !important;
+		height: 100% !important;
+		background-image: linear-gradient(25deg, #0D1B2A 34%, #8B6326 100%) !important;
+		opacity: 0.5 !important;
+		pointer-events: none !important;
+		z-index: 1 !important;
 	}
 	.elementor-2225 .elementor-element.elementor-element-2578a63a .e-con-inner {
-		max-width: 1100px !important;
+		position: relative !important;
+		z-index: 2 !important;
+		max-width: 1140px !important;
 		width: 100% !important;
 		margin: 0 auto !important;
 		display: flex !important;
@@ -1921,53 +1940,76 @@ add_action( 'wp_head', function () {
 	/* 2. Text Container & Headings */
 	.elementor-2225 .elementor-element.elementor-element-44202be9 {
 		width: 100% !important;
-		max-width: 900px !important;
+		max-width: 1140px !important;
 		margin: 0 auto !important;
 		background: transparent !important;
 		box-shadow: none !important;
 		border: none !important;
 		padding: 0 !important;
+		display: flex !important;
+		flex-direction: column !important;
+		align-items: center !important;
 		text-align: center !important;
 	}
-	.elementor-2225 .elementor-element.elementor-element-166f0532 .elementor-heading-title {
-		color: #FFFFFF !important;
-		font-family: "Playfair Display", Georgia, serif !important;
-		font-size: 42px !important;
-		font-weight: 700 !important;
-		line-height: 1.25 !important;
+	.elementor-2225 .elementor-element.elementor-element-166f0532 {
+		padding: 0px 80px !important;
+		margin-bottom: 16px !important;
 		text-align: center !important;
-		margin: 0 auto 16px !important;
+		width: 100% !important;
+		box-sizing: border-box !important;
+	}
+	.elementor-2225 .elementor-element.elementor-element-166f0532 .elementor-heading-title {
+		font-family: "Playfair Display", Georgia, serif !important;
+		font-size: 44px !important;
+		font-weight: 700 !important;
+		line-height: 52px !important;
+		color: #FFFFFF !important;
+		text-align: center !important;
+		margin: 0 auto !important;
 	}
 	.elementor-2225 .elementor-element.elementor-element-166f0532 .elementor-heading-title span {
 		color: #E8B84B !important;
 	}
+	/* 3. Text Editor Subtitle */
 	.elementor-2225 .elementor-element.elementor-element-3901b1c1 {
-		max-width: 820px !important;
-		margin: 0 auto !important;
+		padding: 0% 10% !important;
+		width: 100% !important;
+		box-sizing: border-box !important;
 		text-align: center !important;
 	}
 	.elementor-2225 .elementor-element.elementor-element-3901b1c1 p {
+		font-size: 17px !important;
 		color: #C5D0DC !important;
-		font-size: 16px !important;
-		line-height: 1.65 !important;
+		line-height: 1.6 !important;
 		text-align: center !important;
-		margin: 0 auto !important;
+		margin-block-end: 8px !important;
 	}
-	.elementor-2225 .elementor-element.elementor-element-3901b1c1 a {
+	.elementor-2225 .elementor-element.elementor-element-3901b1c1 p a {
 		color: #E8B84B !important;
 		text-decoration: underline !important;
 	}
-	/* 3. Form Container */
+	.elementor-2225 .elementor-element.elementor-element-3901b1c1 strong {
+		display: block !important;
+		margin-top: 10px !important;
+		color: #FFFFFF !important;
+		font-size: 14.5px !important;
+		letter-spacing: 0.3px !important;
+		text-align: center !important;
+	}
+	/* 4. Form Container Overlap (Exact RAK -60px Margin) */
 	.elementor-2225 .elementor-element.elementor-element-7f79b28 {
-		margin-top: -50px !important;
+		margin-top: -60px !important;
 		margin-bottom: 50px !important;
+		position: relative !important;
+		z-index: 10 !important;
 		display: flex !important;
 		justify-content: center !important;
+		align-items: center !important;
 		width: 100% !important;
 	}
 	.elementor-2225 .elementor-element.elementor-element-49163807 {
-		max-width: 1050px !important;
-		width: 92% !important;
+		max-width: 1140px !important;
+		width: 100% !important;
 		margin: 0 auto !important;
 	}
 	/* 4. Content Containers 2 & 3 (Side by Side 2-Column Row) */
