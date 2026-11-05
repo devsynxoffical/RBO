@@ -1752,22 +1752,276 @@ HTML;
 			$content .= $callout;
 		}
 
-		// 2. VAT Refund Hub (ID 2488) -> Landlords & Contractors VAT Refund Guide
+		// 2. VAT Refund Hub (ID 2488) -> Landlords, Engineering Consultants & Contractors VAT Refund Suite
 		if ( $post_id === 2488 ) {
 			$refund_guide_url = home_url( '/vat-refund-claim-landlords-consultants-contractors-uae/' );
+			$afz_pkg_url     = home_url( '/afz-new-lighter-package-2026-ajman-free-zone-setup/' );
 			$callout          = <<<HTML
-<div class="rbo-guide-callout" style="max-width: 1140px; margin: 40px auto; padding: 26px 30px; background: linear-gradient(135deg, #f8fafd 0%, #ffffff 100%); border: 1px solid #e2e8f0; border-left: 5px solid #d4a017; border-radius: 10px; box-shadow: 0 4px 18px rgba(0,0,0,0.04);">
-	<div style="display: flex; align-items: flex-start; gap: 18px;">
-		<div style="font-size: 32px; line-height: 1;">💰</div>
-		<div style="flex: 1;">
-			<span style="display: inline-block; padding: 3px 10px; background: #eef4fc; color: #0b3a6e; font-size: 11px; font-weight: 700; text-transform: uppercase; border-radius: 4px; letter-spacing: 0.5px; margin-bottom: 8px;">FTA Cash Recovery Playbook</span>
-			<h3 style="margin: 0 0 10px 0; color: #0b3a6e; font-size: 21px; font-weight: 700;">VAT Refund Claims for Landlords, Consultants & Contractors</h3>
-			<p style="margin: 0 0 16px 0; color: #475569; font-size: 15px; line-height: 1.65;">Discover how commercial property developers, independent consultants, and civil contractors can successfully reclaim excess input VAT from the Federal Tax Authority without triggering audit delays or rejections.</p>
-			<a href="{$refund_guide_url}" style="display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; background: linear-gradient(135deg, #0b3a6e 0%, #1e5a96 100%); color: #ffffff; text-decoration: none; font-weight: 600; font-size: 14.5px; border-radius: 6px; box-shadow: 0 2px 8px rgba(11,58,110,0.25);">
-				Read Complete VAT Refund Guide ➔
+<div class="rbo-vat-refund-suite" style="max-width: 1140px; margin: 45px auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b; line-height: 1.7;">
+
+	<!-- Hero Authority Banner -->
+	<div style="background: linear-gradient(135deg, #0D1B2A 0%, #1e3a5f 100%); border-radius: 12px; padding: 34px 38px; color: #ffffff; margin-bottom: 40px; box-shadow: 0 10px 25px rgba(13,27,42,0.15); border-left: 6px solid #d4a017;">
+		<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px;">
+			<div style="flex: 1; min-width: 290px;">
+				<span style="display: inline-block; padding: 4px 12px; background: rgba(212,160,23,0.2); color: #E8B84B; font-size: 12px; font-weight: 700; text-transform: uppercase; border-radius: 4px; letter-spacing: 0.8px; margin-bottom: 10px; border: 1px solid rgba(212,160,23,0.35);">
+					FTA Executive Regulation Compliance
+				</span>
+				<h2 style="margin: 0 0 12px 0; color: #ffffff; font-size: 25px; font-weight: 700; line-height: 1.3;">
+					Specialized VAT Refund Recovery: Landlords, Engineering Consultants & Contractors
+				</h2>
+				<p style="margin: 0; color: #cbd5e1; font-size: 15px; line-height: 1.65;">
+					Are millions of dirhams in excess input tax locked in your EmaraTax portal? RBO Accounting provides full-cycle FTA Form VAT311 claim filings, technical audits under Article 57 (Capital Assets Scheme), zero-rated cross-border export validation, and retention money reconciliations to ensure direct bank disbursement.
+				</p>
+			</div>
+			<div style="display: flex; flex-direction: column; gap: 12px; min-width: 220px;">
+				<a href="{$refund_guide_url}" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 24px; background: #d4a017; color: #0D1B2A; text-decoration: none; font-weight: 700; font-size: 14.5px; border-radius: 8px; box-shadow: 0 4px 14px rgba(212,160,23,0.35); text-align: center;">
+					<span>Read Full 5,000-Word Guide</span> ➔
+				</a>
+				<a href="https://wa.me/971508051857?text=Hello%20RBO,%20we%20need%20urgent%20assistance%20with%20our%20corporate%20VAT%20Refund%20claim" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 20px; background: rgba(255,255,255,0.12); color: #ffffff; text-decoration: none; font-weight: 600; font-size: 13.5px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.25); text-align: center;">
+					💬 WhatsApp Tax Consultant
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- 3 High-Impact Industry Cards -->
+	<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 26px; margin-bottom: 45px;">
+		
+		<!-- Card 1: Commercial Landlords -->
+		<div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 5px solid #0b3a6e; border-radius: 10px; padding: 28px; box-shadow: 0 4px 18px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
+			<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+				<span style="font-size: 28px; background: #f0f7ff; width: 52px; height: 52px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px;">🏢</span>
+				<div>
+					<span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #0b3a6e; letter-spacing: 0.5px;">Pillar 01</span>
+					<h3 style="margin: 0; font-size: 19px; color: #0D1B2A; font-weight: 700;">Commercial Landlords & Developers</h3>
+				</div>
+			</div>
+			<p style="font-size: 14.5px; color: #475569; margin: 0 0 16px 0;">
+				Commercial leasing generates 5% taxable supplies, allowing property developers and landlords to recover substantial input tax incurred on high-capex developments.
+			</p>
+			<ul style="margin: 0 0 20px 0; padding-left: 20px; font-size: 13.5px; color: #334155; line-height: 1.65; flex-grow: 1;">
+				<li style="margin-bottom: 8px;"><strong>Capital Assets Scheme (Article 57):</strong> 10-year tracking for commercial properties costing ≥ AED 5,000,000.</li>
+				<li style="margin-bottom: 8px;"><strong>100% Capex Input Recovery:</strong> Construction civil works, MEP installations, HVAC replacements, and elevators.</li>
+				<li style="margin-bottom: 8px;"><strong>Mixed-Use Apportionment:</strong> Certified formulas to isolate exempt residential units from taxable commercial leases.</li>
+				<li><strong>Ongoing Opex Reclaim:</strong> Property management, security, facilities maintenance, and leasing agent commissions.</li>
+			</ul>
+			<div style="background: #f8fafd; border-radius: 6px; padding: 12px 14px; font-size: 12.5px; color: #0b3a6e; border-left: 3px solid #0b3a6e;">
+				<strong>FTA Compliance Key:</strong> Reconcile building completion certificates and Tenancy Contracts (Ejari) against Form VAT201 Box 14.
+			</div>
+		</div>
+
+		<!-- Card 2: Engineering Consultants -->
+		<div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 5px solid #d4a017; border-radius: 10px; padding: 28px; box-shadow: 0 4px 18px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
+			<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+				<span style="font-size: 28px; background: #fffdf5; width: 52px; height: 52px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px;">📐</span>
+				<div>
+					<span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #d4a017; letter-spacing: 0.5px;">Pillar 02</span>
+					<h3 style="margin: 0; font-size: 19px; color: #0D1B2A; font-weight: 700;">Engineering & Architectural Consultants</h3>
+				</div>
+			</div>
+			<p style="font-size: 14.5px; color: #475569; margin: 0 0 16px 0;">
+				Consultancies delivering structural, architectural, and project management services to international clients operate under zero-rated export rules, yielding continuous refundable tax balances.
+			</p>
+			<ul style="margin: 0 0 20px 0; padding-left: 20px; font-size: 13.5px; color: #334155; line-height: 1.65; flex-grow: 1;">
+				<li style="margin-bottom: 8px;"><strong>0% Zero-Rating (Article 31):</strong> Export of engineering services to foreign principals with no UAE establishment.</li>
+				<li style="margin-bottom: 8px;"><strong>SaaS & Tech Reclaims:</strong> Full input VAT recovery on BIM, AutoCAD, Revit, ETABS, and cloud server subscriptions.</li>
+				<li style="margin-bottom: 8px;"><strong>Specialized Sub-Consultants:</strong> Reclaiming 5% paid to local soil testing, topographic survey, and acoustic engineers.</li>
+				<li><strong>Overseas Remittance Proof:</strong> Aligning SWIFT wire advices and sign-off milestones with tax invoices.</li>
+			</ul>
+			<div style="background: #fffdf5; border-radius: 6px; padding: 12px 14px; font-size: 12.5px; color: #8B6326; border-left: 3px solid #d4a017;">
+				<strong>FTA Compliance Key:</strong> Ensure contracts strictly prove foreign place of residence and consumption outside the UAE.
+			</div>
+		</div>
+
+		<!-- Card 3: Civil & MEP Contractors -->
+		<div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 5px solid #1e5a96; border-radius: 10px; padding: 28px; box-shadow: 0 4px 18px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
+			<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+				<span style="font-size: 28px; background: #f0f7ff; width: 52px; height: 52px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px;">🏗️</span>
+				<div>
+					<span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #1e5a96; letter-spacing: 0.5px;">Pillar 03</span>
+					<h3 style="margin: 0; font-size: 19px; color: #0D1B2A; font-weight: 700;">Civil, MEP & Fit-Out Contractors</h3>
+				</div>
+			</div>
+			<p style="font-size: 14.5px; color: #475569; margin: 0 0 16px 0;">
+				Construction contractors face heavy procurement cash outlays. Mastering retention money rules and the local reverse charge mechanism unlocks multi-million dirham liquidity.
+			</p>
+			<ul style="margin: 0 0 20px 0; padding-left: 20px; font-size: 13.5px; color: #334155; line-height: 1.65; flex-grow: 1;">
+				<li style="margin-bottom: 8px;"><strong>Retention Money Tax Point:</strong> Deferring VAT liability until Payment Certificates or cash receipts, avoiding upfront outlays.</li>
+				<li style="margin-bottom: 8px;"><strong>Domestic Reverse Charge (Cabinet Decision 91/2023):</strong> Applying zero cash VAT between contractors & subcontractors.</li>
+				<li style="margin-bottom: 8px;"><strong>Heavy Materials & Plant Import:</strong> Immediate reconciliation of Box 6 customs declarations with commercial invoices.</li>
+				<li><strong>Milestone Progress Claims:</strong> Structuring interim valuations to prevent discrepancy notices in FTA pre-refund audits.</li>
+			</ul>
+			<div style="background: #f8fafd; border-radius: 6px; padding: 12px 14px; font-size: 12.5px; color: #0b3a6e; border-left: 3px solid #1e5a96;">
+				<strong>FTA Compliance Key:</strong> Maintain valid written declarations from both parties under Decision 91 to support RCM treatment.
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Comparative Document & Audit Matrix Table -->
+	<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 30px; box-shadow: 0 4px 18px rgba(0,0,0,0.04); margin-bottom: 45px; overflow-x: auto;">
+		<div style="margin-bottom: 20px;">
+			<h3 style="margin: 0 0 6px 0; color: #0D1B2A; font-size: 21px; font-weight: 700;">FTA Form VAT311 Document & Audit Matrix by Sector</h3>
+			<p style="margin: 0; color: #64748b; font-size: 14px;">The Federal Tax Authority reviews these mandatory verification records before releasing cash refunds:</p>
+		</div>
+		<table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13.5px;">
+			<thead>
+				<tr style="background: #0D1B2A; color: #ffffff;">
+					<th style="padding: 12px 16px; border-top-left-radius: 6px;">Sector / Entity</th>
+					<th style="padding: 12px 16px;">Core VAT Mechanism</th>
+					<th style="padding: 12px 16px;">Primary Refund Trigger</th>
+					<th style="padding: 12px 16px;">Mandatory FTA Audit Evidence</th>
+					<th style="padding: 12px 16px; border-top-right-radius: 6px;">RBO Fast-Track SLA</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr style="border-bottom: 1px solid #e2e8f0; background: #ffffff;">
+					<td style="padding: 14px 16px; font-weight: 700; color: #0b3a6e;">Commercial Landlords</td>
+					<td style="padding: 14px 16px;">Article 57 Capital Assets Scheme (10-Yr)</td>
+					<td style="padding: 14px 16px;">Construction & renovation 5% capex exceeding rental output VAT</td>
+					<td style="padding: 14px 16px;">Ejari commercial contracts, contractor tax invoices, building completion certificate, bank payment proofs</td>
+					<td style="padding: 14px 16px; font-weight: 600; color: #059669;">15 - 20 Business Days</td>
+				</tr>
+				<tr style="border-bottom: 1px solid #e2e8f0; background: #f8fafd;">
+					<td style="padding: 14px 16px; font-weight: 700; color: #d4a017;">Engineering Consultancies</td>
+					<td style="padding: 14px 16px;">Article 31 Zero-Rated Export of Services (0%)</td>
+					<td style="padding: 14px 16px;">Output VAT is 0% while input tax is incurred on local office, IT, and software</td>
+					<td style="padding: 14px 16px;">Foreign client contract, confirmation of overseas consumption, SWIFT bank slips, technical deliverable logs</td>
+					<td style="padding: 14px 16px; font-weight: 600; color: #059669;">15 - 20 Business Days</td>
+				</tr>
+				<tr style="border-bottom: 1px solid #e2e8f0; background: #ffffff;">
+					<td style="padding: 14px 16px; font-weight: 700; color: #1e5a96;">Civil & MEP Contractors</td>
+					<td style="padding: 14px 16px;">Cabinet Decision 91/2023 & Retention Accounting</td>
+					<td style="padding: 14px 16px;">Heavy procurement & material inputs exceeding progress billings received</td>
+					<td style="padding: 14px 16px;">Certified Payment Certificates, supplier VAT invoices with TRN, customs import declarations, RCM declarations</td>
+					<td style="padding: 14px 16px; font-weight: 600; color: #059669;">20 - 25 Business Days</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- 10 Comprehensive Industry FAQs -->
+	<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 34px; box-shadow: 0 4px 18px rgba(0,0,0,0.04); margin-bottom: 45px;">
+		<div style="text-align: center; max-width: 760px; margin: 0 auto 30px auto;">
+			<span style="display: inline-block; padding: 3px 10px; background: #eef4fc; color: #0b3a6e; font-size: 11px; font-weight: 700; text-transform: uppercase; border-radius: 4px; letter-spacing: 0.5px; margin-bottom: 8px;">Technical Knowledge Base</span>
+			<h3 style="margin: 0 0 10px 0; color: #0D1B2A; font-size: 24px; font-weight: 700;">Frequently Asked Questions: UAE VAT Refunds</h3>
+			<p style="margin: 0; color: #64748b; font-size: 14.5px;">Expert answers from our FTA-registered tax agents on reclaiming excess VAT credits without delays or audit penalties.</p>
+		</div>
+
+		<div style="display: flex; flex-direction: column; gap: 14px;">
+			
+			<details style="background: #f8fafd; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px;" open>
+				<summary style="font-weight: 700; color: #0b3a6e; font-size: 15.5px; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+					<span>1. Can commercial landlords in the UAE claim a 100% VAT refund on building construction and fit-out costs?</span>
+				</summary>
+				<div style="margin-top: 10px; font-size: 14px; color: #475569; line-height: 1.65; border-top: 1px solid #e2e8f0; padding-top: 10px;">
+					Yes. Commercial landlords leasing taxable premises (offices, shopping malls, retail plazas, industrial warehouses) are entitled to reclaim 100% of input VAT incurred on construction, architectural design, fit-outs, maintenance, and facility management under UAE VAT Law. In contrast, residential leasing is VAT-exempt after the initial 3-year construction period, precluding input tax recovery.
+				</div>
+			</details>
+
+			<details style="background: #f8fafd; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px;">
+				<summary style="font-weight: 700; color: #0b3a6e; font-size: 15.5px; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+					<span>2. How does the Capital Assets Scheme (CAS) apply to commercial property owners under Article 57?</span>
+				</summary>
+				<div style="margin-top: 10px; font-size: 14px; color: #475569; line-height: 1.65; border-top: 1px solid #e2e8f0; padding-top: 10px;">
+					Under Article 57 of the UAE VAT Executive Regulation, real estate assets valued at AED 5,000,000 or more fall under the Capital Assets Scheme and require a mandatory 10-year monitoring and adjustment period. If a property's use changes (such as converting commercial space to residential exempt use), input tax reclaimed must be apportioned and adjusted annually across the remaining lifespan.
+				</div>
+			</details>
+
+			<details style="background: #f8fafd; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px;">
+				<summary style="font-weight: 700; color: #0b3a6e; font-size: 15.5px; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+					<span>3. Why do engineering and architectural consultancies in the UAE consistently accumulate excess VAT credits?</span>
+				</summary>
+				<div style="margin-top: 10px; font-size: 14px; color: #475569; line-height: 1.65; border-top: 1px solid #e2e8f0; padding-top: 10px;">
+					Consultancies providing engineering design, structural calculations, BIM modeling, and architectural planning to foreign clients without a permanent establishment in the UAE qualify for 0% zero-rated VAT under Article 31. Because output VAT is zero, all 5% standard-rated input tax paid on office leases, software licenses, and local sub-consultants becomes refundable cash credit from the FTA.
+				</div>
+			</details>
+
+			<details style="background: #f8fafd; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px;">
+				<summary style="font-weight: 700; color: #0b3a6e; font-size: 15.5px; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+					<span>4. What documents are mandatory for engineering consultants to claim zero-rating (0%) on cross-border services?</span>
+				</summary>
+				<div style="margin-top: 10px; font-size: 14px; color: #475569; line-height: 1.65; border-top: 1px solid #e2e8f0; padding-top: 10px;">
+					The FTA requires: (1) A formal cross-border contract proving the recipient has no permanent establishment or place of residence in the UAE; (2) Detailed deliverables confirming the benefit was consumed outside the UAE; (3) Official foreign currency bank remittance statements; and (4) Compliant tax invoices clearly noting the zero-rated supply rationale.
+				</div>
+			</details>
+
+			<details style="background: #f8fafd; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px;">
+				<summary style="font-weight: 700; color: #0b3a6e; font-size: 15.5px; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+					<span>5. How should civil and MEP contractors handle VAT on retention money held by developers?</span>
+				</summary>
+				<div style="margin-top: 10px; font-size: 14px; color: #475569; line-height: 1.65; border-top: 1px solid #e2e8f0; padding-top: 10px;">
+					VAT liability on retention money (typically 5% to 10% withheld for 12 to 24 months during defect liability) depends strictly on the earlier of: invoice issuance date, payment certificate date, or actual receipt date. If no tax invoice is raised for the retention amount at completion, VAT can generally be accounted for upon issuance of the final certificate or receipt of cash, preventing premature tax financing.
+				</div>
+			</details>
+
+			<details style="background: #f8fafd; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px;">
+				<summary style="font-weight: 700; color: #0b3a6e; font-size: 15.5px; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+					<span>6. How does the domestic Reverse Charge Mechanism (Cabinet Decision No. 91 of 2023) affect contractor VAT refunds?</span>
+				</summary>
+				<div style="margin-top: 10px; font-size: 14px; color: #475569; line-height: 1.65; border-top: 1px solid #e2e8f0; padding-top: 10px;">
+					Cabinet Decision No. 91 of 2023 allows main contractors and subcontractors in construction to apply the domestic Reverse Charge Mechanism (RCM) on construction supplies between VAT-registered entities. Subcontractors do not charge cash VAT to main contractors, eliminating cash flow lock-up and accelerating overall refund eligibility.
+				</div>
+			</details>
+
+			<details style="background: #f8fafd; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px;">
+				<summary style="font-weight: 700; color: #0b3a6e; font-size: 15.5px; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+					<span>7. What is FTA Form VAT311 and how long does the VAT refund process take in the UAE?</span>
+				</summary>
+				<div style="margin-top: 10px; font-size: 14px; color: #475569; line-height: 1.65; border-top: 1px solid #e2e8f0; padding-top: 10px;">
+					Form VAT311 is the official electronic refund claim submitted via the EmaraTax portal to request direct cash repayment of excess credits reported in Box 14 of Form VAT201. Once submitted, the FTA typically reviews the application within 20 business days. Upon approval, funds are transferred directly into the corporate bank account via IBAN.
+				</div>
+			</details>
+
+			<details style="background: #f8fafd; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px;">
+				<summary style="font-weight: 700; color: #0b3a6e; font-size: 15.5px; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+					<span>8. What happens if the FTA initiates a pre-refund audit for a landlord or contractor claim?</span>
+				</summary>
+				<div style="margin-top: 10px; font-size: 14px; color: #475569; line-height: 1.65; border-top: 1px solid #e2e8f0; padding-top: 10px;">
+					For high-value refund claims, the FTA frequently issues an Information Request or audit notice demanding sample tax invoices, supplier payment vouchers, bank statement audit trails, and customs declarations. RBO Accounting represents businesses directly during FTA audits, reconciling every dirham to secure fast approval without penalties.
+				</div>
+			</details>
+
+			<details style="background: #f8fafd; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px;">
+				<summary style="font-weight: 700; color: #0b3a6e; font-size: 15.5px; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+					<span>9. Can input VAT on mixed-use commercial and residential developments be partially reclaimed?</span>
+				</summary>
+				<div style="margin-top: 10px; font-size: 14px; color: #475569; line-height: 1.65; border-top: 1px solid #e2e8f0; padding-top: 10px;">
+					Yes. Landlords of mixed-use buildings must apply the input tax apportionment method approved by the FTA. Direct input tax related 100% to commercial spaces is fully deductible, while common building overheads (such as HVAC, elevators, security, structural upkeep) are apportioned based on floor area or turnover ratios.
+				</div>
+			</details>
+
+			<details style="background: #f8fafd; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px;">
+				<summary style="font-weight: 700; color: #0b3a6e; font-size: 15.5px; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+					<span>10. Why should commercial landlords, consultants, and contractors hire an FTA Registered Tax Agency like RBO Accounting?</span>
+				</summary>
+				<div style="margin-top: 10px; font-size: 14px; color: #475569; line-height: 1.65; border-top: 1px solid #e2e8f0; padding-top: 10px;">
+					Submitting an erroneous VAT refund claim risks rejection, extensive audits, and severe administrative penalties under Federal Decree-Law No. 28 of 2022. RBO Accounting's certified tax agents conduct thorough pre-submission reconciliations, verify TRN authenticity, validate reverse charge declarations, and guide your claim through EmaraTax to direct bank disbursement.
+				</div>
+			</details>
+
+		</div>
+	</div>
+
+	<!-- High Converting Conversion CTA Banner -->
+	<div style="background: linear-gradient(135deg, #0b3a6e 0%, #1e5a96 100%); border-radius: 12px; padding: 32px 36px; text-align: center; color: #ffffff; box-shadow: 0 8px 24px rgba(11,58,110,0.25);">
+		<h3 style="margin: 0 0 10px 0; font-size: 23px; font-weight: 700; color: #ffffff;">Accelerate Your FTA Form VAT311 Cash Refund Today</h3>
+		<p style="margin: 0 auto 22px auto; max-width: 680px; font-size: 15px; color: #e2e8f0; line-height: 1.6;">
+			Let our licensed tax agents audit your general ledgers, prepare bulletproof proof-of-export and capex dossiers, and secure your direct bank refund with zero audit headaches.
+		</p>
+		<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 14px;">
+			<a href="https://wa.me/971508051857?text=Hello%20RBO,%20we%20want%20to%20start%20our%20FTA%20VAT%20Refund%20Claim" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; background: #25D366; color: #ffffff; text-decoration: none; font-weight: 700; font-size: 14.5px; border-radius: 8px; box-shadow: 0 4px 12px rgba(37,211,102,0.3);">
+				<span>Direct WhatsApp Inquiry</span>
+			</a>
+			<a href="{$refund_guide_url}" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; background: #ffffff; color: #0b3a6e; text-decoration: none; font-weight: 700; font-size: 14.5px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+				<span>Read Full Compliance Guide</span> ➔
+			</a>
+			<a href="{$afz_pkg_url}" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; background: rgba(255,255,255,0.15); color: #ffffff; text-decoration: none; font-weight: 600; font-size: 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.3);">
+				<span>New AFZ Lighter Package 2026</span>
 			</a>
 		</div>
 	</div>
+
 </div>
 HTML;
 			$content .= $callout;
