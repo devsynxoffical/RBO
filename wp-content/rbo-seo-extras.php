@@ -29,7 +29,7 @@ add_filter(
 			$post_id         = (int) get_the_ID();
 			$uri             = (string) get_page_uri( $post_id );
 			$parent_id       = (int) wp_get_post_parent_id( $post_id );
-			$all_service_ids = array( 178, 787, 1547, 1670, 1692, 1706, 1722, 2419, 2458, 2488, 2501, 2508, 2522, 2532, 2567, 2732, 2897, 3034, 3098, 3125, 3228, 3320, 3341, 3351, 3358, 3368, 3382, 3392, 3402, 3412, 3413, 4420, 4421, 4422, 4423, 4424 );
+			$all_service_ids = array( 178, 787, 1547, 1670, 1692, 1706, 1722, 2419, 2458, 2488, 2501, 2508, 2522, 2532, 2567, 2732, 2897, 3034, 3098, 3125, 3228, 3320, 3341, 3351, 3358, 3368, 3382, 3392, 3402, 3412, 3413, 4420, 4421, 4422, 4423, 4424, 5604, 5615 );
 			if ( in_array( $post_id, $all_service_ids, true ) || strpos( $uri, 'our-services' ) !== false || in_array( $parent_id, array( 178, 787, 4420, 4421, 4422, 4423, 4424 ), true ) ) {
 				$classes[] = 'rbo-services-subpage';
 				$classes[] = 'rbo-services-page';
@@ -49,7 +49,7 @@ add_action(
 		if ( is_page() ) {
 			$post_id         = (int) get_the_ID();
 			$uri             = (string) get_page_uri( $post_id );
-			$all_service_ids = array( 178, 787, 1547, 1670, 1692, 1706, 1722, 2419, 2458, 2488, 2501, 2508, 2522, 2532, 2567, 2732, 2897, 3034, 3098, 3125, 3228, 3320, 3341, 3351, 3358, 3368, 3382, 3392, 3402, 3412, 3413, 4420, 4421, 4422, 4423, 4424 );
+			$all_service_ids = array( 178, 787, 1547, 1670, 1692, 1706, 1722, 2419, 2458, 2488, 2501, 2508, 2522, 2532, 2567, 2732, 2897, 3034, 3098, 3125, 3228, 3320, 3341, 3351, 3358, 3368, 3382, 3392, 3402, 3412, 3413, 4420, 4421, 4422, 4423, 4424, 5604, 5615 );
 			if ( in_array( $post_id, $all_service_ids, true ) || strpos( $uri, 'our-services' ) !== false ) {
 				$upload_dir = wp_upload_dir();
 				$css_path   = $upload_dir['basedir'] . '/elementor/css/post-' . $post_id . '.css';
@@ -1332,6 +1332,8 @@ body[class*="page-id-2508"] .site-main > .page-content > .elementor > .e-parent:
 body[class*="page-id-2522"] .site-main > .page-content > .elementor > .e-parent:first-of-type,
 body[class*="page-id-2501"] .site-main > .page-content > .elementor > .e-parent:first-of-type,
 body[class*="page-id-2488"] .site-main > .page-content > .elementor > .e-parent:first-of-type,
+  body[class*="page-id-5604"] .site-main > .page-content > .elementor > .e-parent:first-of-type,
+  body[class*="page-id-5615"] .site-main > .page-content > .elementor > .e-parent:first-of-type,
 body[class*="page-id-2419"] .site-main > .page-content > .elementor > .e-parent:first-of-type,
 body[class*="page-id-2458"] .site-main > .page-content > .elementor > .e-parent:first-of-type,
 body[class*="page-id-2567"] .site-main > .page-content > .elementor > .e-parent:first-of-type,
@@ -2312,7 +2314,7 @@ add_action( 'wp_head', function () {
 /**
  * 10. RBO Multilingual Language Switcher (EN | العربية) & Arabic RTL Engine
  * Enables seamless one-tap switching between English & Arabic counterparts
- * with executive UAE branding and full RTL font support.
+ * with executive UAE branding, clean navbar formatting, and full RTL font support.
  */
 add_action( 'wp_head', function() {
 	$is_ar = false;
@@ -2322,12 +2324,22 @@ add_action( 'wp_head', function() {
 		$is_ar = true;
 	}
 
+	?>
+	<style id="rbo-global-header-fixes">
+	/* 1. Hide unwanted theme entry-title headers globally on all pages */
+	.page-header, .entry-header, h1.entry-title {
+		display: none !important;
+	}
+	</style>
+	<?php
+
 	if ( $is_ar ) {
 		?>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 		<style id="rbo-arabic-rtl-styles">
+		/* Arabic Typography and RTL Flow */
 		html[lang="ar"], body.rtl {
 			direction: rtl !important;
 			text-align: right !important;
@@ -2340,6 +2352,17 @@ add_action( 'wp_head', function() {
 		html[lang="ar"] .elementor-heading-title,
 		html[lang="ar"] p {
 			text-align: right !important;
+		}
+
+		/* Keep Header & Navbar layout intact and pristine */
+		.site-header, 
+		header[data-elementor-type="header"], 
+		.elementor-location-header,
+		.site-header .main-navigation ul, 
+		.elementor-location-header .main-navigation ul,
+		.elementor-nav-menu {
+			direction: ltr !important;
+			text-align: left !important;
 		}
 		</style>
 		<?php
@@ -2357,6 +2380,7 @@ add_action( 'wp_footer', function() {
 
 	if ( $cur_lang === 'ar' ) {
 		// Target is English
+		$target_lang = 'en';
 		$target_id = ( function_exists( 'pll_get_post' ) && $post_id ) ? pll_get_post( $post_id, 'en' ) : 0;
 		$target_url = $target_id ? get_permalink( $target_id ) : home_url( '/' );
 		$flag = '🌐';
@@ -2364,6 +2388,7 @@ add_action( 'wp_footer', function() {
 		$sub = 'Switch to English';
 	} else {
 		// Target is Arabic
+		$target_lang = 'ar';
 		$target_id = ( function_exists( 'pll_get_post' ) && $post_id ) ? pll_get_post( $post_id, 'ar' ) : 0;
 		$target_url = $target_id ? get_permalink( $target_id ) : home_url( '/ar/' );
 		$flag = '🇦🇪';
@@ -2372,7 +2397,10 @@ add_action( 'wp_footer', function() {
 	}
 	?>
 	<div id="rbo-global-lang-toggle" class="rbo-lang-pill-wrapper">
-		<a href="<?php echo esc_url( $target_url ); ?>" class="rbo-lang-pill" title="<?php echo esc_attr( $sub ); ?>">
+		<a href="<?php echo esc_url( $target_url ); ?>" 
+		   onclick="document.cookie='pll_language=<?php echo $target_lang; ?>;path=/;max-age=31536000'; window.location.href='<?php echo esc_url( $target_url ); ?>'; return false;"
+		   class="rbo-lang-pill" 
+		   title="<?php echo esc_attr( $sub ); ?>">
 			<span class="rbo-lang-flag"><?php echo $flag; ?></span>
 			<span class="rbo-lang-text"><?php echo esc_html( $label ); ?></span>
 		</a>
