@@ -8,14 +8,30 @@
 
 defined( 'ABSPATH' ) || exit;
 
+if ( ! function_exists( 'rbo_is_arabic_request' ) ) {
+	function rbo_is_arabic_request() {
+		$req_uri = isset( $_SERVER['REQUEST_URI'] ) ? (string) $_SERVER['REQUEST_URI'] : '';
+		// 1. Strict Arabic URL check: starts with /ar/ or exactly /ar or /ar? or /ar#
+		if ( $req_uri === '/ar' || strpos( $req_uri, '/ar/' ) !== false || preg_match( '#^/ar($|[/?#])#i', $req_uri ) ) {
+			return true;
+		}
+		// 2. Polylang language check with safety guard against English URLs
+		if ( function_exists( 'pll_current_language' ) && pll_current_language() === 'ar' ) {
+			if ( ! preg_match( '#^/(about-us|our-services|areas-we-serve|contact-us|blog|terms|privacy)/?#i', $req_uri ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+}
+
 /**
  * 1. Force UAE HTML Language & Locale (en-AE or ar)
  */
 add_filter(
 	'language_attributes',
 	function ( $output ) {
-		$is_ar = ( function_exists( 'pll_current_language' ) && pll_current_language() === 'ar' ) || ( isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], '/ar/' ) !== false );
-		if ( $is_ar ) {
+		if ( rbo_is_arabic_request() ) {
 			return 'lang="ar" dir="rtl"';
 		}
 		return 'lang="en-AE"';
@@ -26,12 +42,19 @@ add_filter(
 /**
  * 1d. Serve Arabic Header & Arabic Footer for all Arabic URLs
  */
+/**
+ * 1d. Serve Dynamic Header & Footer per Language without Elementor Element Cache pollution
+ */
+// A. Bypass Elementor Element Cache for Header (5241) and Footer (432) so they always render per language
 add_filter(
 	'get_post_metadata',
 	function ( $value, $object_id, $meta_key, $single ) {
+		if ( $meta_key === '_elementor_element_cache' && ( (int) $object_id === 5241 || (int) $object_id === 432 ) ) {
+			return false; // Force cache miss: never load static HTML cache for dynamic header/footer
+		}
+
 		if ( $meta_key === '_elementor_data' ) {
-			$is_ar = ( function_exists( 'pll_current_language' ) && pll_current_language() === 'ar' ) || ( isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], '/ar/' ) !== false );
-		if ( $is_ar ) {
+			if ( rbo_is_arabic_request() ) {
 				if ( (int) $object_id === 5241 ) {
 					$file = __DIR__ . '/header-ar.json';
 					if ( file_exists( $file ) ) {
@@ -49,6 +72,19 @@ add_filter(
 	},
 	10,
 	4
+);
+
+// B. Prevent Elementor from writing static HTML cache to DB for Header & Footer
+add_filter(
+	'update_post_metadata',
+	function ( $check, $object_id, $meta_key ) {
+		if ( $meta_key === '_elementor_element_cache' && ( (int) $object_id === 5241 || (int) $object_id === 432 ) ) {
+			return true; // Short-circuit, never save static cache to DB for dynamic header/footer
+		}
+		return $check;
+	},
+	10,
+	3
 );
 
 /**
@@ -2436,12 +2472,7 @@ add_action( 'wp_head', function () {
  * with executive UAE branding, clean navbar formatting, and full RTL font support.
  */
 add_action( 'wp_head', function() {
-	$is_ar = false;
-	if ( function_exists( 'pll_current_language' ) ) {
-		$is_ar = ( pll_current_language() === 'ar' );
-	} elseif ( isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], '/ar/' ) !== false ) {
-		$is_ar = true;
-	}
+	$is_ar = rbo_is_arabic_request();
 
 	?>
 	<style id="rbo-global-header-fixes">
@@ -2626,12 +2657,7 @@ add_action( 'wp_head', function() {
 
 add_action( 'wp_footer', function() {
 	$post_id = get_the_ID();
-	$cur_lang = 'en';
-	if ( function_exists( 'pll_current_language' ) ) {
-		$cur_lang = pll_current_language();
-	} elseif ( isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], '/ar/' ) !== false ) {
-		$cur_lang = 'ar';
-	}
+	$cur_lang = rbo_is_arabic_request() ? 'ar' : 'en';
 
 	if ( $cur_lang === 'ar' ) {
 		// Target is English
@@ -2710,13 +2736,7 @@ add_action( 'wp_footer', function() {
 }, 9999 );
 
 add_action( 'wp_footer', function() {
-	$cur_lang = 'en';
-	if ( function_exists( 'pll_current_language' ) ) {
-		$cur_lang = pll_current_language();
-	} elseif ( isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], '/ar/' ) !== false ) {
-		$cur_lang = 'ar';
-	}
-	if ( $cur_lang !== 'ar' ) return;
+	if ( ! rbo_is_arabic_request() ) return;
 	?>
 	<script id="rbo-arabic-header-footer-trans">
 	(function() {
