@@ -62,3 +62,9 @@ vendor/
 /*.7z
 /*.exe
 
+
+*.zip
+.agents/
+__pycache__/
+7z/
+*.pdf

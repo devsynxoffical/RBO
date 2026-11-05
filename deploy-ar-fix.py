@@ -109,3 +109,4 @@ print("Has document.cookie in toggle:", "document.cookie" in html)
 print("Has Cairo font:", "family=Cairo" in html)
 print("Has Arabic Hero Title:", "خدمات استرداد ضريبة القيمة المضافة" in html)
 print("Has Arabic Consult Card:", "احجز استشارة ضريبية مجانية" in html or "طلب استشارة" in html)
+

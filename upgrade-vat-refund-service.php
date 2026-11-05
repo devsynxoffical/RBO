@@ -87,3 +87,4 @@ echo "Rank Math Desc: " . get_post_meta($post_id, 'rank_math_description', true)
 echo "Focus Keyword: " . get_post_meta($post_id, 'rank_math_focus_keyword', true) . "\n";
 echo "FAQ Count: " . count(get_post_meta($post_id, '_rbo_faq_schema', true)) . "\n";
 echo "Service Schema Name: " . get_post_meta($post_id, '_rbo_service_schema', true)['name'] . "\n";
+

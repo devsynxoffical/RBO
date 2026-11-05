@@ -178,3 +178,4 @@ add_action( 'wp_footer', function() {
         print(f"✅ Updated {fpath}")
     else:
         print(f"⚠️ Pattern not found in {fpath}")
+

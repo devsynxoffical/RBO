@@ -71,3 +71,4 @@ if (class_exists('\Elementor\Plugin')) {
 
 flush_rewrite_rules();
 echo "=== ARABIC LIVE FIX COMPLETE ===\n";
+

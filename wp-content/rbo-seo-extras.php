@@ -9,14 +9,46 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * 1. Force UAE HTML Language & Locale (en-AE)
+ * 1. Force UAE HTML Language & Locale (en-AE or ar)
  */
 add_filter(
 	'language_attributes',
 	function ( $output ) {
+		$is_ar = ( function_exists( 'pll_current_language' ) && pll_current_language() === 'ar' ) || ( isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], '/ar/' ) !== false );
+		if ( $is_ar ) {
+			return 'lang="ar" dir="rtl"';
+		}
 		return 'lang="en-AE"';
 	},
 	99
+);
+
+/**
+ * 1d. Serve Arabic Header & Arabic Footer for all Arabic URLs
+ */
+add_filter(
+	'get_post_metadata',
+	function ( $value, $object_id, $meta_key, $single ) {
+		if ( $meta_key === '_elementor_data' ) {
+			$is_ar = ( function_exists( 'pll_current_language' ) && pll_current_language() === 'ar' ) || ( isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], '/ar/' ) !== false );
+		if ( $is_ar ) {
+				if ( (int) $object_id === 5241 ) {
+					$file = __DIR__ . '/header-ar.json';
+					if ( file_exists( $file ) ) {
+						return file_get_contents( $file );
+					}
+				} elseif ( (int) $object_id === 432 ) {
+					$file = __DIR__ . '/footer-ar.json';
+					if ( file_exists( $file ) ) {
+						return file_get_contents( $file );
+					}
+				}
+			}
+		}
+		return $value;
+	},
+	10,
+	4
 );
 
 /**
@@ -30,9 +62,14 @@ add_filter(
 			$uri             = (string) get_page_uri( $post_id );
 			$parent_id       = (int) wp_get_post_parent_id( $post_id );
 			$all_service_ids = array( 178, 787, 1547, 1670, 1692, 1706, 1722, 2419, 2458, 2488, 2501, 2508, 2522, 2532, 2567, 2732, 2897, 3034, 3098, 3125, 3228, 3320, 3341, 3351, 3358, 3368, 3382, 3392, 3402, 3412, 3413, 4420, 4421, 4422, 4423, 4424, 5604, 5615 );
-			if ( in_array( $post_id, $all_service_ids, true ) || strpos( $uri, 'our-services' ) !== false || in_array( $parent_id, array( 178, 787, 4420, 4421, 4422, 4423, 4424 ), true ) ) {
-				$classes[] = 'rbo-services-subpage';
-				$classes[] = 'rbo-services-page';
+			// CRITICAL: NEVER apply service subpage classes to Homepage or Regional Hubs
+			$is_homepage = ( $post_id === 172 || $post_id === 5606 || $post_id === 5617 || strpos( $uri, 'home-ar' ) !== false );
+			$is_hub      = ( strpos( $uri, 'areas-we-serve' ) !== false );
+			if ( ! $is_homepage && ! $is_hub ) {
+				if ( in_array( $post_id, $all_service_ids, true ) || ( $post_id >= 5626 && $post_id <= 5700 ) || strpos( $uri, 'our-services' ) !== false || strpos( $uri, 'refund' ) !== false || in_array( $parent_id, array( 178, 787, 4420, 4421, 4422, 4423, 4424 ), true ) ) {
+					$classes[] = 'rbo-services-subpage';
+					$classes[] = 'rbo-services-page';
+				}
 			}
 		}
 		return $classes;
@@ -50,7 +87,7 @@ add_action(
 			$post_id         = (int) get_the_ID();
 			$uri             = (string) get_page_uri( $post_id );
 			$all_service_ids = array( 178, 787, 1547, 1670, 1692, 1706, 1722, 2419, 2458, 2488, 2501, 2508, 2522, 2532, 2567, 2732, 2897, 3034, 3098, 3125, 3228, 3320, 3341, 3351, 3358, 3368, 3382, 3392, 3402, 3412, 3413, 4420, 4421, 4422, 4423, 4424, 5604, 5615 );
-			if ( in_array( $post_id, $all_service_ids, true ) || strpos( $uri, 'our-services' ) !== false ) {
+			if ( in_array( $post_id, $all_service_ids, true ) || ( $post_id >= 5600 && $post_id <= 5700 ) || strpos( $uri, 'our-services' ) !== false ) {
 				$upload_dir = wp_upload_dir();
 				$css_path   = $upload_dir['basedir'] . '/elementor/css/post-' . $post_id . '.css';
 				$css_url    = $upload_dir['baseurl'] . '/elementor/css/post-' . $post_id . '.css';
@@ -154,8 +191,8 @@ body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first
 body.rbo-services-page .site-main > .page-content > .elementor > .e-con:first-of-type,
 body.rbo-services-page .site-main > .page-content > .elementor > .elementor-element:first-of-type,
 body.rbo-services-page .site-main > .page-content > .elementor > .elementor-section:first-of-type,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-con:first-of-type,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-con:first-of-type,
 .elementor-element.elementor-element-418bd202,
 .elementor-element.elementor-element-59af0b31 {
   background-color: #09203B !important;
@@ -173,7 +210,7 @@ body.rbo-services-subpage .site-main > .page-content > .elementor > .e-con:first
 body.rbo-services-subpage .site-main > .page-content > .elementor > .elementor-element:first-of-type > .e-con-inner,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-con:first-of-type > .e-con-inner,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner,
 .elementor-element.elementor-element-418bd202 > .e-con-inner,
 .elementor-element.elementor-element-59af0b31 > .e-con-inner {
   display: flex !important;
@@ -197,8 +234,8 @@ body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:fi
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-con:first-of-type > .e-con-inner > .e-child:first-child,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:first-child,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:first-child,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:first-child,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child,
 .elementor-element.elementor-element-2980c6b,
 .elementor-element.elementor-element-2929b55e {
   flex: 1 1 58% !important;
@@ -221,7 +258,7 @@ body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:fi
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-heading-title,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-heading-title,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1,
 .elementor-element.elementor-element-7c28979c h1,
 .elementor-element.elementor-element-6272ca2c h1 {
   color: #FFFFFF !important;
@@ -238,7 +275,7 @@ body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:fi
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 strong,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 i,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 span,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 span,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 span,
 .elementor-element.elementor-element-7c28979c h1 span,
 .elementor-element.elementor-element-6272ca2c h1 span {
   color: #E8B84B !important;
@@ -247,7 +284,7 @@ body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-conten
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child p,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-text-editor,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child p,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child p,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child p,
 .elementor-element.elementor-element-76acde04,
 .elementor-element.elementor-element-627f2eda {
   color: #C5D0DC !important;
@@ -261,7 +298,7 @@ body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:fi
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"],
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href^="tel:"],
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"],
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"],
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"],
 .elementor-element.elementor-element-6c5725b3 .elementor-button,
 .elementor-element.elementor-element-6e0fa4bb .elementor-button {
   background: #E8B84B !important;
@@ -274,7 +311,7 @@ body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:fi
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="whatsapp"],
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="wa.me"],
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="whatsapp"],
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="wa.me"],
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="wa.me"],
 .elementor-element.elementor-element-268e22d2 .elementor-button,
 .elementor-element.elementor-element-7d20ce91 .elementor-button {
   background: #25D366 !important;
@@ -288,7 +325,7 @@ body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:fi
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:last-child,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:last-child,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:last-child,
 .elementor-element.elementor-element-34bbbe42,
 .elementor-element.elementor-element-2ad320ba {
   flex: 0 0 38% !important;
@@ -330,7 +367,7 @@ body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:fi
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form textarea.elementor-field,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form .elementor-select-wrapper select,
 body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form input.elementor-field,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form input.elementor-field,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form input.elementor-field,
 .elementor-element.elementor-element-53e74aaa input.elementor-field,
 .elementor-element.elementor-element-53e74aaa select.elementor-field {
   background: #F8FAFC !important;
@@ -366,13 +403,13 @@ body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first
 @media (max-width: 991px) {
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type,
   body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type,
-  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type,
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type,
   .elementor-element.elementor-element-418bd202 {
     padding: 40px 16px !important;
   }
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner,
   body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner,
-  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner,
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner,
   .elementor-element.elementor-element-418bd202 > .e-con-inner {
     flex-direction: column !important;
     gap: 32px !important;
@@ -380,7 +417,7 @@ body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first
   }
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child,
   body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child,
-  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child,
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child,
   .elementor-element.elementor-element-2980c6b {
     flex: 1 1 100% !important;
     max-width: 100% !important;
@@ -388,7 +425,7 @@ body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first
   }
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child,
   body.rbo-services-page .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child,
-  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child,
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child,
   .elementor-element.elementor-element-34bbbe42 {
     flex: 1 1 100% !important;
     max-width: 480px !important;
@@ -1371,7 +1408,7 @@ body[class*="page-id-3368"] .site-main > .page-content > .elementor > .e-parent:
 /* Hero Inner Container (Flex 2 Columns on Desktop) */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .elementor-section:first-of-type > .elementor-container,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner {
   display: flex !important;
   flex-direction: row !important;
   align-items: center !important;
@@ -1389,7 +1426,7 @@ body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-conten
 /* Hero Left Column (Title, Text, Buttons, Trust Badges) */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:first-child,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:first-child {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:first-child {
   flex: 1 1 58% !important;
   max-width: 58% !important;
   width: 58% !important;
@@ -1402,7 +1439,7 @@ body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-conten
 /* Hero H1 Heading */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-heading-title,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 {
   color: #FFFFFF !important;
   font-family: "Playfair Display", Georgia, serif !important;
   font-weight: 700 !important;
@@ -1416,14 +1453,14 @@ body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-conten
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 span,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 strong,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 i,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 span {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child h1 span {
   color: #E8B84B !important;
 }
 
 /* Hero Lead Paragraph */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child p,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-text-editor,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child p {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child p {
   color: #C5D0DC !important;
   font-size: 15.5px !important;
   line-height: 1.7 !important;
@@ -1432,13 +1469,13 @@ body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-conten
 
 /* CTA Buttons Row */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-button,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-button {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-button {
   display: inline-block !important;
   margin-right: 12px !important;
   margin-bottom: 12px !important;
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-button,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-button {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-button {
   font-weight: 700 !important;
   border-radius: 8px !important;
   padding: 13px 24px !important;
@@ -1450,26 +1487,26 @@ body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-conten
   transition: transform 0.2s, box-shadow 0.2s !important;
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"],
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"] {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"] {
   background: #E8B84B !important;
   color: #09203B !important;
   box-shadow: 0 4px 14px rgba(232, 184, 75, 0.3) !important;
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"]:hover,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"]:hover {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="contact-us"]:hover {
   background: #d4a017 !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 6px 18px rgba(212, 160, 23, 0.45) !important;
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="wa.me"],
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="whatsapp"],
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="wa.me"] {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="wa.me"] {
   background: #25D366 !important;
   color: #FFFFFF !important;
   box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3) !important;
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="wa.me"]:hover,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="wa.me"]:hover {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child a[href*="wa.me"]:hover {
   background: #20ba5a !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45) !important;
@@ -1477,11 +1514,11 @@ body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-conten
 
 /* Trust Badges (Icon List) */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-icon-list,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-icon-list {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-icon-list {
   margin-top: 18px !important;
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-icon-list-items,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-icon-list-items {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-icon-list-items {
   display: flex !important;
   flex-wrap: wrap !important;
   gap: 16px !important;
@@ -1490,7 +1527,7 @@ body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-conten
   list-style: none !important;
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-icon-list-item,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-icon-list-item {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-icon-list-item {
   color: #E2E8F0 !important;
   font-size: 13.5px !important;
   font-weight: 500 !important;
@@ -1499,7 +1536,7 @@ body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-conten
   gap: 8px !important;
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-icon-list-icon svg,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-icon-list-icon svg {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-icon-list-icon svg {
   fill: #E8B84B !important;
   color: #E8B84B !important;
   width: 14px !important;
@@ -1509,7 +1546,7 @@ body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-conten
 /* Hero Right Column (Consultation Card) */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:last-child,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:last-child {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:last-child {
   flex: 0 0 38% !important;
   max-width: 440px !important;
   width: 38% !important;
@@ -1525,7 +1562,7 @@ body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-conten
 /* Card Heading & Subtitle */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child h3,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child .elementor-heading-title,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child h3 {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child h3 {
   color: #09203B !important;
   font-family: "Playfair Display", Georgia, serif !important;
   font-size: 22px !important;
@@ -1534,7 +1571,7 @@ body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-conten
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child p,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child .elementor-widget-text-editor,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child p {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child p {
   color: #64748B !important;
   font-size: 13.5px !important;
   line-height: 1.4 !important;
@@ -1546,8 +1583,8 @@ body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:fi
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form select.elementor-field,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form textarea.elementor-field,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form .elementor-select-wrapper select,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form input.elementor-field,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form select.elementor-field {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form input.elementor-field,
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form select.elementor-field {
   background: #F8FAFC !important;
   border: 1.5px solid #CBD5E1 !important;
   border-radius: 8px !important;
@@ -1563,7 +1600,7 @@ body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-conten
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form input.elementor-field:focus,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form select.elementor-field:focus,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form .elementor-select-wrapper select:focus,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form input.elementor-field:focus {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form input.elementor-field:focus {
   border-color: #E8B84B !important;
   background: #FFFFFF !important;
   box-shadow: 0 0 0 3px rgba(232, 184, 75, 0.25) !important;
@@ -1572,7 +1609,7 @@ body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-conten
 /* Submit Button */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form button[type="submit"],
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form .elementor-button[type="submit"],
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form button[type="submit"] {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form button[type="submit"] {
   background: linear-gradient(135deg, #E8B84B 0%, #D4A017 100%) !important;
   color: #09203B !important;
   font-weight: 700 !important;
@@ -1588,7 +1625,7 @@ body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-conten
 }
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form button[type="submit"]:hover,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form .elementor-button[type="submit"]:hover,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form button[type="submit"]:hover {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type .elementor-widget-form button[type="submit"]:hover {
   background: #D4A017 !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 6px 20px rgba(212, 160, 23, 0.45) !important;
@@ -1597,7 +1634,7 @@ body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-conten
 /* Quick Answer Section (Section 2) */
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:nth-of-type(2),
 body.rbo-services-subpage .site-main > .page-content > .elementor > .elementor-section:nth-of-type(2),
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:nth-of-type(2) {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:nth-of-type(2) {
   background-color: #F8F6F1 !important;
   padding: 48px 20px !important;
   box-sizing: border-box !important;
@@ -1605,7 +1642,7 @@ body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-conten
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:nth-of-type(2) h2,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:nth-of-type(2) h3,
 body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:nth-of-type(2) .elementor-heading-title,
-body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:nth-of-type(2) h2 {
+body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:nth-of-type(2) h2 {
   color: #09203B !important;
   font-family: "Playfair Display", Georgia, serif !important;
 }
@@ -1613,38 +1650,38 @@ body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-conten
 /* Mobile & Tablet (< 992px) Responsive Stacking */
 @media (max-width: 991px) {
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type,
-  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type {
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type {
     padding: 40px 16px !important;
     min-height: auto !important;
   }
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner,
-  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner {
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner {
     flex-direction: column !important;
     gap: 32px !important;
     padding: 0 !important;
   }
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child,
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:first-child,
-  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child {
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child {
     flex: 1 1 100% !important;
     max-width: 100% !important;
     width: 100% !important;
   }
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child,
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > .e-child:last-child,
-  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child {
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:last-child {
     flex: 1 1 100% !important;
     max-width: 480px !important;
     width: 100% !important;
     margin: 0 auto !important;
   }
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-button,
-  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-button {
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-widget-button {
     width: 100% !important;
     margin-right: 0 !important;
   }
   body.rbo-services-subpage .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-button,
-  body[class*="parent-pageid-"]:not(.parent-pageid-4408) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-button {
+  body[class*="parent-pageid-"]:not(.parent-pageid-4408):not(.parent-pageid-4925):not(.parent-pageid-5618) .site-main > .page-content > .elementor > .e-parent:first-of-type > .e-con-inner > div:first-child .elementor-button {
     width: 100% !important;
     justify-content: center !important;
   }
@@ -1902,12 +1939,12 @@ HTML;
 		</table>
 	</div>
 
-	<!-- 10 Comprehensive Industry FAQs -->
-	<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 34px; box-shadow: 0 4px 18px rgba(0,0,0,0.04); margin-bottom: 45px;">
+	<!-- 10 Comprehensive Industry FAQs in Pure Arabic -->
+	<div dir="rtl" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 34px; box-shadow: 0 4px 18px rgba(0,0,0,0.04); margin-bottom: 45px; direction: rtl; text-align: right; font-family: 'Cairo', 'Tajawal', sans-serif;">
 		<div style="text-align: center; max-width: 760px; margin: 0 auto 30px auto;">
-			<span style="display: inline-block; padding: 3px 10px; background: #eef4fc; color: #0b3a6e; font-size: 11px; font-weight: 700; text-transform: uppercase; border-radius: 4px; letter-spacing: 0.5px; margin-bottom: 8px;">Technical Knowledge Base</span>
-			<h3 style="margin: 0 0 10px 0; color: #0D1B2A; font-size: 24px; font-weight: 700;">Frequently Asked Questions: UAE VAT Refunds</h3>
-			<p style="margin: 0; color: #64748b; font-size: 14.5px;">Expert answers from our FTA-registered tax agents on reclaiming excess VAT credits without delays or audit penalties.</p>
+			<span style="display: inline-block; padding: 3px 10px; background: #eef4fc; color: #0b3a6e; font-size: 11px; font-weight: 700; border-radius: 4px; letter-spacing: 0.5px; margin-bottom: 8px;">قاعدة المعرفة الضريبية المتخصصة</span>
+			<h3 style="margin: 0 0 10px 0; color: #0D1B2A; font-size: 24px; font-weight: 700;">الأسئلة الأكثر شيوعاً: استرداد ضريبة القيمة المضافة في الإمارات</h3>
+			<p style="margin: 0; color: #64748b; font-size: 14.5px;">إجابات عملية ومعتمدة من وكلائنا الضريبيين المسجلين لدى FTA لاسترداد أرصدتك الضريبية المتراكمة دون تأخير أو غرامات تدقيق.</p>
 		</div>
 
 		<div style="display: flex; flex-direction: column; gap: 14px;">
@@ -2005,21 +2042,18 @@ HTML;
 		</div>
 	</div>
 
-	<!-- High Converting Conversion CTA Banner -->
-	<div style="background: linear-gradient(135deg, #0b3a6e 0%, #1e5a96 100%); border-radius: 12px; padding: 32px 36px; text-align: center; color: #ffffff; box-shadow: 0 8px 24px rgba(11,58,110,0.25);">
-		<h3 style="margin: 0 0 10px 0; font-size: 23px; font-weight: 700; color: #ffffff;">Accelerate Your FTA Form VAT311 Cash Refund Today</h3>
+	<!-- High Converting Conversion CTA Banner in Arabic -->
+	<div dir="rtl" style="background: linear-gradient(135deg, #0b3a6e 0%, #1e5a96 100%); border-radius: 12px; padding: 32px 36px; text-align: center; color: #ffffff; box-shadow: 0 8px 24px rgba(11,58,110,0.25); direction: rtl; font-family: 'Cairo', 'Tajawal', sans-serif;">
+		<h3 style="margin: 0 0 10px 0; font-size: 23px; font-weight: 700; color: #ffffff;">استرد أموال ضريبة القيمة المضافة المؤهلة عبر نموذج VAT311 الآن</h3>
 		<p style="margin: 0 auto 22px auto; max-width: 680px; font-size: 15px; color: #e2e8f0; line-height: 1.6;">
-			Let our licensed tax agents audit your general ledgers, prepare bulletproof proof-of-export and capex dossiers, and secure your direct bank refund with zero audit headaches.
+			دع وكلاءنا الضريبيين المعتمدين يتولون تدقيق دفاتر الأستاذ العام، وتجهيز ملفات الإثبات، وتقديم طلب الاسترداد لضمان تحويل المبالغ مباشرة إلى حسابك المصرفي دون مخاطر تدقيق أو تأخير.
 		</p>
 		<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 14px;">
-			<a href="https://wa.me/971508051857?text=Hello%20RBO,%20we%20want%20to%20start%20our%20FTA%20VAT%20Refund%20Claim" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; background: #25D366; color: #ffffff; text-decoration: none; font-weight: 700; font-size: 14.5px; border-radius: 8px; box-shadow: 0 4px 12px rgba(37,211,102,0.3);">
-				<span>Direct WhatsApp Inquiry</span>
+			<a href="https://wa.me/971508051857?text=مرحباً%20RBO%20نرغب%20في%20بدء%20طلب%20استرداد%20ضريبة%20القيمة%20المضافة" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; background: #25D366; color: #ffffff; text-decoration: none; font-weight: 700; font-size: 14.5px; border-radius: 8px; box-shadow: 0 4px 12px rgba(37,211,102,0.3);">
+				<span>استفسار فوري عبر واتساب</span>
 			</a>
-			<a href="{$refund_guide_url}" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; background: #ffffff; color: #0b3a6e; text-decoration: none; font-weight: 700; font-size: 14.5px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-				<span>Read Full Compliance Guide</span> ➔
-			</a>
-			<a href="{$afz_pkg_url}" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; background: rgba(255,255,255,0.15); color: #ffffff; text-decoration: none; font-weight: 600; font-size: 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.3);">
-				<span>New AFZ Lighter Package 2026</span>
+			<a href="https://www.rboaccounting.ae/afz-new-lighter-package-2026-ajman-free-zone-setup/" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; background: rgba(255,255,255,0.15); color: #ffffff; text-decoration: none; font-weight: 600; font-size: 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.3);">
+				<span>باقة تأسيس منطقة عجمان الحرة 2026</span>
 			</a>
 		</div>
 	</div>
@@ -2051,8 +2085,92 @@ HTML;
 		}
 
 
-		// 4. Master Internal Linking Directory on Homepage (ID 172) and Services Hub (ID 178)
-		if ( is_front_page() || $post_id === 172 || $post_id === 178 || ( is_page() && get_post_field( 'post_name', $post_id ) === 'our-services' ) ) {
+		// 4. Master Internal Linking Directory on Homepage (ID 172 / 5606 / 5617) and Services Hub
+		$is_home_or_services = is_front_page() || $post_id === 172 || $post_id === 178 || $post_id === 5606 || $post_id === 5617 || ( is_page() && in_array( get_post_field( 'post_name', $post_id ), array( 'our-services', 'home-ar', 'services' ), true ) );
+		if ( $is_home_or_services ) {
+			$is_ar = ( function_exists( 'pll_current_language' ) && pll_current_language() === 'ar' ) || ( isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], '/ar/' ) !== false ) || $post_id === 5606 || $post_id === 5617 || ( is_page() && strpos( get_page_uri( $post_id ), 'home-ar' ) !== false );
+
+			if ( $is_ar ) {
+				$directory = <<<HTML
+<section id="rbo-internal-directory" dir="rtl" style="background: linear-gradient(180deg, #f8fafd 0%, #ffffff 100%); border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 60px 20px; margin-top: 50px; font-family: 'Cairo', 'Tajawal', sans-serif; direction: rtl; text-align: right; box-sizing: border-box; width: 100%;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div style="text-align: center; margin-bottom: 40px;">
+      <span style="display: inline-block; padding: 5px 14px; background: rgba(212,160,23,0.12); color: #9c6c08; font-size: 12px; font-weight: 700; border-radius: 20px; letter-spacing: 0.5px; margin-bottom: 10px;">فروع الإمارات ودليل الخدمات التخصصية</span>
+      <h2 style="font-size: 28px; font-weight: 800; color: #09203B; margin: 0 0 10px 0; line-height: 1.3;">خدمات المحاسبة والضرائب والتدقيق الشاملة في كافة إمارات الدولة الـ 7</h2>
+      <p style="font-size: 15px; color: #556987; max-width: 780px; margin: 0 auto; line-height: 1.6;">وكلاء ضريبيون معتمدون من الهيئة الاتحادية للضرائب، ومدققون ماليون، ومحاسبون قانونيون لدعم شركات البر الرئيسي والمناطق الحرة والشركات الخارجية بامتثال مالي ومحاسبي كامل.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px;">
+      <!-- Column 1: Emirates Regional Presence -->
+      <div style="background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.04); border: 1px solid #edf2f7; border-top: 4px solid #09203B; text-align: right;">
+        <h3 style="font-size: 17px; font-weight: 700; color: #09203B; margin: 0 0 16px 0; display: flex; align-items: center; justify-content: flex-start; gap: 8px;">
+          <span>📍</span> فروع وإمارات الدولة
+        </h3>
+        <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px; line-height: 1.8; text-align: right;">
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/areas-we-serve-2/ajman/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 خدمات المحاسبة في عجمان</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/areas-we-serve-2/dubai/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 خدمات المحاسبة وتدقيق الحسابات في دبي</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/areas-we-serve-2/abu-dhabi/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 مكتب محاسبة معتمد في أبوظبي</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/areas-we-serve-2/sharjah/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 خدمات المحاسبة والتدقيق في الشارقة</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/areas-we-serve-2/ras-al-khaimah/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 شركة محاسبة معتمدة في رأس الخيمة</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/areas-we-serve-2/fujairah/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 خدمات المحاسبة والضرائب في الفجيرة</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/areas-we-serve-2/umm-al-quwain/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 تدقيق ومحاسبة قانونية في أم القيوين</a></li>
+          <li style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #e2e8f0;"><a href="https://www.rboaccounting.ae/ar/areas-we-serve-2/" style="color: #d4a017; text-decoration: none; font-weight: 700;">استكشف تغطية كافة إمارات الدولة الـ 7 ←</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 2: Corporate Tax & VAT Compliance -->
+      <div style="background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.04); border: 1px solid #edf2f7; border-top: 4px solid #d4a017; text-align: right;">
+        <h3 style="font-size: 17px; font-weight: 700; color: #09203B; margin: 0 0 16px 0; display: flex; align-items: center; justify-content: flex-start; gap: 8px;">
+          <span>⚖️</span> ضريبة الشركات والقيمة المضافة
+        </h3>
+        <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px; line-height: 1.8; text-align: right;">
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/corporate-tax-planning/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 مستشار ضريبة الشركات في الإمارات</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/corporate-tax-planning/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 التخطيط الضريبي القانوني للشركات</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/corporate-tax-registration/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 تسجيل ضريبة الشركات واستخراج TRN</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/corporate-tax-return-filing/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 تقديم إقرار ضريبة الشركات السنوي (9%)</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/vat-registration/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 تسجيل وإقرارات ضريبة القيمة المضافة</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/penalty-reconsideration/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 طلبات إعادة النظر في الغرامات وإلغائها</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/transfer-pricing/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 دراسات وملفات التسعير التحويلي</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Audit, Assurance & Outsource -->
+      <div style="background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.04); border: 1px solid #edf2f7; border-top: 4px solid #1e5a96; text-align: right;">
+        <h3 style="font-size: 17px; font-weight: 700; color: #09203B; margin: 0 0 16px 0; display: flex; align-items: center; justify-content: flex-start; gap: 8px;">
+          <span>🔍</span> التدقيق المالي والمحاسبة
+        </h3>
+        <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px; line-height: 1.8; text-align: right;">
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/audit-assurance/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 خدمات التدقيق والتأكيد المالي المعتمد</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/statutory-audit/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 التدقيق المالي القانوني المعتمد للشركات</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/free-zone-audit/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 تقارير تدقيق شركات المناطق الحرة لتجديد الرخص</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/accounts-payable-receivable/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 إدارة الذمم الدائنة والمدينة AP/AR</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/accounting/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 مسك الدفاتر المحاسبية والمطابقة اليومية</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/bank-reconciliation/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 التسوية البنكية والمطابقة الدورية</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/financial-reporting/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 إعداد التقارير المالية المتوافقة مع IFRS</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Virtual CFO, Payroll & Setup -->
+      <div style="background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.04); border: 1px solid #edf2f7; border-top: 4px solid #07192E; text-align: right;">
+        <h3 style="font-size: 17px; font-weight: 700; color: #09203B; margin: 0 0 16px 0; display: flex; align-items: center; justify-content: flex-start; gap: 8px;">
+          <span>📈</span> المدير المالي والرواتب والتأسيس
+        </h3>
+        <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px; line-height: 1.8; text-align: right;">
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/virtual-cfo/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 خدمات المدير المالي الافتراضي (CFO)</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/business-advisory/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 الاستشارات المالية والضريبية للأعمال</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/payroll-wps/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 إدارة الرواتب ونظام حماية الأجور WPS</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/eosb-calculation/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 احتساب مكافأة نهاية الخدمة (EOSB)</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/afz-new-lighter-package-2026-ajman-free-zone-setup/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 شريك معتمد لتأسيس شركات منطقة عجمان الحرة</a></li>
+          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/business-setup/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 تأسيس الأعمال والشركات في دبي</a></li>
+          <li style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #e2e8f0;"><a href="https://www.rboaccounting.ae/ar/services/" style="color: #d4a017; text-decoration: none; font-weight: 700;">عرض كافة الخدمات التخصصية الـ 36 ←</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+HTML;
+				$content .= $directory;
+			} else {
 			$directory = <<<HTML
 <section id="rbo-internal-directory" style="background: linear-gradient(180deg, #f8fafd 0%, #ffffff 100%); border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 60px 20px; margin-top: 50px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; box-sizing: border-box; width: 100%;">
   <div style="max-width: 1200px; margin: 0 auto;">
@@ -2131,7 +2249,8 @@ HTML;
   </div>
 </section>
 HTML;
-			$content .= $directory;
+				$content .= $directory;
+			}
 		}
 
 		return $content;
@@ -2339,22 +2458,59 @@ add_action( 'wp_head', function() {
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 		<style id="rbo-arabic-rtl-styles">
-		/* Arabic Typography and RTL Flow */
+		/* =========================================================================
+		   1. Universal RTL Layout & Container Protection
+		   ========================================================================= */
 		html[lang="ar"], body.rtl {
 			direction: rtl !important;
-			text-align: right !important;
+			text-align: right;
 			font-family: 'Cairo', 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, Arial, sans-serif !important;
 		}
 		html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] h4, html[lang="ar"] h5, html[lang="ar"] h6 {
 			font-family: 'Cairo', 'Tajawal', sans-serif !important;
 		}
-		html[lang="ar"] .elementor-widget-text-editor,
-		html[lang="ar"] .elementor-heading-title,
-		html[lang="ar"] p {
+
+		/* Ensure Elementor containers never collapse horizontally */
+		html[lang="ar"] .elementor,
+		body.rtl .elementor {
+			width: 100% !important;
+			max-width: 100% !important;
+		}
+		html[lang="ar"] .e-con,
+		body.rtl .e-con {
+			max-width: 100%;
+			box-sizing: border-box;
+		}
+		html[lang="ar"] .e-con.e-parent,
+		body.rtl .e-con.e-parent {
+			width: 100% !important;
+		}
+		html[lang="ar"] .e-con-boxed > .e-con-inner,
+		body.rtl .e-con-boxed > .e-con-inner {
+			max-width: 1200px !important;
+			width: 100% !important;
+			margin-left: auto !important;
+			margin-right: auto !important;
+		}
+		html[lang="ar"] .e-con-full,
+		body.rtl .e-con-full {
+			width: 100% !important;
+			max-width: 100% !important;
+		}
+
+		/* Preserve Centered Headings */
+		html[lang="ar"] .elementor-align-center .elementor-heading-title,
+		html[lang="ar"] .elementor-widget-heading.elementor-align-center h1,
+		html[lang="ar"] .elementor-widget-heading.elementor-align-center h2,
+		html[lang="ar"] .elementor-widget-heading.elementor-align-center h3 {
+			text-align: center !important;
+		}
+		html[lang="ar"] .elementor-align-left .elementor-heading-title,
+		html[lang="ar"] .elementor-align-right .elementor-heading-title {
 			text-align: right !important;
 		}
 
-		/* Keep Header & Navbar layout intact and pristine */
+		/* Keep Header & Navbar layout pristine */
 		.site-header, 
 		header[data-elementor-type="header"], 
 		.elementor-location-header,
@@ -2363,6 +2519,105 @@ add_action( 'wp_head', function() {
 		.elementor-nav-menu {
 			direction: ltr !important;
 			text-align: left !important;
+		}
+
+		/* Homepage Hero Card - English Luxury Dark Navy Translucent */
+		.elementor-5606 .elementor-element-5a37033f,
+		.elementor-5617 .elementor-element-5a37033f {
+			background-color: transparent !important;
+			background-image: linear-gradient(180deg, #111E4080 13%, #111E40 100%) !important;
+			border: 1px solid rgba(255, 255, 255, 0.15) !important;
+			border-radius: 16px !important;
+			box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3) !important;
+		}
+		.elementor-5606 .elementor-element-5a37033f h3,
+		.elementor-5617 .elementor-element-5a37033f h3,
+		.elementor-5606 .elementor-element-5a37033f .elementor-heading-title,
+		.elementor-5617 .elementor-element-5a37033f .elementor-heading-title,
+		.elementor-5606 .elementor-element-5a37033f p,
+		.elementor-5617 .elementor-element-5a37033f p,
+		.elementor-5606 .elementor-element-5a37033f label,
+		.elementor-5617 .elementor-element-5a37033f label,
+		.elementor-5606 .elementor-element-5a37033f .elementor-field-label,
+		.elementor-5617 .elementor-element-5a37033f .elementor-field-label {
+			color: #ffffff !important;
+		}
+
+		/* RTL Icon Lists & Bullets (Proper Right-to-Left Alignment) */
+		html[lang="ar"] .elementor-icon-list-items,
+		body.rtl .elementor-icon-list-items {
+			text-align: right !important;
+		}
+		html[lang="ar"] .elementor-icon-list-item,
+		body.rtl .elementor-icon-list-item {
+			justify-content: flex-start !important;
+			text-align: right !important;
+			flex-direction: row !important;
+		}
+		html[lang="ar"] .elementor-icon-list-icon,
+		body.rtl .elementor-icon-list-icon {
+			margin-left: 10px !important;
+			margin-right: 0 !important;
+			display: inline-flex !important;
+			align-items: center !important;
+		}
+		html[lang="ar"] .elementor-icon-list-text,
+		body.rtl .elementor-icon-list-text {
+			text-align: right !important;
+			unicode-bidi: isolate;
+		}
+
+		
+		/* Internal Linking Directory RTL Support */
+		html[lang="ar"] #rbo-internal-directory,
+		body.rtl #rbo-internal-directory {
+			direction: rtl !important;
+			text-align: right !important;
+			font-family: 'Cairo', 'Tajawal', sans-serif !important;
+		}
+		html[lang="ar"] #rbo-internal-directory h2,
+		html[lang="ar"] #rbo-internal-directory h3,
+		html[lang="ar"] #rbo-internal-directory p,
+		html[lang="ar"] #rbo-internal-directory a,
+		html[lang="ar"] #rbo-internal-directory li {
+			text-align: right !important;
+			font-family: 'Cairo', 'Tajawal', sans-serif !important;
+		}
+		html[lang="ar"] #rbo-internal-directory div[style*="text-align: center"] {
+			text-align: center !important;
+		}
+		html[lang="ar"] #rbo-internal-directory div[style*="text-align: center"] h2,
+		html[lang="ar"] #rbo-internal-directory div[style*="text-align: center"] p {
+			text-align: center !important;
+		}
+
+		/* Arabic Footer RTL Styling */
+		html[lang="ar"] footer.elementor-location-footer,
+		body.rtl footer.elementor-location-footer {
+			direction: rtl !important;
+			text-align: right !important;
+		}
+		html[lang="ar"] footer .elementor-heading-title,
+		body.rtl footer .elementor-heading-title {
+			text-align: right !important;
+		}
+		html[lang="ar"] footer .elementor-widget-text-editor,
+		body.rtl footer .elementor-widget-text-editor {
+			text-align: right !important;
+		}
+		html[lang="ar"] footer .elementor-icon-list-items,
+		body.rtl footer .elementor-icon-list-items {
+			text-align: right !important;
+		}
+		html[lang="ar"] footer .elementor-element-ed1dd21,
+		body.rtl footer .elementor-element-ed1dd21 {
+			text-align: center !important;
+		}
+		html[lang="ar"] footer .elementor-element-d60ecab p,
+		body.rtl footer .elementor-element-d60ecab p {
+			text-align: center !important;
+			direction: ltr !important;
+			unicode-bidi: isolate;
 		}
 		</style>
 		<?php
@@ -2453,3 +2708,144 @@ add_action( 'wp_footer', function() {
 	</style>
 	<?php
 }, 9999 );
+
+add_action( 'wp_footer', function() {
+	$cur_lang = 'en';
+	if ( function_exists( 'pll_current_language' ) ) {
+		$cur_lang = pll_current_language();
+	} elseif ( isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], '/ar/' ) !== false ) {
+		$cur_lang = 'ar';
+	}
+	if ( $cur_lang !== 'ar' ) return;
+	?>
+	<script id="rbo-arabic-header-footer-trans">
+	(function() {
+		var menuMap = {
+			'Home': 'الرئيسية',
+			'About Us': 'من نحن',
+			'Our Services': 'خدماتنا',
+			'Areas We Serve': 'إمارات الدولة',
+			'Blog': 'المدونة',
+			'Contact Us': 'اتصل بنا',
+			'Free VAT Check': 'فحص الضريبة مجاناً',
+			
+			// Dropdown Sub-menus
+			'Accounting Services': 'خدمات المحاسبة ومسك الدفاتر',
+			'Bookkeeping and Accounting': 'مسك الدفاتر والمحاسبة',
+			'Bank Reconciliation Services': 'التسوية البنكية والمطابقة',
+			'Accounts Payable & Receivable': 'إدارة الذمم الدائنة والمدينة',
+			'Accounts Payable &#038; Receivable': 'إدارة الذمم الدائنة والمدينة',
+			'IFRS Compliance Services': 'الامتثال لمعايير IFRS الدولية',
+			'Financial Reporting Service': 'إعداد التقارير المالية الدورية',
+			'VAT Registration & Filing UAE': 'تسجيل وإقرارات ضريبة القيمة المضافة',
+			'VAT Registration &amp; Filing UAE': 'تسجيل وإقرارات ضريبة القيمة المضافة',
+			'VAT registration': 'تسجيل ضريبة القيمة المضافة',
+			'VAT return filing': 'تقديم إقرارات ضريبة القيمة المضافة',
+			'VAT refund services': 'خدمات استرداد ضريبة القيمة المضافة',
+			'VAT advisory services': 'استشارات ضريبة القيمة المضافة',
+			'FTA audit assistance': 'دعم التدقيق الضريبي FTA',
+			'FTA records amendment': 'تعديل بيانات السجل الضريبي',
+			'Penalty Reconsideration & Appeals': 'إعادة النظر في الغرامات والاعتراضات',
+			'Corporate Tax UAE': 'ضريبة الشركات في الإمارات',
+			'Corporate Tax Registration': 'تسجيل ضريبة الشركات',
+			'Corporate Tax Return Filing UAE': 'تقديم إقرار ضريبة الشركات',
+			'Corporate Tax Planning UAE': 'التخطيط لضريبة الشركات',
+			'Transfer Pricing UAE': 'التسعير التحويلي في الإمارات',
+			'Payroll Services Dubai & UAE': 'إدارة الرواتب ونظام WPS',
+			'Payroll Services Dubai &amp; UAE': 'إدارة الرواتب ونظام WPS',
+			'WPS payroll services': 'إدارة الرواتب عبر نظام WPS',
+			'End of service benefits calculation': 'احتساب مكافأة نهاية الخدمة (EOSB)',
+			'Payroll reporting services': 'تقارير الرواتب الشهرية',
+			'Employee leave management': 'إدارة الإجازات السنوية',
+			'Audit & Assurance Services UAE': 'خدمات التدقيق والتأكيد المالي',
+			'Audit &amp; Assurance Services UAE': 'خدمات التدقيق والتأكيد المالي',
+			'Free Zone Audit UAE': 'تدقيق شركات المناطق الحرة',
+			'Statutory audit services UAE': 'التدقيق المالي القانوني المعتمد',
+			'Internal Audit Services UAE': 'خدمات التدقيق الداخلي',
+			'Due Diligence Services UAE': 'الفحص المالي النافي للجهالة',
+			'Risk Assessment Services UAE': 'تقييم وإدارة المخاطر التشغيلية',
+			'Virtual CFO Services': 'خدمات المدير المالي الافتراضي (CFO)',
+			'Business advisory services UAE': 'استشارات تطوير الأعمال',
+			'Financial planning and analysis services UAE': 'التخطيط والتحليل المالي الاستراتيجي',
+			'Budgeting services for businesses UAE': 'إعداد الميزانيات والخطط المالية',
+			'Management Reporting': 'التقارير الإدارية ومؤشرات الأداء',
+			'Cash flow management services UAE': 'إدارة التدفقات النقدية والسيولة',
+			'Business Setup & Company Formation': 'تأسيس الشركات والأعمال',
+			'Business Setup &amp; Company Formation': 'تأسيس الشركات والأعمال',
+			'Ajman Free Zone (AFZA)': 'المنطقة الحرة بعجمان (AFZA)',
+			'Mainland vs Free Zone': 'مقارنة البر الرئيسي والمناطق الحرة',
+			'Dubai Business Setup': 'تأسيس الشركات في دبي',
+			'Trade Licence Process': 'خطوات إصدار الرخصة التجارية',
+			'Setup Packages': 'باقات التأسيس المتكاملة',
+			'Accounting Consulting Firm in Dubai': 'خدمات المحاسبة والتدقيق في دبي',
+			'Abu Dhabi': 'أبوظبي',
+			'Accounting Consulting Firm in Sharjah': 'خدمات المحاسبة والتدقيق في الشارقة',
+			'Accounting Consulting Firm in Fujairah': 'خدمات المحاسبة والضرائب في الفجيرة',
+			'Ajman': 'عجمان',
+			'Accounting Consulting Firm in Umm Al Quwain': 'خدمات المحاسبة والتدقيق في أم القيوين',
+			'Accounting Consulting Firm in Ras Al Khaimah': 'خدمات المحاسبة والتدقيق في رأس الخيمة'
+		};
+
+		document.querySelectorAll('.elementor-location-header a, .site-header a, .elementor-nav-menu a').forEach(function(a) {
+			var txt = a.childNodes[0] && a.childNodes[0].nodeType === 3 ? a.childNodes[0].nodeValue.trim() : a.innerText.trim();
+			for (var en in menuMap) {
+				if (txt === en) {
+					if (a.childNodes[0] && a.childNodes[0].nodeType === 3) {
+						a.childNodes[0].nodeValue = menuMap[en] + ' ';
+					} else {
+						a.innerText = menuMap[en];
+					}
+				}
+			}
+		});
+
+		var footerMap = {
+			'Our Services': 'خدماتنا',
+			'Locations': 'إمارات الدولة',
+			'Company': 'عن RBO',
+			'Follow Us': 'تابعنا',
+			'Bookkeeping & Accounting': 'المحاسبة ومسك الدفاتر',
+			'VAT Registration & Filing': 'تسجيل وإقرارات ضريبة القيمة المضافة',
+			'Corporate Tax UAE': 'ضريبة الشركات في الإمارات',
+			'UAE Business Setup & Formation': 'تأسيس الشركات في الإمارات',
+			'Audit Services': 'خدمات التدقيق المالي المعتمد',
+			'Payroll Services': 'إدارة الرواتب ونظام WPS',
+			'Virtual CFO Services': 'المدير المالي الافتراضي (CFO)',
+			'Ajman': 'عجمان',
+			'Dubai': 'دبي',
+			'Abu Dhabi': 'أبوظبي',
+			'Sharjah': 'الشارقة',
+			'Ras Al Khaimah': 'رأس الخيمة',
+			'Fujairah': 'الفجيرة',
+			'Umm Al Quwain': 'أم القيوين',
+			'Privacy Policy': 'سياسة الخصوصية',
+			'Terms & Conditions': 'الشروط والأحكام',
+			'Blog & Resources': 'المدونة والموارد'
+		};
+
+		var footerEl = document.querySelector('footer.elementor-location-footer');
+		if (footerEl) {
+			footerEl.querySelectorAll('.elementor-heading-title').forEach(function(h) {
+				var t = h.innerText.trim();
+				if (footerMap[t]) h.innerText = footerMap[t];
+			});
+
+			footerEl.querySelectorAll('.elementor-icon-list-text').forEach(function(span) {
+				var t = span.innerText.trim();
+				if (footerMap[t]) span.innerText = footerMap[t];
+			});
+
+			var desc = footerEl.querySelector('.footer-desc');
+			if (desc) {
+				desc.innerText = 'خدمات المحاسبة وضريبة القيمة المضافة وضريبة الشركات والتدقيق والرواتب المعتمدة من الهيئة الاتحادية للضرائب للشركات في كافة إمارات الدولة الـ 7.';
+			}
+
+			var copy = footerEl.querySelector('.elementor-element-d60ecab p');
+			if (copy) {
+				copy.innerHTML = '<span dir="ltr">© 2026 RBO Accounting Services FZE. All Rights Reserved.</span>';
+			}
+		}
+	})();
+	</script>
+	<?php
+}, 999 );

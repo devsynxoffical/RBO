@@ -45,3 +45,4 @@ for src, base_name in targets:
 print(f"Generated {len(generated_files)} optimized images in {dest_dir}:")
 for f in generated_files[:6]:
     print(" ", os.path.basename(f), f"({os.path.getsize(f):,} bytes)")
+

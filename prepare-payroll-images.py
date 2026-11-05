@@ -40,3 +40,4 @@ for src_name, dest_name in image_map.items():
         print(f"  -> Generated thumb: {thumb_name} ({os.path.getsize(thumb_path)} bytes)")
 
 print("\n🎉 All payroll & WPS images prepared successfully!")
+

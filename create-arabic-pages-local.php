@@ -456,3 +456,4 @@ HTML;
 
 flush_rewrite_rules();
 echo "✅ Arabic pages created, linked to English originals, and rewrite rules flushed!\n";
+

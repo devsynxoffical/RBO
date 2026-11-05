@@ -97,3 +97,4 @@ if __name__ == "__main__":
     conn.commit()
     conn.close()
     print(f"\n✅ Total {updated_count} titles updated in local MySQL database.")
+

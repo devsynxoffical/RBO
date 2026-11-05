@@ -317,3 +317,4 @@ print("✅ Page 2567 metadata updated!")
 
 conn.close()
 print("\n🎉 Both top Corporate Tax pages successfully upgraded in local database!")
+
