@@ -11,15 +11,24 @@ defined( 'ABSPATH' ) || exit;
 if ( ! function_exists( 'rbo_is_arabic_request' ) ) {
 	function rbo_is_arabic_request() {
 		$req_uri = isset( $_SERVER['REQUEST_URI'] ) ? (string) $_SERVER['REQUEST_URI'] : '';
-		// 1. Strict Arabic URL check: starts with /ar/ or exactly /ar or /ar? or /ar#
-		if ( $req_uri === '/ar' || strpos( $req_uri, '/ar/' ) !== false || preg_match( '#^/ar($|[/?#])#i', $req_uri ) ) {
+		// 1. Strict Arabic URL check: exactly /ar, or contains /ar/, or starts with /ar?, /ar#
+		if (
+			$req_uri === '/ar' ||
+			strpos( $req_uri, '/ar/' ) !== false ||
+			strpos( $req_uri, '/ar?' ) === 0 ||
+			strpos( $req_uri, '/ar#' ) === 0
+		) {
 			return true;
 		}
 		// 2. Polylang language check with safety guard against English URLs
 		if ( function_exists( 'pll_current_language' ) && pll_current_language() === 'ar' ) {
-			if ( ! preg_match( '#^/(about-us|our-services|areas-we-serve|contact-us|blog|terms|privacy)/?#i', $req_uri ) ) {
-				return true;
+			$en_prefixes = array( '/about-us', '/our-services', '/areas-we-serve', '/contact-us', '/blog', '/terms', '/privacy', '/refund' );
+			foreach ( $en_prefixes as $p ) {
+				if ( strpos( $req_uri, $p ) === 0 ) {
+					return false;
+				}
 			}
+			return true;
 		}
 		return false;
 	}
