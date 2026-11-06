@@ -1310,17 +1310,18 @@ body.blog .elementor-post {
   background: #ffffff !important;
   border-radius: 12px !important;
   border: 1px solid #e2e8f0 !important;
-  box-shadow: 0 4px 18px rgba(9, 32, 59, 0.05) !important;
-  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 16px rgba(9, 32, 59, 0.04) !important;
+  transition: none !important;
+  transform: none !important;
   overflow: hidden !important;
   box-sizing: border-box !important;
 }
 
 .elementor-5259 .elementor-post:hover,
 body.blog .elementor-post:hover {
-  transform: translateY(-5px) !important;
-  box-shadow: 0 12px 30px rgba(9, 32, 59, 0.12) !important;
-  border-color: #d4a017 !important;
+  transform: none !important;
+  box-shadow: 0 4px 16px rgba(9, 32, 59, 0.04) !important;
+  border-color: #cbd5e1 !important;
 }
 
 .elementor-5259 .elementor-post__card,
@@ -1329,32 +1330,55 @@ body.blog .elementor-post__card {
   flex-direction: column !important;
   height: 100% !important;
   width: 100% !important;
-  background: transparent !important;
+  background: #ffffff !important;
   border-radius: 12px !important;
   overflow: hidden !important;
+  transition: none !important;
+  transform: none !important;
 }
 
+/* 100% Clean Static Images - No Zoom, No Animation, No Gradient Overlay */
 .elementor-5259 .elementor-post__thumbnail,
 body.blog .elementor-post__thumbnail {
   width: 100% !important;
   height: 220px !important;
   aspect-ratio: 16/9 !important;
   overflow: hidden !important;
-  background: #09203B !important;
+  background: transparent !important;
   position: relative !important;
+  transition: none !important;
+  transform: none !important;
 }
 
 .elementor-5259 .elementor-post__thumbnail img,
-body.blog .elementor-post__thumbnail img {
+body.blog .elementor-post__thumbnail img,
+.elementor-5259 .elementor-post__thumbnail__link img,
+body.blog .elementor-post__thumbnail__link img {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
-  transition: transform 0.4s ease !important;
+  transition: none !important;
+  transform: none !important;
+  filter: none !important;
 }
 
 .elementor-5259 .elementor-post:hover .elementor-post__thumbnail img,
-body.blog .elementor-post:hover .elementor-post__thumbnail img {
-  transform: scale(1.05) !important;
+body.blog .elementor-post:hover .elementor-post__thumbnail img,
+.elementor-5259 .elementor-post__card:hover .elementor-post__thumbnail img,
+body.blog .elementor-post__card:hover .elementor-post__thumbnail img {
+  transform: none !important;
+  transition: none !important;
+  filter: none !important;
+}
+
+/* Kill all gradient overlays on hover */
+.elementor-posts__hover-gradient .elementor-post__card .elementor-post__thumbnail__link:after,
+.elementor-posts__hover-gradient .elementor-post__card:hover .elementor-post__thumbnail__link:after,
+.elementor-post__thumbnail__link:after,
+.elementor-post__thumbnail:after {
+  display: none !important;
+  content: none !important;
+  opacity: 0 !important;
 }
 
 .elementor-5259 .elementor-post__text,
