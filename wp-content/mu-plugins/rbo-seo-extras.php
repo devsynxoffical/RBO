@@ -184,6 +184,23 @@ add_action(
 
 
 /**
+ * 1e. Enforce Clean Self-Referencing Canonical URLs for Polylang Front Page (/ar/) & Blog Hubs (/blog/, /ar/blog-2/)
+ */
+add_filter(
+	'rank_math/frontend/canonical',
+	function ( $canonical ) {
+		if ( is_string( $canonical ) && strpos( $canonical, '/ar/home-ar' ) !== false ) {
+			$canonical = str_replace( '/ar/blog-2/ar/home-ar/', '/ar/blog-2/', $canonical );
+			$canonical = str_replace( '/ar/blog-2/ar/home-ar', '/ar/blog-2/', $canonical );
+			$canonical = str_replace( '/ar/home-ar/', '/ar/', $canonical );
+			$canonical = str_replace( '/ar/home-ar', '/ar/', $canonical );
+		}
+		return $canonical;
+	},
+	99
+);
+
+/**
  * 2. UAE Geo-Targeting, OpenGraph & Search Console Verification Meta Tags
  */
 add_action(
@@ -574,6 +591,7 @@ add_action(
 			wp_safe_redirect( home_url( '/ar/blog-2/' ), 301 );
 			exit;
 		}
+
 
 		$redirects = array(
 			// Location Pages -> Emirates Local SEO Hubs
@@ -1250,6 +1268,173 @@ table {
     text-align: center !important;
     padding: 12px 18px !important;
     box-sizing: border-box !important;
+  }
+}
+
+
+/* =========================================================================
+   RBO MASTER BLOG ARCHIVE LUXURY GRID & CARDS STYLING (Arabic & English)
+   ========================================================================= */
+.elementor-5259 .elementor-element-767e382,
+body.blog .elementor-element-767e382,
+body[class*="archive-ar"] .elementor-element-767e382 {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 40px 20px 80px !important;
+  background-color: #f8fafc !important;
+}
+
+.elementor-5259 .elementor-element-767e382 > .e-con-inner,
+body.blog .elementor-element-767e382 > .e-con-inner {
+  max-width: 1240px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+}
+
+.elementor-5259 .elementor-posts-container.elementor-grid,
+body.blog .elementor-posts-container.elementor-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 32px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+}
+
+.elementor-5259 .elementor-post,
+body.blog .elementor-post {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 18px rgba(9, 32, 59, 0.05) !important;
+  transition: all 0.3s ease !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.elementor-5259 .elementor-post:hover,
+body.blog .elementor-post:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 12px 30px rgba(9, 32, 59, 0.12) !important;
+  border-color: #d4a017 !important;
+}
+
+.elementor-5259 .elementor-post__card,
+body.blog .elementor-post__card {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  width: 100% !important;
+  background: transparent !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+}
+
+.elementor-5259 .elementor-post__thumbnail,
+body.blog .elementor-post__thumbnail {
+  width: 100% !important;
+  height: 220px !important;
+  aspect-ratio: 16/9 !important;
+  overflow: hidden !important;
+  background: #09203B !important;
+  position: relative !important;
+}
+
+.elementor-5259 .elementor-post__thumbnail img,
+body.blog .elementor-post__thumbnail img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: transform 0.4s ease !important;
+}
+
+.elementor-5259 .elementor-post:hover .elementor-post__thumbnail img,
+body.blog .elementor-post:hover .elementor-post__thumbnail img {
+  transform: scale(1.05) !important;
+}
+
+.elementor-5259 .elementor-post__text,
+body.blog .elementor-post__text {
+  padding: 24px 22px 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex-grow: 1 !important;
+  box-sizing: border-box !important;
+}
+
+.elementor-5259 .elementor-post__title,
+body.blog .elementor-post__title {
+  font-family: "Cairo", "Tajawal", sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  line-height: 1.45 !important;
+  margin: 0 0 12px 0 !important;
+  color: #09203B !important;
+}
+
+.elementor-5259 .elementor-post__title a,
+body.blog .elementor-post__title a {
+  color: #09203B !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease !important;
+}
+
+.elementor-5259 .elementor-post__title a:hover,
+body.blog .elementor-post__title a:hover {
+  color: #d4a017 !important;
+}
+
+.elementor-5259 .elementor-post__excerpt,
+body.blog .elementor-post__excerpt {
+  color: #64748b !important;
+  font-size: 14px !important;
+  line-height: 1.65 !important;
+  margin-bottom: 16px !important;
+  flex-grow: 1 !important;
+}
+
+.elementor-5259 .elementor-post__meta-data,
+body.blog .elementor-post__meta-data {
+  font-size: 12.5px !important;
+  color: #94a3b8 !important;
+  border-top: 1px solid #f1f5f9 !important;
+  padding-top: 12px !important;
+  margin-top: auto !important;
+}
+
+.elementor-5259 .elementor-post__read-more,
+body.blog .elementor-post__read-more {
+  color: #d4a017 !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin-top: 8px !important;
+}
+
+@media (max-width: 1024px) {
+  .elementor-5259 .elementor-posts-container.elementor-grid,
+  body.blog .elementor-posts-container.elementor-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 24px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .elementor-5259 .elementor-posts-container.elementor-grid,
+  body.blog .elementor-posts-container.elementor-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .elementor-5259 .elementor-post__thumbnail,
+  body.blog .elementor-post__thumbnail {
+    height: 200px !important;
   }
 }
 
@@ -2308,6 +2493,34 @@ HTML;
         </ul>
       </div>
     </div>
+
+    <!-- All 18 Arabic Pillar Guides Crawl Hub -->
+    <div style="margin-top: 28px; background: #ffffff; border-radius: 12px; padding: 26px 28px; box-shadow: 0 4px 16px rgba(0,0,0,0.04); border: 1px solid #edf2f7; border-top: 4px solid #d4a017; text-align: right;">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px;">
+        <h3 style="font-size: 18px; font-weight: 800; color: #09203B; margin: 0;">📚 الأدلة الضريبية والمحاسبية الشاملة لعام 2026 (كافة المقالات والأدلة المعتمدة)</h3>
+        <a href="https://www.rboaccounting.ae/ar/blog-2/" style="color: #d4a017; text-decoration: none; font-weight: 700; font-size: 14px;">تصفح المدونة الكاملة بالعربية ←</a>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px 24px; font-size: 13.5px; line-height: 1.75;">
+        <a href="https://www.rboaccounting.ae/ar/uae-transfer-pricing-guide-2026-local-master-file-arms-length-rules-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 دليل التسعير التحويلي في الإمارات 2026</a>
+        <a href="https://www.rboaccounting.ae/ar/afz-new-lighter-package-2026-ajman-free-zone-setup-2/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 باقة منطقة عجمان الحرة المخففة 2026 (11,000 درهم)</a>
+        <a href="https://www.rboaccounting.ae/ar/uae-accounts-payable-receivable-outsourcing-guide-2026-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 دليل إسناد الذمم الدائنة والمدينة والفوترة الإلكترونية 2026</a>
+        <a href="https://www.rboaccounting.ae/ar/uae-payroll-wps-compliance-guide-2026-mohre-sif-fines-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 دليل الرواتب ونظام حماية الأجور WPS في الإمارات 2026</a>
+        <a href="https://www.rboaccounting.ae/ar/uae-accounting-bookkeeping-guide-2026-mandatory-corporate-tax-ifrs-rules-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 دليل المحاسبة ومسك الدفاتر القانونية في الإمارات 2026</a>
+        <a href="https://www.rboaccounting.ae/ar/uae-statutory-audit-guide-2026-mandatory-corporate-tax-rules-checklist-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 دليل التدقيق المالي الإلزامي في الإمارات 2026 (قرار 82 و84)</a>
+        <a href="https://www.rboaccounting.ae/ar/fta-tax-audit-assistance-uae-corporate-tax-vat-guide-2026-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 دليل الفحص والتدقيق الضريبي من الهيئة الاتحادية للضرائب 2026</a>
+        <a href="https://www.rboaccounting.ae/ar/virtual-cfo-services-dubai-uae-fractional-cfo-guide-2026-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 دليل خدمات المدير المالي الافتراضي (Virtual CFO) 2026</a>
+        <a href="https://www.rboaccounting.ae/ar/fta-voluntary-disclosure-form-211-uae-correct-tax-errors-guide-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 دليل الإفصاح الطوعي (نموذج 211) وتصحيح الأخطاء الضريبية</a>
+        <a href="https://www.rboaccounting.ae/ar/uae-free-zone-corporate-tax-qualifying-income-qfzp-guide-2026-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 دليل ضريبة الشركات للمناطق الحرة (0% للشخص المؤهل QFZP)</a>
+        <a href="https://www.rboaccounting.ae/ar/vat-refund-claim-landlords-consultants-contractors-uae-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 دليل استرداد ضريبة القيمة المضافة للملاك والمهندسين والمقاولين</a>
+        <a href="https://www.rboaccounting.ae/ar/uae-corporate-tax-returns-ct-registration-guide-2026-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 دليل تسجيل وتقديم إقرارات ضريبة الشركات في الإمارات 2026</a>
+        <a href="https://www.rboaccounting.ae/ar/corporate-tax-reconsideration-penalty-waiver-uae-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 دليل إعادة النظر في الغرامات الضريبية وإلغاء غرامة الـ 10,000 درهم</a>
+        <a href="https://www.rboaccounting.ae/ar/uae-corporate-tax-filing-deadline-30-september-2026-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 الموعد النهائي لتقديم إقرار ضريبة الشركات (30 سبتمبر 2026)</a>
+        <a href="https://www.rboaccounting.ae/ar/ajman-free-zone-company-audit-vat-compliance-guide-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 دليل التدقيق المالي والامتثال الضريبي لشركات منطقة عجمان الحرة</a>
+        <a href="https://www.rboaccounting.ae/ar/uae-corporate-tax-small-business-relief-guide-2026-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 دليل تسهيلات الأعمال الصغيرة (حد الـ 3 ملايين درهم) 2026</a>
+        <a href="https://www.rboaccounting.ae/ar/uae-corporate-tax-2026-registration-rates-filing-deadline-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 الدليل الشامل لضريبة الشركات 2026: النسب والتسجيل والمواعيد</a>
+        <a href="https://www.rboaccounting.ae/ar/vat-registration-uae-2026-thresholds-documents-deadlines-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 دليل التسجيل في ضريبة القيمة المضافة 2026: الحدود والمستندات</a>
+      </div>
+    </div>
   </div>
 </section>
 HTML;
@@ -2386,6 +2599,34 @@ HTML;
           <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/business-setup/dubai/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👉 Business setup in Dubai</a></li>
           <li style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #e2e8f0;"><a href="https://www.rboaccounting.ae/our-services/" style="color: #d4a017; text-decoration: none; font-weight: 700;">View All 36 Specialized Services ➔</a></li>
         </ul>
+      </div>
+    </div>
+
+    <!-- All 18 English Pillar Guides Crawl Hub -->
+    <div style="margin-top: 28px; background: #ffffff; border-radius: 12px; padding: 26px 28px; box-shadow: 0 4px 16px rgba(0,0,0,0.04); border: 1px solid #edf2f7; border-top: 4px solid #d4a017;">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px;">
+        <h3 style="font-size: 18px; font-weight: 800; color: #09203B; margin: 0;">📚 2026 UAE Tax, Audit, Accounting &amp; Setup Master Guides (Complete Pillar Index)</h3>
+        <a href="https://www.rboaccounting.ae/blog/" style="color: #d4a017; text-decoration: none; font-weight: 700; font-size: 14px;">View Full Regulatory Blog ➔</a>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px 24px; font-size: 13.5px; line-height: 1.75;">
+        <a href="https://www.rboaccounting.ae/uae-transfer-pricing-guide-2026-local-master-file-arms-length-rules/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 UAE Transfer Pricing Guide 2026 (Local/Master File &amp; AED 40M/500k)</a>
+        <a href="https://www.rboaccounting.ae/afz-new-lighter-package-2026-ajman-free-zone-setup/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 AFZ Lighter Package 2026: AED 11,000 Ajman Free Zone Setup</a>
+        <a href="https://www.rboaccounting.ae/uae-accounts-payable-receivable-outsourcing-guide-2026/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 UAE AP &amp; AR Outsourcing Guide 2026 (3-Way Matching &amp; E-Invoicing)</a>
+        <a href="https://www.rboaccounting.ae/uae-payroll-wps-compliance-guide-2026-mohre-sif-fines/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 UAE Payroll &amp; WPS Compliance Guide 2026 (MOHRE SIF &amp; Fines)</a>
+        <a href="https://www.rboaccounting.ae/uae-accounting-bookkeeping-guide-2026-mandatory-corporate-tax-ifrs-rules/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 UAE Accounting &amp; Bookkeeping Guide 2026 (7-Year FTA &amp; IFRS)</a>
+        <a href="https://www.rboaccounting.ae/uae-statutory-audit-guide-2026-mandatory-corporate-tax-rules-checklist/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 UAE Statutory Audit Guide 2026 (Ministerial Decision 82 &amp; 84)</a>
+        <a href="https://www.rboaccounting.ae/fta-tax-audit-assistance-uae-corporate-tax-vat-guide-2026/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 FTA Tax Audit in UAE 2026 (FAF File Checklist &amp; Defense)</a>
+        <a href="https://www.rboaccounting.ae/virtual-cfo-services-dubai-uae-fractional-cfo-guide-2026/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 Virtual CFO Services Dubai &amp; UAE 2026 (Fractional CFO Guide)</a>
+        <a href="https://www.rboaccounting.ae/fta-voluntary-disclosure-form-211-uae-correct-tax-errors-guide/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 FTA Voluntary Disclosure Form 211 Guide (Penalty Mitigation)</a>
+        <a href="https://www.rboaccounting.ae/uae-free-zone-corporate-tax-qualifying-income-qfzp-guide-2026/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 UAE Free Zone Corporate Tax 2026 (0% QFZP Qualifying Income)</a>
+        <a href="https://www.rboaccounting.ae/vat-refund-claim-landlords-consultants-contractors-uae/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 UAE VAT Refund Guide: Landlords, Consultants &amp; Contractors</a>
+        <a href="https://www.rboaccounting.ae/uae-corporate-tax-returns-ct-registration-guide-2026/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 UAE Corporate Tax Return Filing &amp; Registration Guide 2026</a>
+        <a href="https://www.rboaccounting.ae/corporate-tax-reconsideration-penalty-waiver-uae/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 Corporate Tax Penalty Reconsideration &amp; AED 10,000 Waiver</a>
+        <a href="https://www.rboaccounting.ae/uae-corporate-tax-filing-deadline-30-september-2026/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 UAE Corporate Tax Filing Deadline (30 September 2026 Checklist)</a>
+        <a href="https://www.rboaccounting.ae/ajman-free-zone-company-audit-vat-compliance-guide/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 Ajman Free Zone (AFZ) Audit &amp; VAT Compliance Guide</a>
+        <a href="https://www.rboaccounting.ae/uae-corporate-tax-small-business-relief-guide-2026/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 UAE Small Business Relief (AED 3M Threshold) Guide 2026</a>
+        <a href="https://www.rboaccounting.ae/uae-corporate-tax-2026-registration-rates-filing-deadline/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 Complete UAE Corporate Tax 2026 Rates &amp; Deadlines Guide</a>
+        <a href="https://www.rboaccounting.ae/vat-registration-uae-2026-thresholds-documents-deadlines/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">📖 UAE VAT Registration 2026: Thresholds, Documents &amp; Deadlines</a>
       </div>
     </div>
   </div>
@@ -2604,7 +2845,7 @@ add_action( 'wp_head', function() {
 			font-family: 'Cairo', 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, Arial, sans-serif !important;
 		}
 		html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] h4, html[lang="ar"] h5, html[lang="ar"] h6 {
-			font-family: 'Cairo', 'Tajawal', sans-serif !important;
+			font-family: "Cairo", "Tajawal", sans-serif !important;
 		}
 
 		/* Ensure Elementor containers never collapse horizontally */
@@ -2782,7 +3023,7 @@ add_action( 'wp_head', function() {
 		html[lang="ar"] .elementor-5259 .elementor-post__meta-data {
 			text-align: right !important;
 			direction: rtl !important;
-			font-family: 'Cairo', 'Tajawal', sans-serif !important;
+			font-family: "Cairo", "Tajawal", sans-serif !important;
 		}
 		html[lang="ar"] .elementor-5229 .elementor-widget-theme-post-content,
 		body.rtl .elementor-5229 .elementor-widget-theme-post-content,
@@ -2790,7 +3031,7 @@ add_action( 'wp_head', function() {
 		body.rtl .rbo-arabic-blog-container {
 			direction: rtl !important;
 			text-align: right !important;
-			font-family: 'Cairo', 'Tajawal', sans-serif !important;
+			font-family: "Cairo", "Tajawal", sans-serif !important;
 		}
 
 		/* 7 Emirates Regional Hubs (parent-pageid-5608 / parent-pageid-5618) Hero & Form Protection */
@@ -2861,7 +3102,7 @@ add_action( 'wp_head', function() {
 		body.rtl #rbo-internal-directory {
 			direction: rtl !important;
 			text-align: right !important;
-			font-family: 'Cairo', 'Tajawal', sans-serif !important;
+			font-family: "Cairo", "Tajawal", sans-serif !important;
 		}
 		html[lang="ar"] #rbo-internal-directory h2,
 		html[lang="ar"] #rbo-internal-directory h3,
@@ -2869,7 +3110,7 @@ add_action( 'wp_head', function() {
 		html[lang="ar"] #rbo-internal-directory a,
 		html[lang="ar"] #rbo-internal-directory li {
 			text-align: right !important;
-			font-family: 'Cairo', 'Tajawal', sans-serif !important;
+			font-family: "Cairo", "Tajawal", sans-serif !important;
 		}
 		html[lang="ar"] #rbo-internal-directory div[style*="text-align: center"] {
 			text-align: center !important;
@@ -2911,7 +3152,7 @@ add_action( 'wp_head', function() {
 		body.rtl .rbo-elementor-service-wrapper {
 			direction: rtl !important;
 			text-align: right !important;
-			font-family: 'Cairo', 'Tajawal', sans-serif !important;
+			font-family: "Cairo", "Tajawal", sans-serif !important;
 		}
 		html[lang="ar"] .rbo-hero-section,
 		body.rtl .rbo-hero-section {
