@@ -107,3 +107,4 @@ verify_live(f"{LIVE_URL}/areas-we-serve/dubai/", "EN")
 verify_live(f"{LIVE_URL}/ar/", "AR")
 verify_live(f"{LIVE_URL}/ar/areas-we-serve-2/dubai/", "AR")
 verify_live(f"{LIVE_URL}/about-us/", "EN")
+
