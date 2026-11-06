@@ -54,23 +54,34 @@ add_filter(
 /**
  * 1d. Serve Dynamic Header & Footer per Language without Elementor Element Cache pollution
  */
-// A. Bypass Elementor Element Cache for Header (5241) and Footer (432) so they always render per language
+// A. Bypass Elementor Element Cache for Header (5241), Footer (432), Archive (5259), and Single Post (5229) so they always render per language
 add_filter(
 	'get_post_metadata',
 	function ( $value, $object_id, $meta_key, $single ) {
-		if ( $meta_key === '_elementor_element_cache' && ( (int) $object_id === 5241 || (int) $object_id === 432 ) ) {
-			return false; // Force cache miss: never load static HTML cache for dynamic header/footer
+		$oid = (int) $object_id;
+		if ( $meta_key === '_elementor_element_cache' && in_array( $oid, array( 5241, 432, 5259, 5229 ), true ) ) {
+			return false; // Force cache miss: never load static HTML cache for dynamic language templates
 		}
 
 		if ( $meta_key === '_elementor_data' ) {
 			if ( rbo_is_arabic_request() ) {
-				if ( (int) $object_id === 5241 ) {
+				if ( $oid === 5241 ) {
 					$file = __DIR__ . '/header-ar.json';
 					if ( file_exists( $file ) ) {
 						return file_get_contents( $file );
 					}
-				} elseif ( (int) $object_id === 432 ) {
+				} elseif ( $oid === 432 ) {
 					$file = __DIR__ . '/footer-ar.json';
+					if ( file_exists( $file ) ) {
+						return file_get_contents( $file );
+					}
+				} elseif ( $oid === 5259 ) {
+					$file = __DIR__ . '/archive-ar.json';
+					if ( file_exists( $file ) ) {
+						return file_get_contents( $file );
+					}
+				} elseif ( $oid === 5229 ) {
+					$file = __DIR__ . '/single-post-ar.json';
 					if ( file_exists( $file ) ) {
 						return file_get_contents( $file );
 					}
@@ -83,17 +94,27 @@ add_filter(
 	4
 );
 
-// B. Prevent Elementor from writing static HTML cache to DB for Header & Footer
+// B. Prevent Elementor from writing static HTML cache to DB for Header, Footer, Archive & Single Post
 add_filter(
 	'update_post_metadata',
 	function ( $check, $object_id, $meta_key ) {
-		if ( $meta_key === '_elementor_element_cache' && ( (int) $object_id === 5241 || (int) $object_id === 432 ) ) {
-			return true; // Short-circuit, never save static cache to DB for dynamic header/footer
+		if ( $meta_key === '_elementor_element_cache' && in_array( (int) $object_id, array( 5241, 432, 5259, 5229 ), true ) ) {
+			return true; // Short-circuit, never save static cache to DB for dynamic language templates
 		}
 		return $check;
 	},
 	10,
 	3
+);
+
+// C. Ensure all 17+ blog posts display on one full page on the Blog Archive
+add_action(
+	'pre_get_posts',
+	function ( $query ) {
+		if ( ! is_admin() && $query->is_main_query() && ( $query->is_home() || $query->is_category() || $query->is_tag() ) ) {
+			$query->set( 'posts_per_page', 24 );
+		}
+	}
 );
 
 /**
@@ -518,6 +539,11 @@ add_action(
 		}
 
 		$request_uri = trim( parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ), '/' );
+
+		if ( 'ar/blog' === $request_uri ) {
+			wp_safe_redirect( home_url( '/ar/blog-2/' ), 301 );
+			exit;
+		}
 
 		$redirects = array(
 			// Location Pages -> Emirates Local SEO Hubs
@@ -2563,17 +2589,139 @@ add_action( 'wp_head', function() {
 			text-align: left !important;
 		}
 		@media (min-width: 768px) {
+			html[lang="ar"] .elementor-5241 .elementor-element.elementor-element-f22dfcf,
+			body.rtl .elementor-5241 .elementor-element.elementor-element-f22dfcf {
+				--width: 15% !important;
+				width: 15% !important;
+			}
+			html[lang="ar"] .elementor-5241 .elementor-element.elementor-element-c7f9cbf,
+			body.rtl .elementor-5241 .elementor-element.elementor-element-c7f9cbf {
+				--width: 63% !important;
+				width: 63% !important;
+				padding-right: 28px !important;
+				padding-left: 10px !important;
+			}
+			html[lang="ar"] .elementor-5241 .elementor-element.elementor-element-828eb16,
+			body.rtl .elementor-5241 .elementor-element.elementor-element-828eb16 {
+				--width: 22% !important;
+				width: 22% !important;
+			}
 			html[lang="ar"] .elementor-location-header .elementor-nav-menu--main .elementor-nav-menu,
 			body.rtl .elementor-location-header .elementor-nav-menu--main .elementor-nav-menu {
 				flex-wrap: nowrap !important;
 				white-space: nowrap !important;
+				gap: 4px !important;
 			}
 			html[lang="ar"] .elementor-location-header .elementor-nav-menu--main .elementor-item,
 			body.rtl .elementor-location-header .elementor-nav-menu--main .elementor-item {
-				padding-left: 11px !important;
-				padding-right: 11px !important;
+				padding-left: 10px !important;
+				padding-right: 10px !important;
+				font-size: 15px !important;
 				white-space: nowrap !important;
+				display: inline-flex !important;
+				align-items: center !important;
+				gap: 5px !important;
 			}
+		}
+
+		/* Force dropdown arrows (.sub-arrow) to always be visible and properly sized */
+		html[lang="ar"] .elementor-location-header .elementor-nav-menu--main .elementor-item .sub-arrow,
+		body.rtl .elementor-location-header .elementor-nav-menu--main .elementor-item .sub-arrow {
+			display: inline-flex !important;
+			align-items: center !important;
+			justify-content: center !important;
+			padding: 0 0 0 6px !important;
+			margin: 0 !important;
+			visibility: visible !important;
+			opacity: 1 !important;
+		}
+		html[lang="ar"] .elementor-location-header .elementor-nav-menu--main .elementor-item .sub-arrow svg,
+		body.rtl .elementor-location-header .elementor-nav-menu--main .elementor-item .sub-arrow svg {
+			width: 11px !important;
+			height: 11px !important;
+			fill: currentColor !important;
+			display: block !important;
+		}
+
+		/* Fix SmartMenus RTL vs LTR positioning bug so dropdowns never disappear off-screen */
+		@media (min-width: 768px) {
+			html[lang="ar"] .elementor-location-header .elementor-nav-menu--main > .elementor-nav-menu > li.menu-item-has-children,
+			body.rtl .elementor-location-header .elementor-nav-menu--main > .elementor-nav-menu > li.menu-item-has-children {
+				position: relative !important;
+			}
+			html[lang="ar"] .elementor-location-header .elementor-nav-menu--main > .elementor-nav-menu > li.menu-item-has-children > ul.sub-menu,
+			body.rtl .elementor-location-header .elementor-nav-menu--main > .elementor-nav-menu > li.menu-item-has-children > ul.sub-menu {
+				left: 0 !important;
+				right: auto !important;
+				margin-left: 0 !important;
+				margin-right: 0 !important;
+				min-width: 240px !important;
+				width: auto !important;
+				z-index: 99999 !important;
+				direction: rtl !important;
+				text-align: right !important;
+			}
+			html[lang="ar"] .elementor-location-header .elementor-nav-menu--main > .elementor-nav-menu > li.menu-item-has-children:hover > ul.sub-menu,
+			body.rtl .elementor-location-header .elementor-nav-menu--main > .elementor-nav-menu > li.menu-item-has-children:hover > ul.sub-menu {
+				display: block !important;
+				opacity: 1 !important;
+				visibility: visible !important;
+				pointer-events: auto !important;
+			}
+			html[lang="ar"] .elementor-location-header .elementor-nav-menu--main ul.sub-menu li.menu-item-has-children,
+			body.rtl .elementor-location-header .elementor-nav-menu--main ul.sub-menu li.menu-item-has-children {
+				position: relative !important;
+			}
+			html[lang="ar"] .elementor-location-header .elementor-nav-menu--main ul.sub-menu li.menu-item-has-children > ul.sub-menu,
+			body.rtl .elementor-location-header .elementor-nav-menu--main ul.sub-menu li.menu-item-has-children > ul.sub-menu {
+				top: 0 !important;
+				right: 100% !important;
+				left: auto !important;
+				margin-left: 0 !important;
+				margin-right: 0 !important;
+				min-width: 250px !important;
+				width: auto !important;
+				z-index: 99999 !important;
+				direction: rtl !important;
+				text-align: right !important;
+			}
+			html[lang="ar"] .elementor-location-header .elementor-nav-menu--main ul.sub-menu li.menu-item-has-children:hover > ul.sub-menu,
+			body.rtl .elementor-location-header .elementor-nav-menu--main ul.sub-menu li.menu-item-has-children:hover > ul.sub-menu {
+				display: block !important;
+				opacity: 1 !important;
+				visibility: visible !important;
+				pointer-events: auto !important;
+			}
+			html[lang="ar"] .elementor-location-header .elementor-nav-menu--dropdown a,
+			body.rtl .elementor-location-header .elementor-nav-menu--dropdown a {
+				direction: rtl !important;
+				text-align: right !important;
+				justify-content: space-between !important;
+			}
+		}
+
+		/* Arabic Blog Archive & Single Blog Post RTL Styling */
+		html[lang="ar"] .elementor-5259 .elementor-post__card,
+		body.rtl .elementor-5259 .elementor-post__card {
+			direction: rtl !important;
+			text-align: right !important;
+		}
+		html[lang="ar"] .elementor-5259 .elementor-post__title,
+		html[lang="ar"] .elementor-5259 .elementor-post__title a,
+		html[lang="ar"] .elementor-5259 .elementor-post__excerpt p,
+		html[lang="ar"] .elementor-5259 .elementor-post__read-more,
+		html[lang="ar"] .elementor-5259 .elementor-post__meta-data {
+			text-align: right !important;
+			direction: rtl !important;
+			font-family: 'Cairo', 'Tajawal', sans-serif !important;
+		}
+		html[lang="ar"] .elementor-5229 .elementor-widget-theme-post-content,
+		body.rtl .elementor-5229 .elementor-widget-theme-post-content,
+		html[lang="ar"] .rbo-arabic-blog-container,
+		body.rtl .rbo-arabic-blog-container {
+			direction: rtl !important;
+			text-align: right !important;
+			font-family: 'Cairo', 'Tajawal', sans-serif !important;
 		}
 
 		/* 7 Emirates Regional Hubs (parent-pageid-5608 / parent-pageid-5618) Hero & Form Protection */
@@ -2716,22 +2864,30 @@ add_action( 'wp_head', function() {
 }, 99 );
 
 add_action( 'wp_footer', function() {
-	$post_id = get_the_ID();
+	$post_id = is_home() ? (int) get_option( 'page_for_posts' ) : (int) get_the_ID();
 	$cur_lang = rbo_is_arabic_request() ? 'ar' : 'en';
 
 	if ( $cur_lang === 'ar' ) {
 		// Target is English
 		$target_lang = 'en';
-		$target_id = ( function_exists( 'pll_get_post' ) && $post_id ) ? pll_get_post( $post_id, 'en' ) : 0;
-		$target_url = $target_id ? get_permalink( $target_id ) : home_url( '/' );
+		if ( is_home() ) {
+			$target_url = home_url( '/blog/' );
+		} else {
+			$target_id = ( function_exists( 'pll_get_post' ) && $post_id ) ? pll_get_post( $post_id, 'en' ) : 0;
+			$target_url = $target_id ? get_permalink( $target_id ) : home_url( '/' );
+		}
 		$flag = '🌐';
 		$label = 'English';
 		$sub = 'Switch to English';
 	} else {
 		// Target is Arabic
 		$target_lang = 'ar';
-		$target_id = ( function_exists( 'pll_get_post' ) && $post_id ) ? pll_get_post( $post_id, 'ar' ) : 0;
-		$target_url = $target_id ? get_permalink( $target_id ) : home_url( '/ar/' );
+		if ( is_home() ) {
+			$target_url = home_url( '/ar/blog-2/' );
+		} else {
+			$target_id = ( function_exists( 'pll_get_post' ) && $post_id ) ? pll_get_post( $post_id, 'ar' ) : 0;
+			$target_url = $target_id ? get_permalink( $target_id ) : home_url( '/ar/' );
+		}
 		$flag = '🇦🇪';
 		$label = 'العربية';
 		$sub = 'التحويل للغة العربية';
@@ -2804,7 +2960,7 @@ add_action( 'wp_footer', function() {
 			'Home': 'الرئيسية',
 			'About Us': 'من نحن',
 			'Our Services': 'خدماتنا',
-			'Areas We Serve': 'إمارات الدولة',
+			'Areas We Serve': 'فروعنا في الإمارات',
 			'Blog': 'المدونة',
 			'Contact Us': 'اتصل بنا',
 			'Free VAT Check': 'فحص الضريبة مجاناً',
@@ -2918,7 +3074,6 @@ add_action( 'wp_footer', function() {
 			'/our-services/business-setup/': '/ar/business-setup-ar/',
 			'/business-setup/ajman-free-zone/': '/ar/ajman-free-zone-ar/',
 			'/our-services/business-setup/ajman-free-zone/': '/ar/ajman-free-zone-ar/',
-			'/afz-new-lighter-package-2026-ajman-free-zone-setup/': '/ar/ajman-free-zone-ar/',
 			'/business-setup/mainland-vs-free-zone/': '/ar/mainland-vs-free-zone-ar/',
 			'/our-services/business-setup/mainland-vs-free-zone/': '/ar/mainland-vs-free-zone-ar/',
 			'/business-setup/dubai/': '/ar/dubai-business-setup-ar/',
@@ -2934,7 +3089,26 @@ add_action( 'wp_footer', function() {
 			'/areas-we-serve/ajman/': '/ar/areas-we-serve-2/ajman/',
 			'/areas-we-serve/ras-al-khaimah/': '/ar/areas-we-serve-2/ras-al-khaimah/',
 			'/areas-we-serve/fujairah/': '/ar/areas-we-serve-2/fujairah/',
-			'/areas-we-serve/umm-al-quwain/': '/ar/areas-we-serve-2/umm-al-quwain/'
+			'/areas-we-serve/umm-al-quwain/': '/ar/areas-we-serve-2/umm-al-quwain/',
+			'/blog/': '/ar/blog-2/',
+			'/ar/blog/': '/ar/blog-2/',
+			'/afz-new-lighter-package-2026-ajman-free-zone-setup/': '/ar/afz-new-lighter-package-2026-ajman-free-zone-setup-2/',
+			'/uae-accounts-payable-receivable-outsourcing-guide-2026/': '/ar/uae-accounts-payable-receivable-outsourcing-guide-2026-ar/',
+			'/uae-payroll-wps-compliance-guide-2026-mohre-sif-fines/': '/ar/uae-payroll-wps-compliance-guide-2026-mohre-sif-fines-ar/',
+			'/uae-accounting-bookkeeping-guide-2026-mandatory-corporate-tax-ifrs-rules/': '/ar/uae-accounting-bookkeeping-guide-2026-mandatory-corporate-tax-ifrs-rules-ar/',
+			'/uae-statutory-audit-guide-2026-mandatory-corporate-tax-rules-checklist/': '/ar/uae-statutory-audit-guide-2026-mandatory-corporate-tax-rules-checklist-ar/',
+			'/fta-tax-audit-assistance-uae-corporate-tax-vat-guide-2026/': '/ar/fta-tax-audit-assistance-uae-corporate-tax-vat-guide-2026-ar/',
+			'/virtual-cfo-services-dubai-uae-fractional-cfo-guide-2026/': '/ar/virtual-cfo-services-dubai-uae-fractional-cfo-guide-2026-ar/',
+			'/fta-voluntary-disclosure-form-211-uae-correct-tax-errors-guide/': '/ar/fta-voluntary-disclosure-form-211-uae-correct-tax-errors-guide-ar/',
+			'/uae-free-zone-corporate-tax-qualifying-income-qfzp-guide-2026/': '/ar/uae-free-zone-corporate-tax-qualifying-income-qfzp-guide-2026-ar/',
+			'/vat-refund-claim-landlords-consultants-contractors-uae/': '/ar/vat-refund-claim-landlords-consultants-contractors-uae-ar/',
+			'/uae-corporate-tax-returns-ct-registration-guide-2026/': '/ar/uae-corporate-tax-returns-ct-registration-guide-2026-ar/',
+			'/corporate-tax-reconsideration-penalty-waiver-uae/': '/ar/corporate-tax-reconsideration-penalty-waiver-uae-ar/',
+			'/uae-corporate-tax-filing-deadline-30-september-2026/': '/ar/uae-corporate-tax-filing-deadline-30-september-2026-ar/',
+			'/ajman-free-zone-company-audit-vat-compliance-guide/': '/ar/ajman-free-zone-company-audit-vat-compliance-guide-ar/',
+			'/uae-corporate-tax-small-business-relief-guide-2026/': '/ar/uae-corporate-tax-small-business-relief-guide-2026-ar/',
+			'/uae-corporate-tax-2026-registration-rates-filing-deadline/': '/ar/uae-corporate-tax-2026-registration-rates-filing-deadline-ar/',
+			'/vat-registration-uae-2026-thresholds-documents-deadlines/': '/ar/vat-registration-uae-2026-thresholds-documents-deadlines-ar/'
 		};
 
 		document.querySelectorAll('a[href]').forEach(function(a) {
@@ -2955,13 +3129,24 @@ add_action( 'wp_footer', function() {
 			} catch (e) {}
 		});
 
+		if (window.jQuery && jQuery.fn && jQuery.fn.smartmenus) {
+			jQuery.fn.smartmenus.defaults.rightToLeftSubMenus = false;
+			jQuery('.elementor-nav-menu').each(function() {
+				var sm = jQuery(this).data('smartmenus');
+				if (sm && sm.opts) {
+					sm.opts.rightToLeftSubMenus = false;
+				}
+			});
+		}
+
 		document.querySelectorAll('.elementor-location-header a, .site-header a, .elementor-nav-menu a').forEach(function(a) {
+			var subArrow = a.querySelector('.sub-arrow');
 			var txt = a.childNodes[0] && a.childNodes[0].nodeType === 3 ? a.childNodes[0].nodeValue.trim() : a.innerText.trim();
 			for (var en in menuMap) {
 				if (txt === en) {
 					if (a.childNodes[0] && a.childNodes[0].nodeType === 3) {
-						a.childNodes[0].nodeValue = menuMap[en] + ' ';
-					} else {
+						a.childNodes[0].nodeValue = menuMap[en];
+					} else if (!subArrow) {
 						a.innerText = menuMap[en];
 					}
 				}
