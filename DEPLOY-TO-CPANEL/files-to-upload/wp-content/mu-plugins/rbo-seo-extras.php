@@ -107,7 +107,7 @@ add_filter(
 	3
 );
 
-// C. Ensure all 17+ blog posts display on one full page on the Blog Archive
+// C. Ensure all 18+ blog posts display on one full page on the Blog Archive
 add_action(
 	'pre_get_posts',
 	function ( $query ) {
@@ -115,6 +115,21 @@ add_action(
 			$query->set( 'posts_per_page', 24 );
 		}
 	}
+);
+
+// D. IndexNow Protocol Key Verification Endpoint (/rbo2026indexnowkey8842a9f1.txt)
+add_action(
+	'init',
+	function () {
+		$req = isset( $_SERVER['REQUEST_URI'] ) ? trim( parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ), '/' ) : '';
+		if ( 'rbo2026indexnowkey8842a9f1.txt' === $req ) {
+			header( 'Content-Type: text/plain; charset=utf-8' );
+			header( 'X-Robots-Tag: noindex' );
+			echo 'rbo2026indexnowkey8842a9f1';
+			exit;
+		}
+	},
+	1
 );
 
 /**
@@ -175,6 +190,20 @@ add_action(
 	'wp_head',
 	function () {
 		$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+		$is_ar       = rbo_is_arabic_request();
+		$post_id     = is_home() ? (int) get_option( 'page_for_posts' ) : (int) get_the_ID();
+		$en_url      = $is_ar ? home_url( '/' ) : $current_url;
+		$ar_url      = $is_ar ? $current_url : home_url( '/ar/' );
+		if ( $post_id && function_exists( 'pll_get_post' ) ) {
+			$en_id = (int) pll_get_post( $post_id, 'en' );
+			$ar_id = (int) pll_get_post( $post_id, 'ar' );
+			if ( $en_id ) {
+				$en_url = ( $en_id === (int) get_option( 'page_for_posts' ) ) ? home_url( '/blog/' ) : get_permalink( $en_id );
+			}
+			if ( $ar_id ) {
+				$ar_url = get_permalink( $ar_id );
+			}
+		}
 		?>
 <!-- Google Search Console Verification -->
 <meta name="google-site-verification" content="OO2yx1wSe7bvwRJz4DF8Ml1w5i2lOylQ_Tm1mX6W_9k" />
@@ -186,12 +215,13 @@ add_action(
 <meta name="ICBM" content="25.405216, 55.513643" />
 <meta name="target_country" content="AE" />
 
-<!-- UAE Regional Hreflang -->
-<link rel="alternate" href="<?php echo esc_url( $current_url ); ?>" hreflang="en-ae" />
-<link rel="alternate" href="<?php echo esc_url( $current_url ); ?>" hreflang="x-default" />
+<!-- UAE Bidirectional Hreflang (en-AE, ar-AE, x-default) -->
+<link rel="alternate" href="<?php echo esc_url( $en_url ); ?>" hreflang="en-ae" />
+<link rel="alternate" href="<?php echo esc_url( $ar_url ); ?>" hreflang="ar-ae" />
+<link rel="alternate" href="<?php echo esc_url( $en_url ); ?>" hreflang="x-default" />
 
 <!-- UAE OpenGraph Locale -->
-<meta property="og:locale" content="en_AE" />
+<meta property="og:locale" content="<?php echo $is_ar ? 'ar_AE' : 'en_AE'; ?>" />
 <meta property="og:country_name" content="United Arab Emirates" />
 
 <!-- Sitewide LocalBusiness & AccountingService JSON-LD Schema -->
