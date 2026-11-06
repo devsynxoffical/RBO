@@ -2136,7 +2136,46 @@ HTML;
 			$content .= $callout;
 		}
 
-		// 3. Penalty Reconsideration Hub (ID 2532) -> FTA Form 211 Guide
+		// 3. Transfer Pricing Hub (ID 3228) & Penalty Reconsideration Hub (ID 2532) -> Pillar Guides
+		if ( $post_id === 3228 || ( is_page() && strpos( get_page_uri( $post_id ), 'transfer-pricing' ) !== false ) ) {
+			if ( rbo_is_arabic_request() ) {
+				$tp_guide_url = home_url( '/ar/uae-transfer-pricing-guide-2026-local-master-file-arms-length-rules-ar/' );
+				$callout      = <<<HTML
+<div class="rbo-guide-callout" dir="rtl" style="max-width: 1140px; margin: 40px auto; padding: 26px 30px; background: linear-gradient(135deg, #f8fafd 0%, #ffffff 100%); border: 1px solid #e2e8f0; border-right: 5px solid #d4a017; border-radius: 10px; box-shadow: 0 4px 18px rgba(0,0,0,0.04); direction: rtl; text-align: right; font-family: 'Cairo', 'Tajawal', sans-serif;">
+	<div style="display: flex; align-items: flex-start; gap: 18px;">
+		<div style="font-size: 32px; line-height: 1;">📊</div>
+		<div style="flex: 1;">
+			<span style="display: inline-block; padding: 3px 10px; background: #eef4fc; color: #0b3a6e; font-size: 11.5px; font-weight: 700; border-radius: 4px; margin-bottom: 8px;">الدليل الإرشادي الشامل لعام 2026</span>
+			<h3 style="margin: 0 0 10px 0; color: #0b3a6e; font-size: 21px; font-weight: 700;">دليل التسعير التحويلي (Transfer Pricing) في الإمارات 2026: الملف المحلي والملف الرئيسي وحدود الإفصاح</h3>
+			<p style="margin: 0 0 16px 0; color: #475569; font-size: 15px; line-height: 1.75;">تعرف على كافة متطلبات المواد (34-36 و55) والقرار الوزاري رقم 97 لسنة 2023، بما في ذلك قاعدة الـ 500,000 درهم لرواتب الملاك والمديرين، وحد الـ 40 مليون درهم لمعاملات الأطراف المرتبطة، وطرق التسعير الخمس المعتمدة.</p>
+			<a href="{$tp_guide_url}" style="display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; background: linear-gradient(135deg, #0b3a6e 0%, #1e5a96 100%); color: #ffffff !important; text-decoration: none; font-weight: 700; font-size: 14.5px; border-radius: 6px; box-shadow: 0 2px 8px rgba(11,58,110,0.25);">
+				اقرأ دليل التسعير التحويلي 2026 كاملاً ←
+			</a>
+		</div>
+	</div>
+</div>
+HTML;
+			} else {
+				$tp_guide_url = home_url( '/uae-transfer-pricing-guide-2026-local-master-file-arms-length-rules/' );
+				$callout      = <<<HTML
+<div class="rbo-guide-callout" style="max-width: 1140px; margin: 40px auto; padding: 26px 30px; background: linear-gradient(135deg, #f8fafd 0%, #ffffff 100%); border: 1px solid #e2e8f0; border-left: 5px solid #d4a017; border-radius: 10px; box-shadow: 0 4px 18px rgba(0,0,0,0.04);">
+	<div style="display: flex; align-items: flex-start; gap: 18px;">
+		<div style="font-size: 32px; line-height: 1;">📊</div>
+		<div style="flex: 1;">
+			<span style="display: inline-block; padding: 3px 10px; background: #eef4fc; color: #0b3a6e; font-size: 11px; font-weight: 700; text-transform: uppercase; border-radius: 4px; letter-spacing: 0.5px; margin-bottom: 8px;">2026 Master Regulatory Guide</span>
+			<h3 style="margin: 0 0 10px 0; color: #0b3a6e; font-size: 21px; font-weight: 700;">UAE Transfer Pricing Guide 2026: Local File, Master File &amp; Disclosure Thresholds (AED 40M &amp; 500k)</h3>
+			<p style="margin: 0 0 16px 0; color: #475569; font-size: 15px; line-height: 1.65;">Explore our comprehensive technical breakdown of Articles 34–36 &amp; 55, Ministerial Decision No. 97 of 2023, the AED 500,000 Connected Persons owner salary rule, AED 40M Related Party schedule, and the 5 OECD benchmarking methods.</p>
+			<a href="{$tp_guide_url}" style="display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; background: linear-gradient(135deg, #0b3a6e 0%, #1e5a96 100%); color: #ffffff !important; text-decoration: none; font-weight: 600; font-size: 14.5px; border-radius: 6px; box-shadow: 0 2px 8px rgba(11,58,110,0.25);">
+				Read Complete 2026 Transfer Pricing Guide ➔
+			</a>
+		</div>
+	</div>
+</div>
+HTML;
+			}
+			$content .= $callout;
+		}
+
 		if ( $post_id === 2532 ) {
 			$form211_url = home_url( '/fta-voluntary-disclosure-form-211-uae-correct-tax-errors-guide/' );
 			$callout     = <<<HTML
@@ -3108,7 +3147,8 @@ add_action( 'wp_footer', function() {
 			'/ajman-free-zone-company-audit-vat-compliance-guide/': '/ar/ajman-free-zone-company-audit-vat-compliance-guide-ar/',
 			'/uae-corporate-tax-small-business-relief-guide-2026/': '/ar/uae-corporate-tax-small-business-relief-guide-2026-ar/',
 			'/uae-corporate-tax-2026-registration-rates-filing-deadline/': '/ar/uae-corporate-tax-2026-registration-rates-filing-deadline-ar/',
-			'/vat-registration-uae-2026-thresholds-documents-deadlines/': '/ar/vat-registration-uae-2026-thresholds-documents-deadlines-ar/'
+			'/vat-registration-uae-2026-thresholds-documents-deadlines/': '/ar/vat-registration-uae-2026-thresholds-documents-deadlines-ar/',
+			'/uae-transfer-pricing-guide-2026-local-master-file-arms-length-rules/': '/ar/uae-transfer-pricing-guide-2026-local-master-file-arms-length-rules-ar/'
 		};
 
 		document.querySelectorAll('a[href]').forEach(function(a) {
