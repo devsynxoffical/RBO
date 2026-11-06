@@ -107,11 +107,13 @@ add_filter(
 			$uri             = (string) get_page_uri( $post_id );
 			$parent_id       = (int) wp_get_post_parent_id( $post_id );
 			$all_service_ids = array( 178, 787, 1547, 1670, 1692, 1706, 1722, 2419, 2458, 2488, 2501, 2508, 2522, 2532, 2567, 2732, 2897, 3034, 3098, 3125, 3228, 3320, 3341, 3351, 3358, 3368, 3382, 3392, 3402, 3412, 3413, 4420, 4421, 4422, 4423, 4424, 5604, 5615 );
-			// CRITICAL: NEVER apply service subpage classes to Homepage or Regional Hubs
-			$is_homepage = ( $post_id === 172 || $post_id === 5606 || $post_id === 5617 || strpos( $uri, 'home-ar' ) !== false );
-			$is_hub      = ( strpos( $uri, 'areas-we-serve' ) !== false );
-			if ( ! $is_homepage && ! $is_hub ) {
-				if ( in_array( $post_id, $all_service_ids, true ) || ( $post_id >= 5626 && $post_id <= 5700 ) || strpos( $uri, 'our-services' ) !== false || strpos( $uri, 'refund' ) !== false || in_array( $parent_id, array( 178, 787, 4420, 4421, 4422, 4423, 4424 ), true ) ) {
+			// CRITICAL: NEVER apply service subpage classes to Homepage, Regional Hubs, About Us, Contact Us, or Business Setup HTML pages
+			$is_homepage   = ( $post_id === 172 || $post_id === 5606 || $post_id === 5617 || strpos( $uri, 'home-ar' ) !== false );
+			$is_hub        = ( strpos( $uri, 'areas-we-serve' ) !== false );
+			$is_about      = ( $post_id === 175 || $post_id === 5626 || $post_id === 5760 || strpos( $uri, 'about-us' ) !== false || strpos( $uri, 'contact-us' ) !== false );
+			$is_setup_html = ( strpos( $uri, 'business-setup' ) !== false || strpos( $uri, 'mainland-vs-free-zone' ) !== false || strpos( $uri, 'ajman-free-zone' ) !== false || strpos( $uri, 'trade-licence-process' ) !== false || strpos( $uri, 'setup-packages' ) !== false );
+			if ( ! $is_homepage && ! $is_hub && ! $is_about && ! $is_setup_html ) {
+				if ( in_array( $post_id, $all_service_ids, true ) || ( $post_id >= 5627 && $post_id <= 5780 ) || strpos( $uri, 'our-services' ) !== false || strpos( $uri, 'refund' ) !== false || strpos( $uri, 'payroll-reporting' ) !== false || in_array( $parent_id, array( 178, 787, 4420, 4421, 4422, 4423, 4424 ), true ) ) {
 					$classes[] = 'rbo-services-subpage';
 					$classes[] = 'rbo-services-page';
 				}
@@ -132,7 +134,7 @@ add_action(
 			$post_id         = (int) get_the_ID();
 			$uri             = (string) get_page_uri( $post_id );
 			$all_service_ids = array( 178, 787, 1547, 1670, 1692, 1706, 1722, 2419, 2458, 2488, 2501, 2508, 2522, 2532, 2567, 2732, 2897, 3034, 3098, 3125, 3228, 3320, 3341, 3351, 3358, 3368, 3382, 3392, 3402, 3412, 3413, 4420, 4421, 4422, 4423, 4424, 5604, 5615 );
-			if ( in_array( $post_id, $all_service_ids, true ) || ( $post_id >= 5600 && $post_id <= 5700 ) || strpos( $uri, 'our-services' ) !== false ) {
+			if ( in_array( $post_id, $all_service_ids, true ) || ( $post_id >= 5600 && $post_id <= 5780 ) || strpos( $uri, 'our-services' ) !== false ) {
 				$upload_dir = wp_upload_dir();
 				$css_path   = $upload_dir['basedir'] . '/elementor/css/post-' . $post_id . '.css';
 				$css_url    = $upload_dir['baseurl'] . '/elementor/css/post-' . $post_id . '.css';
@@ -2131,9 +2133,9 @@ HTML;
 
 
 		// 4. Master Internal Linking Directory on Homepage (ID 172 / 5606 / 5617) and Services Hub
-		$is_home_or_services = is_front_page() || $post_id === 172 || $post_id === 178 || $post_id === 5606 || $post_id === 5617 || ( is_page() && in_array( get_post_field( 'post_name', $post_id ), array( 'our-services', 'home-ar', 'services' ), true ) );
+		$is_home_or_services = is_front_page() || $post_id === 172 || $post_id === 178 || $post_id === 5606 || $post_id === 5617 || $post_id === 5633 || $post_id === 5647 || ( is_page() && in_array( get_post_field( 'post_name', $post_id ), array( 'our-services', 'our-services-2', 'home-ar', 'services' ), true ) );
 		if ( $is_home_or_services ) {
-			$is_ar = ( function_exists( 'pll_current_language' ) && pll_current_language() === 'ar' ) || ( isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], '/ar/' ) !== false ) || $post_id === 5606 || $post_id === 5617 || ( is_page() && strpos( get_page_uri( $post_id ), 'home-ar' ) !== false );
+			$is_ar = ( function_exists( 'pll_current_language' ) && pll_current_language() === 'ar' ) || ( isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], '/ar/' ) !== false ) || $post_id === 5606 || $post_id === 5617 || $post_id === 5633 || $post_id === 5647 || ( is_page() && strpos( get_page_uri( $post_id ), 'home-ar' ) !== false );
 
 			if ( $is_ar ) {
 				$directory = <<<HTML
@@ -2188,7 +2190,7 @@ HTML;
           <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/audit-assurance/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 خدمات التدقيق والتأكيد المالي المعتمد</a></li>
           <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/statutory-audit/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 التدقيق المالي القانوني المعتمد للشركات</a></li>
           <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/free-zone-audit/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 تقارير تدقيق شركات المناطق الحرة لتجديد الرخص</a></li>
-          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/accounts-payable-receivable/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 إدارة الذمم الدائنة والمدينة AP/AR</a></li>
+          <li style="margin-bottom: 8px;"><a href="/ar/accounts-payable-and-receivable/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 إدارة الذمم الدائنة والمدينة AP/AR</a></li>
           <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/accounting/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 مسك الدفاتر المحاسبية والمطابقة اليومية</a></li>
           <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/bank-reconciliation/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 التسوية البنكية والمطابقة الدورية</a></li>
           <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/financial-reporting/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 إعداد التقارير المالية المتوافقة مع IFRS</a></li>
@@ -2203,11 +2205,11 @@ HTML;
         <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px; line-height: 1.8; text-align: right;">
           <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/virtual-cfo/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 خدمات المدير المالي الافتراضي (CFO)</a></li>
           <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/business-advisory/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 الاستشارات المالية والضريبية للأعمال</a></li>
-          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/payroll-wps/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 إدارة الرواتب ونظام حماية الأجور WPS</a></li>
-          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/eosb-calculation/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 احتساب مكافأة نهاية الخدمة (EOSB)</a></li>
-          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/afz-new-lighter-package-2026-ajman-free-zone-setup/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 شريك معتمد لتأسيس شركات منطقة عجمان الحرة</a></li>
-          <li style="margin-bottom: 8px;"><a href="https://www.rboaccounting.ae/ar/business-setup/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 تأسيس الأعمال والشركات في دبي</a></li>
-          <li style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #e2e8f0;"><a href="https://www.rboaccounting.ae/ar/services/" style="color: #d4a017; text-decoration: none; font-weight: 700;">عرض كافة الخدمات التخصصية الـ 36 ←</a></li>
+          <li style="margin-bottom: 8px;"><a href="/ar/wps-payroll/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 إدارة الرواتب ونظام حماية الأجور WPS</a></li>
+          <li style="margin-bottom: 8px;"><a href="/ar/end-of-service-benefits/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 احتساب مكافأة نهاية الخدمة (EOSB)</a></li>
+          <li style="margin-bottom: 8px;"><a href="/ar/ajman-free-zone-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 شريك معتمد لتأسيس شركات منطقة عجمان الحرة</a></li>
+          <li style="margin-bottom: 8px;"><a href="/ar/business-setup-ar/" style="color: #0b3a6e; text-decoration: none; font-weight: 600;">👈 تأسيس الأعمال والشركات في دبي</a></li>
+          <li style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #e2e8f0;"><a href="/ar/our-services-2/" style="color: #d4a017; text-decoration: none; font-weight: 700;">عرض كافة الخدمات التخصصية الـ 36 ←</a></li>
         </ul>
       </div>
     </div>
@@ -2656,8 +2658,28 @@ add_action( 'wp_head', function() {
 		html[lang="ar"] footer .elementor-element-d60ecab p,
 		body.rtl footer .elementor-element-d60ecab p {
 			text-align: center !important;
-			direction: ltr !important;
-			unicode-bidi: isolate;
+			direction: rtl !important;
+		}
+		/* Business Setup HTML Wrapper RTL Support */
+		html[lang="ar"] .rbo-elementor-service-wrapper,
+		body.rtl .rbo-elementor-service-wrapper {
+			direction: rtl !important;
+			text-align: right !important;
+			font-family: 'Cairo', 'Tajawal', sans-serif !important;
+		}
+		html[lang="ar"] .rbo-hero-section,
+		body.rtl .rbo-hero-section {
+			width: 100% !important;
+			left: 0 !important;
+			right: 0 !important;
+			margin-left: 0 !important;
+			margin-right: 0 !important;
+			direction: rtl !important;
+			text-align: right !important;
+		}
+		html[lang="ar"] .rbo-custom-table th,
+		html[lang="ar"] .rbo-custom-table td {
+			text-align: right !important;
 		}
 		</style>
 		<?php
@@ -2815,6 +2837,95 @@ add_action( 'wp_footer', function() {
 			'Accounting Consulting Firm in Ras Al Khaimah': 'خدمات المحاسبة والتدقيق في رأس الخيمة'
 		};
 
+		var urlPathMap = {
+			'/': '/ar/home-ar/',
+			'/about-us/': '/ar/about-us-2/',
+			'/ar/about-us/': '/ar/about-us-2/',
+			'/contact-us/': '/ar/contact-us-2/',
+			'/ar/contact-us/': '/ar/contact-us-2/',
+			'/our-services/': '/ar/our-services-2/',
+			'/our-services/accounting/': '/ar/accounting/',
+			'/our-services/accounting/bookkeeping-and-accounting/': '/ar/bookkeeping-and-accounting/',
+			'/our-services/accounting/bank-reconciliation/': '/ar/bank-reconciliation/',
+			'/our-services/accounting/accounts-payable-and-receivable/': '/ar/accounts-payable-and-receivable/',
+			'/our-services/accounting/ifrs-compliance/': '/ar/ifrs-compliance/',
+			'/our-services/accounting/financial-reporting/': '/ar/financial-reporting/',
+			'/our-services/vat-registration-filing/': '/ar/vat-registration-filing/',
+			'/our-services/vat-registration-filing/registration/': '/ar/vat-registration/',
+			'/our-services/vat-registration-filing/return-filing/': '/ar/vat-return-filing/',
+			'/vat-return-filing/': '/ar/vat-return-filing/',
+			'/our-services/vat-registration-filing/refund/': '/ar/refund/',
+			'/vat-refund-services/': '/ar/refund/',
+			'/our-services/vat-registration-filing/advisory/': '/ar/vat-advisory/',
+			'/vat-advisory-services/': '/ar/vat-advisory/',
+			'/our-services/vat-registration-filing/fta-audit-assistance/': '/ar/fta-audit-assistance/',
+			'/fta-audit-assistance/': '/ar/fta-audit-assistance/',
+			'/our-services/vat-registration-filing/fta-records-amendment/': '/ar/fta-records-amendment/',
+			'/fta-records-amendment/': '/ar/fta-records-amendment/',
+			'/our-services/vat-registration-filing/penalty-reconsideration/': '/ar/penalty-reconsideration/',
+			'/our-services/corporate-tax/': '/ar/corporate-tax/',
+			'/our-services/corporate-tax/registration/': '/ar/corporate-tax-registration/',
+			'/our-services/corporate-tax/return-filing/': '/ar/corporate-tax-return-filing/',
+			'/our-services/corporate-tax/corporate-tax-planning/': '/ar/corporate-tax-planning/',
+			'/our-services/corporate-tax/transfer-pricing/': '/ar/transfer-pricing/',
+			'/our-services/payroll/': '/ar/payroll/',
+			'/our-services/payroll/wps/': '/ar/wps-payroll/',
+			'/our-services/payroll/end-of-service-benefits-calculation/': '/ar/end-of-service-benefits/',
+			'/payroll-reporting/': '/ar/payroll-reporting-2/',
+			'/our-services/payroll/employee-leave-management/': '/ar/employee-leave-management/',
+			'/our-services/audit-assurance/': '/ar/audit-assurance/',
+			'/our-services/audit-assurance/free-zone-audit/': '/ar/free-zone-audit/',
+			'/our-services/audit-assurance/statutory-audit/': '/ar/statutory-audit/',
+			'/our-services/audit-assurance/internal-audit/': '/ar/internal-audit/',
+			'/our-services/audit-assurance/due-diligence/': '/ar/due-diligence/',
+			'/our-services/audit-assurance/risk-assessment/': '/ar/risk-assessment/',
+			'/our-services/virtual-cfo/': '/ar/virtual-cfo/',
+			'/our-services/virtual-cfo/business-advisory/': '/ar/business-advisory/',
+			'/our-services/virtual-cfo/financial-planning-and-analysis/': '/ar/financial-planning-and-analysis/',
+			'/our-services/virtual-cfo/budgeting/': '/ar/budgeting/',
+			'/our-services/virtual-cfo/management-reporting/': '/ar/management-reporting/',
+			'/our-services/virtual-cfo/cash-flow-management/': '/ar/cash-flow-management/',
+			'/business-setup/': '/ar/business-setup-ar/',
+			'/our-services/business-setup/': '/ar/business-setup-ar/',
+			'/business-setup/ajman-free-zone/': '/ar/ajman-free-zone-ar/',
+			'/our-services/business-setup/ajman-free-zone/': '/ar/ajman-free-zone-ar/',
+			'/afz-new-lighter-package-2026-ajman-free-zone-setup/': '/ar/ajman-free-zone-ar/',
+			'/business-setup/mainland-vs-free-zone/': '/ar/mainland-vs-free-zone-ar/',
+			'/our-services/business-setup/mainland-vs-free-zone/': '/ar/mainland-vs-free-zone-ar/',
+			'/business-setup/dubai/': '/ar/dubai-business-setup-ar/',
+			'/our-services/business-setup/dubai/': '/ar/dubai-business-setup-ar/',
+			'/business-setup/trade-licence-process/': '/ar/trade-licence-process-ar/',
+			'/our-services/business-setup/trade-licence-process/': '/ar/trade-licence-process-ar/',
+			'/business-setup/packages/': '/ar/setup-packages-ar/',
+			'/our-services/business-setup/packages/': '/ar/setup-packages-ar/',
+			'/areas-we-serve/': '/ar/areas-we-serve-2/',
+			'/areas-we-serve/dubai/': '/ar/areas-we-serve-2/dubai/',
+			'/areas-we-serve/abu-dhabi/': '/ar/areas-we-serve-2/abu-dhabi/',
+			'/areas-we-serve/sharjah/': '/ar/areas-we-serve-2/sharjah/',
+			'/areas-we-serve/ajman/': '/ar/areas-we-serve-2/ajman/',
+			'/areas-we-serve/ras-al-khaimah/': '/ar/areas-we-serve-2/ras-al-khaimah/',
+			'/areas-we-serve/fujairah/': '/ar/areas-we-serve-2/fujairah/',
+			'/areas-we-serve/umm-al-quwain/': '/ar/areas-we-serve-2/umm-al-quwain/'
+		};
+
+		document.querySelectorAll('a[href]').forEach(function(a) {
+			if (a.closest('#rbo-global-lang-toggle')) return;
+			var rawHref = a.getAttribute('href') || '';
+			if (!rawHref || rawHref.indexOf('#') === 0 || rawHref.indexOf('tel:') === 0 || rawHref.indexOf('mailto:') === 0 || rawHref.indexOf('https://wa.me') === 0) return;
+			try {
+				var u = new URL(rawHref, window.location.origin);
+				if (u.hostname === 'www.rboaccounting.ae' || u.hostname === 'rboaccounting.ae' || u.hostname === window.location.hostname) {
+					var p = u.pathname;
+					if (p.length > 1 && p.slice(-1) !== '/') p += '/';
+					if (urlPathMap[p]) {
+						a.setAttribute('href', urlPathMap[p] + u.search + u.hash);
+					} else if (u.hostname !== window.location.hostname && p.indexOf('/ar/') === 0) {
+						a.setAttribute('href', p + u.search + u.hash);
+					}
+				}
+			} catch (e) {}
+		});
+
 		document.querySelectorAll('.elementor-location-header a, .site-header a, .elementor-nav-menu a').forEach(function(a) {
 			var txt = a.childNodes[0] && a.childNodes[0].nodeType === 3 ? a.childNodes[0].nodeValue.trim() : a.innerText.trim();
 			for (var en in menuMap) {
@@ -2868,12 +2979,29 @@ add_action( 'wp_footer', function() {
 			if (desc) {
 				desc.innerText = 'خدمات المحاسبة وضريبة القيمة المضافة وضريبة الشركات والتدقيق والرواتب المعتمدة من الهيئة الاتحادية للضرائب للشركات في كافة إمارات الدولة الـ 7.';
 			}
-
-			var copy = footerEl.querySelector('.elementor-element-d60ecab p');
-			if (copy) {
-				copy.innerHTML = '<span dir="ltr">© 2026 RBO Accounting Services FZE. All Rights Reserved.</span>';
-			}
 		}
+
+		// Translate Trustindex Google Reviews snippets on Arabic pages
+		var reviewMap = {
+			'We have been working with RBO and are extremely satisfied with their support. The team is always attentive, professional, and truly committed to delivering great service.': 'نحن نعمل مع شركة RBO ونحن راضون للغاية عن دعمهم المتميز. الفريق دائماً متعاون ومحترف وملتزم بتقديم خدمة استثنائية.',
+			'Super fast, highly responsive, and always ready with clear answers to every query. Their service is smooth, reliable, and stress-free. Highly recommended': 'سرعة فائقة واستجابة عالية وجاهزية دائمة بإجابات واضحة لكل استفسار. خدمتهم سلسة وموثوقة ومريحة تماماً. نوصي بهم بشدة.',
+			'Excellent service from RBO Accounting Services FZE. They handled the entire FTA input tax refund process for my new house professionally and smoothly. Special thanks to Mr.Bisharat and Mr. Rehman for their constant support, clear guidance, and timely follow-up until the refund was approved. Highly recommended for anyone looking for reliable tax consultants in the UAE.': 'خدمة ممتازة من شركة RBO لخدمات المحاسبة. لقد تولوا عملية استرداد ضريبة القيمة المضافة لبناء المسكن الجديد لدى الهيئة الاتحادية للضرائب بكل احترافية وسلاسة. شكر خاص للسيد بشارات والسيد رحمن على دعمهم المستمر ومتابعتهم الدقيقة حتى تمت الموافقة على الاسترداد.',
+			'Thanks RBO Team for helping me in vat returns it was truly awesome to have such professional service.': 'شكراً لفريق RBO على مساعدتي في إقرارات ضريبة القيمة المضافة، لقد كانت تجربة رائعة حقاً بالحصول على هذه الخدمة الاحترافية.',
+			'We had a great experience with RBO. Their team is professional, responsive, and has been handling our accounting and tax matters efficiently. Special thanks to Mr. Rehman and Mr. Bisharat for their consistent support and clear guidance throughout the process. Highly recommended for reliable accounting and tax services in the UAE.': 'كانت لدينا تجربة رائعة مع شركة RBO. فريقهم محترف وسريع الاستجابة ويدير شؤوننا المحاسبية والضريبية بكفاءة عالية. نوصي بهم بشدة لخدمات المحاسبة والضرائب الموثوقة في الإمارات.',
+			'Great experience with RBO especially rahat maam. Their bookkeeping, VAT, and Corporate Tax support is reliable, clear, and always on time.': 'تجربة متميزة مع شركة RBO، فدعمهم في مسك الدفاتر وضريبة القيمة المضافة وضريبة الشركات موثوق وواضح ودائماً في الوقت المحدد.',
+			'Ms Eman is very professional\nTeam is responsive knowledgeable and always delivers on time. Highly recommended': 'الأستاذة إيمان محترفة للغاية، والفريق متعاون وواسع الخبرة ويلتزم دائماً بالمواعيد. نوصي بهم بشدة.',
+			'Read more': 'اقرأ المزيد',
+			'Hide': 'إخفاء'
+		};
+		document.querySelectorAll('.ti-review-content, .ti-read-more-active').forEach(function(el) {
+			var t = el.innerText.trim();
+			for (var rk in reviewMap) {
+				if (t.indexOf(rk.substring(0, 35)) !== -1) {
+					el.innerText = reviewMap[rk];
+					break;
+				}
+			}
+		});
 	})();
 	</script>
 	<?php

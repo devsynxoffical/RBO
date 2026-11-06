@@ -5,31 +5,119 @@ with open("all_ar_posts_translated.json", "r", encoding="utf-8") as f:
     posts = json.load(f)
 
 with open("service_body_translations_cache.json", "r", encoding="utf-8") as f:
-    cache = json.load(f)
+    raw_cache = json.load(f)
 
-# Sort cache keys by length descending
-sorted_cache = sorted(cache.items(), key=lambda x: len(x[0]), reverse=True)
+# Keep ONLY valid translations (where key != val and val contains Arabic characters)
+good_cache = {k: v for k, v in raw_cache.items() if k and v and k != v and re.search(r'[\u0600-\u06FF]', v)}
+
+# Add explicit hybrid phrase cleanups
+extra_cleanups = {
+    "Accounts Payable & Receivable Management": "إدارة الذمم الدائنة والمدينة",
+    "Accounts Payable &amp; Receivable Management": "إدارة الذمم الدائنة والمدينة",
+    "الذمم الدائنة والموردين & Receivable": "إدارة الذمم الدائنة والمدينة",
+    "الذمم الدائنة والموردين &amp; Receivable": "إدارة الذمم الدائنة والمدينة",
+    "مسك الدفاتر المحاسبية & Accounting": "مسك الدفاتر والمحاسبة",
+    "مسك الدفاتر المحاسبية &amp; Accounting": "مسك الدفاتر والمحاسبة",
+    "VAT Registration / Filing": "تسجيل وإقرارات ضريبة القيمة المضافة",
+    "Clear التقارير المالية الدورية": "تقارير مالية دورية واضحة",
+    "المنطقة الحرة audit": "تدقيق شركات المناطق الحرة",
+    "Monthly مسك الدفاتر المحاسبية": "مسك الدفاتر المحاسبية الشهري",
+    "Ongoing مسك الدفاتر المحاسبية": "مسك الدفاتر المحاسبية المستمر",
+    "AP & AR Management": "إدارة الذمم الدائنة والمدينة (AP/AR)",
+    "AP &amp; AR Management": "إدارة الذمم الدائنة والمدينة (AP/AR)",
+    "التسوية البنكية والمطابقة Services": "خدمات التسوية والمطابقة البنكية",
+    "الامتثال لمعايير التقارير المالية الدولية IFRS Services": "خدمات الامتثال لمعايير التقارير المالية الدولية (IFRS)",
+    "Explore خدمات ضريبة القيمة المضافة": "استكشف خدمات ضريبة القيمة المضافة",
+    "Explore Our خدمات ضريبة القيمة المضافة": "استكشف خدماتنا في ضريبة القيمة المضافة",
+    "Explore الاستشارات الضريبية لضريبة القيمة المضافة Services": "استكشف خدمات الاستشارات الضريبية لضريبة القيمة المضافة",
+    "Explore Management Reporting Services": "استكشف خدمات التقارير الإدارية",
+    "What Is a التدقيق المالي القانوني؟": "ما هو التدقيق المالي القانوني؟",
+    "What Is التدقيق الداخلي للشركات؟": "ما هو التدقيق الداخلي للشركات؟",
+    "What Is a تدقيق شركات المناطق الحرة؟": "ما هو تدقيق شركات المناطق الحرة؟",
+    "What Is تقييم المخاطر المالية؟": "ما هو تقييم المخاطر المالية؟",
+    "What is a خدمات المدير المالي الافتراضي؟": "ما هي خدمة المدير المالي الافتراضي (CFO)؟",
+    "Buy Side الفحص النافي للجهالة": "الفحص النافي للجهالة لجانب المشتري",
+    "Sell Side الفحص النافي للجهالة": "الفحص النافي للجهالة لجانب البائع",
+    "Cash Flow إعداد الميزانيات التقديرية": "إعداد الميزانيات التقديرية للتدفق النقدي",
+    "وظائف شركات Return Filing in UAE": "تقديم إقرارات ضريبة الشركات في الإمارات",
+    "وظائف شركات Return Filing in": "تقديم إقرارات ضريبة الشركات في",
+    "استكشف الشركات الشركات Return Filing": "استكشف خدمات تقديم إقرارات ضريبة الشركات",
+    "ما هو تسجيل الشركات Return Filing؟": "ما هو تقديم إقرار ضريبة الشركات؟",
+    "Small Business Relief": "تسهيلات الأعمال الصغيرة (Small Business Relief)",
+    "Internal audit": "التدقيق الداخلي",
+    "Statutory audit": "التدقيق القانوني المعتمد",
+    "Due diligence": "الفحص النافي للجهالة",
+    "Risk assessment": "تقييم المخاطر المالية",
+    "Master 2026 UAE Accounting &amp; ضريبة الشركات Rules: إلزامي 7-Year Records &amp; IFRS Standards": "الدليل الشامل لقواعد المحاسبة وضريبة الشركات في الإمارات 2026: الالتزام بحفظ السجلات لمدة 7 سنوات ومعايير IFRS",
+    "Master 2026 UAE Accounting & ضريبة الشركات Rules: إلزامي 7-Year Records & IFRS Standards": "الدليل الشامل لقواعد المحاسبة وضريبة الشركات في الإمارات 2026: الالتزام بحفظ السجلات لمدة 7 سنوات ومعايير IFRS",
+    "Explore our comprehensive 2,800+ word practitioner guide detailing Article 56 7-year document retention laws, IFRS vs IFRS for SMEs thresholds, accrual accounting mandates, and official FTA penalty schedules.": "استكشف دليلنا الشامل الذي يوضح بالتفصيل قوانين الاحتفاظ بالمستندات لمدة 7 سنوات بموجب المادة 56، ومعايير التقارير المالية الدولية (IFRS)، ومتطلبات محاسبة الاستحقاق، وجداول غرامات الهيئة الاتحادية للضرائب (FTA).",
+    "Read 2026 Accounting &amp; مسك الدفاتر المحاسبية Guide &rarr;": "اقرأ دليل المحاسبة ومسك الدفاتر لعام 2026 ←",
+    "Read 2026 Accounting & مسك الدفاتر المحاسبية Guide →": "اقرأ دليل المحاسبة ومسك الدفاتر لعام 2026 ←",
+    "Your Emirate": "اختر الإمارة",
+    "Select Service": "اختر الخدمة المطلوبة",
+    "Bookkeeping & Accounting": "مسك الدفاتر والمحاسبة",
+    "Corporate Tax UAE": "ضريبة الشركات في الإمارات",
+    "Audit Services": "خدمات التدقيق المالي",
+    "Payroll Services": "خدمات الرواتب والأجور",
+    "Business Setup / Formation": "تأسيس الشركات والأعمال",
+    "اتفاقية التجارة الحرة": "الهيئة الاتحادية للضرائب (FTA)",
+}
+
+good_cache.update(extra_cleanups)
+
+def normalize(s):
+    s = re.sub(r'<[^>]+>', ' ', s)
+    s = s.replace('&amp;', '&').replace('&#8217;', "'").replace('&#8220;', '"').replace('&#8221;', '"').replace('&nbsp;', ' ').replace('\xa0', ' ')
+    s = re.sub(r'\s+', ' ', s).strip()
+    return s
+
+norm_cache = {}
+for en, ar in good_cache.items():
+    norm_cache[normalize(en)] = ar
+    norm_cache[en.strip()] = ar
+
+sorted_cache = sorted(good_cache.items(), key=lambda x: len(x[0]), reverse=True)
 
 def translate_val(val):
     if not isinstance(val, str) or not val.strip():
         return val
     
-    # If no English letters, return as is
     if not re.search(r'[a-zA-Z]{3,}', val):
-        return val
+        return val.replace('اتفاقية التجارة الحرة', 'الهيئة الاتحادية للضرائب (FTA)')
     
-    # If direct cache hit
-    if val in cache:
-        return cache[val]
+    if val in good_cache:
+        return good_cache[val]
+    
+    norm_full = normalize(val)
+    if norm_full in norm_cache and not ('<table' in val or '<section' in val):
+        if val.strip().startswith('<p'):
+            return f"<p>{norm_cache[norm_full]}</p>"
+        return norm_cache[norm_full]
     
     res = val
     for en, ar in sorted_cache:
-        if len(en) < 3 or not ar or en == ar:
+        if len(en) < 4 or not ar or en == ar:
             continue
         if en in res:
             res = res.replace(en, ar)
             
-    # Also fix standard CTA and navigation terms
+    # Normalized HTML inner block replacement (<p>, <li>, <h1>-<h6>, <b>, <strong>, <span>, <div>)
+    if re.search(r'[a-zA-Z]{4,}', res):
+        def repl_block(m):
+            open_tag, inner, close_tag = m.group(1), m.group(2), m.group(3)
+            if not re.search(r'[a-zA-Z]{3,}', inner):
+                return m.group(0)
+            n_inner = normalize(inner)
+            if n_inner in norm_cache:
+                return f"{open_tag}{norm_cache[n_inner]}{close_tag}"
+            return m.group(0)
+
+        res = re.sub(r'(<(?:p|li|h[1-6]|b|strong|span|div)[^>]*>)(.*?)(</(?:p|li|h[1-6]|b|strong|span|div)>)', repl_block, res, flags=re.DOTALL)
+        # Run a second pass for nested tags (e.g. <p><span>...</span></p>)
+        if re.search(r'[a-zA-Z]{4,}', res):
+            res = re.sub(r'(<(?:p|li|h[1-6]|div)[^>]*>)(.*?)(</(?:p|li|h[1-6]|div)>)', repl_block, res, flags=re.DOTALL)
+
+    # Standard CTA and navigation terms
     res = res.replace('Book Free Consultation →', 'احجز استشارة مجانية ←')
     res = res.replace('Get Free Consultation →', 'احصل على استشارة مجانية ←')
     res = res.replace('Request Free Consultation', 'طلب استشارة مجانية')
@@ -47,19 +135,27 @@ def translate_val(val):
     res = res.replace('Our Services', 'خدماتنا')
     res = res.replace('View All 36 Specialized Services', 'عرض كافة الخدمات التخصصية الـ 36')
     res = res.replace('Explore All 7 UAE Emirates', 'استكشف كافة إمارات الدولة السبع')
+    res = res.replace('اتفاقية التجارة الحرة', 'الهيئة الاتحادية للضرائب (FTA)')
     
-    # Fix punctuation
     if res.endswith('?'):
         res = res[:-1] + '؟'
     res = res.replace(' ?', '؟')
     
     return res
 
+TEXT_KEYS = {
+    'title', 'title_text', 'description', 'description_text',
+    'item_title', 'placeholder', 'field_label', 'button_text',
+    'select_options', 'field_options',
+    'text', 'editor', 'heading_title', 'html', 'caption',
+    'sub_title', 'cta_title', 'tab_title', 'tab_content'
+}
+
 def walk_and_translate(node):
     if isinstance(node, dict):
         new_dict = {}
         for k, v in node.items():
-            if k in ['title', 'title_text', 'description', 'description_text', 'item_title', 'placeholder', 'field_label', 'button_text', 'text', 'editor', 'heading_title', 'html', 'caption', 'sub_title', 'cta_title', 'tab_title', 'tab_content']:
+            if k in TEXT_KEYS and isinstance(v, str):
                 new_dict[k] = translate_val(v)
             elif isinstance(v, (dict, list)):
                 new_dict[k] = walk_and_translate(v)
@@ -70,10 +166,9 @@ def walk_and_translate(node):
         return [walk_and_translate(item) for item in node]
     return node
 
-print("Applying full body Arabic translation across all 44 posts...")
+print(f"Applying full body Arabic translation across all 44 posts using {len(good_cache)} verified translations...")
 
 updated_posts = {}
-total_posts = len(posts)
 for idx, (pid, pdata) in enumerate(posts.items()):
     try:
         raw_json = json.loads(pdata['data'])
@@ -91,5 +186,8 @@ for idx, (pid, pdata) in enumerate(posts.items()):
 with open("all_ar_posts_translated_full.json", "w", encoding="utf-8") as f:
     json.dump(updated_posts, f, indent=2, ensure_ascii=False)
 
-print(f"Saved all_ar_posts_translated_full.json successfully! ({len(updated_posts)} posts)")
+# Also clean up service_body_translations_cache.json so bad entries (key == val) are removed!
+with open("service_body_translations_cache.json", "w", encoding="utf-8") as f:
+    json.dump(good_cache, f, indent=2, ensure_ascii=False)
 
+print(f"Saved all_ar_posts_translated_full.json successfully! ({len(updated_posts)} posts)")
