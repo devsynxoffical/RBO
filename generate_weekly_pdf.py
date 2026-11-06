@@ -1,360 +1,257 @@
-import os
-import sys
+from fpdf import FPDF
 import shutil
-from reportlab.lib.pagesizes import A4
-from reportlab.lib import colors
-from reportlab.platypus import (
-    SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak, KeepTogether, HRFlowable
-)
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT, TA_JUSTIFY
-from reportlab.pdfgen import canvas
+import os
 
-pdf_path = r"d:\Rboo\RBO_Accounting_Weekly_SEO_Work_Report_Oct_2026.pdf"
+class SEOReportPDF(FPDF):
+    def header(self):
+        self.set_fill_color(14, 28, 54)
+        self.rect(0, 0, 210, 28, 'F')
+        self.set_fill_color(214, 163, 62)
+        self.rect(0, 28, 210, 1.8, 'F')
 
-class NumberedCanvas(canvas.Canvas):
-    def __init__(self, *args, **kwargs):
-        super(NumberedCanvas, self).__init__(*args, **kwargs)
-        self._saved_page_states = []
+        self.set_y(6)
+        self.set_x(12)
+        self.set_font('Helvetica', 'B', 13.5)
+        self.set_text_color(255, 255, 255)
+        self.cell(0, 7, 'RBO ACCOUNTING SERVICES FZE - 2-WEEK DAY-BY-DAY SEO & ARABIC REPORT', new_x="LMARGIN", new_y="NEXT")
 
-    def showPage(self):
-        self._saved_page_states.append(dict(self.__dict__))
-        self._startPage()
+        self.set_x(12)
+        self.set_font('Helvetica', '', 8.5)
+        self.set_text_color(214, 163, 62)
+        self.cell(0, 5, 'Property: rboaccounting.ae (EN + AR)  |  Period: Oct 21 - Nov 6, 2026  |  Live Sitemap: 149 Indexable URLs (38 Posts + 111 Pages)', new_x="LMARGIN", new_y="NEXT")
+        self.ln(8)
 
-    def save(self):
-        num_pages = len(self._saved_page_states)
-        for state in self._saved_page_states:
-            self.__dict__.update(state)
-            self.draw_page_decorations(num_pages)
-            super(NumberedCanvas, self).showPage()
-        super(NumberedCanvas, self).save()
+    def footer(self):
+        self.set_y(-13)
+        self.set_draw_color(214, 163, 62)
+        self.line(12, self.get_y(), 198, self.get_y())
+        self.ln(2)
+        self.set_font('Helvetica', 'I', 8)
+        self.set_text_color(100, 116, 139)
+        self.cell(0, 6, f'RBO Accounting Services FZE - Executive 2-Week SEO, Arabic Localization & Indexing Report (Oct 21 - Nov 6, 2026)  |  Page {self.page_no()}/{{nb}}', align='C')
 
-    def draw_page_decorations(self, page_count):
-        self.saveState()
-        self.setFont("Helvetica", 8)
-        self.setFillColor(colors.HexColor("#64748b"))
-        
-        # Header (pages > 1)
-        if self._pageNumber > 1:
-            self.drawString(40, 810, "RBO Accounting Services FZE — Master Weekly Engineering & SEO Report")
-            self.drawRightString(555, 810, "October 2026")
-            self.setStrokeColor(colors.HexColor("#e2e8f0"))
-            self.setLineWidth(0.5)
-            self.line(40, 804, 555, 804)
-            
-        # Footer (all pages)
-        self.setStrokeColor(colors.HexColor("#e2e8f0"))
-        self.setLineWidth(0.5)
-        self.line(40, 42, 555, 42)
-        
-        self.drawString(40, 30, "Confidential — Prepared for Executive Management | www.rboaccounting.ae")
-        self.drawRightString(555, 30, f"Page {self._pageNumber} of {page_count}")
-        self.restoreState()
+    def section_title(self, num, title):
+        if self.get_y() > 245:
+            self.add_page()
+        self.ln(2)
+        self.set_fill_color(241, 245, 249)
+        self.set_draw_color(214, 163, 62)
+        self.set_line_width(0.8)
+        y = self.get_y()
+        self.rect(12, y, 186, 8.5, 'F')
+        self.line(12, y, 12, y + 8.5)
+        self.set_xy(15, y + 1.5)
+        self.set_font('Helvetica', 'B', 10.5)
+        self.set_text_color(14, 28, 54)
+        self.cell(0, 5.5, f'{num}. {title}', new_x="LMARGIN", new_y="NEXT")
+        self.ln(3)
+
+    def day_block(self, day_label, badge, bullets):
+        if self.get_y() > 235:
+            self.add_page()
+        self.set_fill_color(14, 28, 54)
+        self.set_text_color(255, 255, 255)
+        self.set_font('Helvetica', 'B', 9.2)
+        self.set_x(12)
+        self.cell(142, 6.8, f'  {day_label}', fill=True)
+        self.set_fill_color(214, 163, 62)
+        self.set_text_color(14, 28, 54)
+        self.set_font('Helvetica', 'B', 8)
+        self.cell(44, 6.8, badge, fill=True, align='C', new_x="LMARGIN", new_y="NEXT")
+        self.ln(1.5)
+
+        self.set_font('Helvetica', '', 8.4)
+        self.set_text_color(30, 41, 59)
+        for b in bullets:
+            if self.get_y() > 268:
+                self.add_page()
+            self.set_x(14)
+            self.multi_cell(182, 4.4, f"- {b}", new_x="LMARGIN", new_y="NEXT")
+            self.ln(0.8)
+        self.ln(2)
+
+    def table_row(self, cols, widths, is_header=False, shade=False):
+        if self.get_y() > 262:
+            self.add_page()
+        line_h = 4.5
+        max_lines = 1
+        self.set_font('Helvetica', 'B' if is_header else '', 8 if is_header else 7.8)
+        for text, w in zip(cols, widths):
+            lines = self.multi_cell(w - 2, line_h, text, dry_run=True, output="LINES")
+            if len(lines) > max_lines:
+                max_lines = len(lines)
+        row_h = max_lines * line_h + 2.5
+        if self.get_y() + row_h > 272:
+            self.add_page()
+
+        x_start = 12
+        y_start = self.get_y()
+        for i, (text, w) in enumerate(zip(cols, widths)):
+            self.set_xy(x_start, y_start)
+            if is_header:
+                self.set_fill_color(14, 28, 54)
+                self.set_text_color(255, 255, 255)
+                self.set_draw_color(14, 28, 54)
+            else:
+                if shade:
+                    self.set_fill_color(248, 250, 252)
+                else:
+                    self.set_fill_color(255, 255, 255)
+                self.set_text_color(30, 41, 59)
+                self.set_draw_color(226, 232, 240)
+            self.set_line_width(0.2)
+            self.rect(x_start, y_start, w, row_h, 'FD')
+            self.set_xy(x_start + 1.2, y_start + 1.2)
+            self.multi_cell(w - 2.4, line_h, text, new_x="RIGHT", new_y="TOP")
+            x_start += w
+        self.set_y(y_start + row_h)
+
 
 def build_pdf():
-    doc = SimpleDocTemplate(
-        pdf_path,
-        pagesize=A4,
-        leftMargin=36,
-        rightMargin=36,
-        topMargin=46,
-        bottomMargin=48
-    )
+    pdf = SEOReportPDF()
+    pdf.alias_nb_pages()
+    pdf.set_auto_page_break(auto=True, margin=15)
+    pdf.add_page()
 
-    styles = getSampleStyleSheet()
+    # Section 1: Executive Scorecard
+    pdf.section_title("1", "EXECUTIVE SCORECARD (OCTOBER 21 - NOVEMBER 6, 2026)")
+    w_kpi = [58, 38, 45, 45]
+    pdf.table_row(["KPI / Deliverable Category", "Before (Oct 20)", "Live Status (Nov 6)", "Net Growth / Impact"], w_kpi, is_header=True)
+    kpi_rows = [
+        ("Total Indexable Sitemap URLs", "66 URLs (EN)", "149 URLs (75 EN + 74 AR)", "+83 New Live URLs (+125.7%)"),
+        ("Published Pillar Blogs (post-sitemap.xml)", "10 EN Blogs", "38 Blogs (19 EN + 19 AR)", "+8 New EN Blogs & +19 Full AR Blogs"),
+        ("Core, Service & Emirate Pages (page-sitemap)", "56 EN Pages", "111 Pages (56 EN + 55 AR)", "+55 Full 100% Arabic RTL Pages"),
+        ("GSC High-Impression Pages Overhauled", "Baseline", "16 Core Money Pages", "2,650+ GSC Impressions Overhauled"),
+        ("Arabic RTL Localization (Polylang + UI)", "0% (EN Only)", "100% Complete (EN | AR)", "Custom AR Header/Footer + RTL Menus"),
+        ("Custom 16:9 SEO Infographics", "15 Diagrams", "38 Regulatory Diagrams", "+23 New Infographics (190+ files)"),
+        ("Structured Data & Hreflang Tags", "Partial", "180+ Schema FAQs Live", "FAQPage + Service + en-ae/ar-ae"),
+        ("Instant Indexing (IndexNow + GSC)", "Manual Only", "149 URLs Pushed (HTTP 202)", "Uncached Sitemaps + 12-Day Schedule"),
+    ]
+    for idx, r in enumerate(kpi_rows):
+        pdf.table_row(list(r), w_kpi, shade=(idx % 2 == 1))
+    pdf.ln(3)
 
-    # Custom Color Palette
-    c_primary = colors.HexColor("#09203b")    # Deep Luxury Navy
-    c_secondary = colors.HexColor("#c59b27")  # Deep Gold Accent
-    c_dark = colors.HexColor("#1e293b")       # Slate 800
-    c_muted = colors.HexColor("#64748b")      # Slate 500
-    c_light = colors.HexColor("#f8fafc")      # Slate 50
-    c_green = colors.HexColor("#166534")      # Emerald 800
-    c_border = colors.HexColor("#e2e8f0")
+    # Section 2: Day-by-Day Chronological Log
+    pdf.section_title("2", "DAY-BY-DAY CHRONOLOGICAL WORK LOG (OCT 21 - NOV 6, 2026)")
 
-    # Typography Styles
-    title_style = ParagraphStyle(
-        'DocTitle',
-        parent=styles['Normal'],
-        fontName='Helvetica-Bold',
-        fontSize=18,
-        leading=22,
-        textColor=c_primary,
-        spaceAfter=4
-    )
-
-    subtitle_style = ParagraphStyle(
-        'DocSubtitle',
-        parent=styles['Normal'],
-        fontName='Helvetica',
-        fontSize=9.5,
-        leading=13.5,
-        textColor=c_muted,
-        spaceAfter=10
-    )
-
-    h1_style = ParagraphStyle(
-        'Heading1_Custom',
-        parent=styles['Normal'],
-        fontName='Helvetica-Bold',
-        fontSize=11.5,
-        leading=15,
-        textColor=c_primary,
-        spaceBefore=10,
-        spaceAfter=5,
-        keepWithNext=True
-    )
-
-    h2_style = ParagraphStyle(
-        'Heading2_Custom',
-        parent=styles['Normal'],
-        fontName='Helvetica-Bold',
-        fontSize=9.5,
-        leading=12.5,
-        textColor=c_secondary,
-        spaceBefore=7,
-        spaceAfter=3,
-        keepWithNext=True
-    )
-
-    body_style = ParagraphStyle(
-        'Body_Custom',
-        parent=styles['Normal'],
-        fontName='Helvetica',
-        fontSize=8.2,
-        leading=11.2,
-        textColor=c_dark,
-        spaceAfter=3
-    )
-
-    bullet_style = ParagraphStyle(
-        'Bullet_Custom',
-        parent=styles['Normal'],
-        fontName='Helvetica',
-        fontSize=8,
-        leading=11,
-        textColor=c_dark,
-        leftIndent=12,
-        firstLineIndent=-8,
-        spaceAfter=3
-    )
-
-    subbullet_style = ParagraphStyle(
-        'SubBullet_Custom',
-        parent=styles['Normal'],
-        fontName='Helvetica',
-        fontSize=7.8,
-        leading=10.2,
-        textColor=colors.HexColor("#334155"),
-        leftIndent=22,
-        firstLineIndent=-8,
-        spaceAfter=2
-    )
-
-    table_header_style = ParagraphStyle(
-        'TH',
-        parent=styles['Normal'],
-        fontName='Helvetica-Bold',
-        fontSize=7.5,
-        leading=9.5,
-        textColor=colors.white,
-        alignment=TA_LEFT
-    )
-
-    table_body_style = ParagraphStyle(
-        'TB',
-        parent=styles['Normal'],
-        fontName='Helvetica',
-        fontSize=7.5,
-        leading=9.5,
-        textColor=c_dark
-    )
-
-    story = []
-
-    # 1. Title Banner
-    story.append(Paragraph("RBO ACCOUNTING SERVICES FZE", ParagraphStyle('TopSub', fontName='Helvetica-Bold', fontSize=8.5, textColor=c_secondary, leading=11, spaceAfter=2)))
-    story.append(Paragraph("Master Weekly SEO, Technical Engineering & Growth Report", title_style))
-    story.append(Paragraph("<b>Reporting Period:</b> October 23, 2026 – November 2, 2026 &nbsp;|&nbsp; <b>Website:</b> https://www.rboaccounting.ae &nbsp;|&nbsp; <b>Status:</b> 100% Live & Verified", subtitle_style))
-    story.append(HRFlowable(width="100%", thickness=1.5, color=c_primary, spaceBefore=0, spaceAfter=8))
-
-    # 2. Executive Scorecard Table
-    scorecard_data = [
+    pdf.day_block(
+        "Day 1 - Wed, Oct 21, 2026: Virtual CFO Pillar Blog & Regional/Accounting Overhauls",
+        "Blog #11 + 4 Pages",
         [
-            Paragraph("<b>5 Master Pillar Blogs</b><br/><font color='#64748b'>17,500+ Words Technical Law</font>", body_style),
-            Paragraph("<b>50 Titles Standardized</b><br/><font color='#64748b'>Strict [Service] in [Emirate]</font>", body_style),
-            Paragraph("<b>Canonical & 301 UTM</b><br/><font color='#64748b'>Zero Duplicate Indexing</font>", body_style),
-            Paragraph("<b>Internal Links Hub</b><br/><font color='#64748b'>Homepage & Services Live</font>", body_style),
-            Paragraph("<b>GBP & Citations Live</b><br/><font color='#64748b'>Posts + EnrollBusiness UAE</font>", body_style),
+            "Published Master Pillar Blog #11 (EN): 'Virtual CFO Services in Dubai & UAE: The Complete 2026 Guide to Fractional CFOs, Cost vs In-House & Financial Modeling' (/virtual-cfo-services-dubai-uae-fractional-cfo-guide-2026/) - 3,600+ words, 3 bespoke infographics, 8 Schema FAQs ranking /our-services/virtual-cfo/management-reporting/.",
+            "Overhauled 4 Core Pages: Abu Dhabi Hub (/areas-we-serve/abu-dhabi/), Ajman Hub (/areas-we-serve/ajman/), Accounts Payable & Receivable, and FTA Records Amendment with 2026 EmaraTax statutory matrices and FAQPage JSON-LD."
         ]
+    )
+
+    pdf.day_block(
+        "Day 2 - Fri, Oct 23, 2026: FTA Tax Audit Defense Pillar Blog & Service Authority Upgrade",
+        "Blog #12 + Audit Page",
+        [
+            "Published Master Pillar Blog #12 (EN): 'FTA Tax Audit in UAE (2026 Guide): How to Prepare for Corporate Tax & VAT Audits, FAF File Checklist & Penalty Defense' (/fta-tax-audit-assistance-uae-corporate-tax-vat-guide-2026/) - 3,500+ words, 3 infographics, 8 Schema FAQs.",
+            "Service Page Upgrade: Injected 2026 FTA Audit Defense Callout Card & FAQ schema onto /our-services/vat-registration-filing/fta-audit-assistance/."
+        ]
+    )
+
+    pdf.day_block(
+        "Day 3 - Mon, Oct 26, 2026: UAE Statutory Audit Pillar Blog & 4 High-Impression GSC Overhauls",
+        "Blog #13 + 806 Imp.",
+        [
+            "Published Master Pillar Blog #13 (EN): 'UAE Statutory Audit Guide 2026: Mandatory Corporate Tax Audit Thresholds (MD 82 & 84), Free Zone Rules & Checklist' (/uae-statutory-audit-guide-2026-mandatory-corporate-tax-rules-checklist/) - 3,800+ words, 3 infographics, 8 Schema FAQs.",
+            "Overhauled 4 High-Impression Zero-Click GSC Pages (806 Combined Impressions): Penalty Reconsideration (210 Imp., fixed 404 via 301 redirect + 10 FAQs), Free Zone Audit (206 Imp., DMCC/JAFZA/IFZA/AFZ/RAKEZ matrix + 10 FAQs), VAT Advisory (201 Imp., fixed 404 via 301 redirect + 10 FAQs), and Statutory Audit (189 Imp., MD 82/84 matrix + 10 FAQs)."
+        ]
+    )
+
+    pdf.day_block(
+        "Day 4 - Thu, Oct 29, 2026: UAE Accounting & Bookkeeping Blog, 36-Page Hero Fix & Clutch.co",
+        "Blog #14 + 36 Pages UI",
+        [
+            "Published Master Pillar Blog #14 (EN): 'UAE Accounting & Bookkeeping Guide 2026: Mandatory Corporate Tax Rules, 7-Year FTA Record Keeping & IFRS Checklist' (/uae-accounting-bookkeeping-guide-2026-mandatory-corporate-tax-ifrs-rules/) - 3,500+ words, 3 infographics, 8 Schema FAQs.",
+            "Universal Hero Banner & Responsive UI Fix: Repaired hero headline alignment and mobile spacing across all 36 service subpages.",
+            "Off-Page Authority: Completed verified B2B vendor profile setup on Clutch.co."
+        ]
+    )
+
+    pdf.day_block(
+        "Day 5 - Fri, Oct 30, 2026: WPS Payroll Blog, Corporate Tax Overhauls & 8-Week SEO Roadmap",
+        "Blog #15 + 50 Titles",
+        [
+            "Published Master Pillar Blog #15 (EN): 'UAE Payroll & WPS Compliance Guide 2026: MOHRE Rules, SIF File Format, 15th-Day Deadlines & Fines' (/uae-payroll-wps-compliance-guide-2026-mohre-sif-fines/) - 3,500+ words, 2 infographics, 8 Schema FAQs.",
+            "Overhauled Corporate Tax Planning (194 Imp.) & Registration (191 Imp.): Added Cabinet Decision No. 105 AED 10,000 Late Penalty Waiver Banner, Small Business Relief (AED 3M) matrix, and 20 Schema FAQs.",
+            "Executed 8-Week SEO Roadmap (Phase 1 & 2): 301 redirected /?utm_source=... to /, standardized 50 Rank Math SEO Titles, injected 4-Column 48-Link Service Directory on Homepage & /our-services/, expanded Ajman Hub to a 3,205-word Super-Page, and boosted 4 striking-distance queries (Pos 5 to Pos 24)."
+        ]
+    )
+
+    pdf.day_block(
+        "Day 6 - Mon, Nov 2, 2026: AP/AR Outsourcing Blog, Master Homepage (1,035+ Imp.), Sharjah & GBP",
+        "Blog #16 + Homepage",
+        [
+            "Published Master Pillar Blog #16 (EN): 'UAE Accounts Payable & Receivable (AP/AR) Outsourcing Guide 2026: 3-Way Invoice Matching, DSO Optimization & E-Invoicing Readiness' (/uae-accounts-payable-receivable-outsourcing-guide-2026/) - 3,600+ words, 2 infographics, 8 Schema FAQs.",
+            "Master Homepage Overhaul (1,035+ Combined GSC Impressions): Added 2026 UAE Executive Financial & Tax Governance Matrix + 10 Schema FAQs.",
+            "Sharjah Regional Hub Overhaul (151 Imp.): Rebuilt /areas-we-serve/sharjah/ with RAK-matched luxury hero, HFZA/SAIF/SPC vs SEDD Mainland Matrix & 10 Schema FAQs.",
+            "GBP & UAE Local Citation: Added 7 GBP services, published weekly GBP update post, and launched live citation on EnrollBusiness UAE (uae.enrollbusiness.com/BusinessProfile/8027551/RBO%20Accounting%20Services%20FZE)."
+        ]
+    )
+
+    pdf.day_block(
+        "Day 7 - Thu, Nov 5, 2026: VAT Refund Sector Overhaul, AFZ AED 11k Blog & Polylang RTL Engine",
+        "Blog #17 + Polylang",
+        [
+            "VAT Refund B2B Sector Overhaul (/our-services/vat-registration-filing/refund/): Added 3-column Eligibility Framework for Commercial Landlords (Article 57 CAS), Engineering Consultants (Article 31 0% Export), and Civil/MEP Contractors (Cabinet Decision 91/2023 RCM) + 10 Schema FAQs.",
+            "Published Master Pillar Blog #17 (EN): 'AFZ New Lighter Package 2026: Complete Guide to AED 11,000 1-Visa Company Setup in Ajman Free Zone' (/afz-new-lighter-package-2026-ajman-free-zone-setup/).",
+            "Launched Bilingual Polylang + Elementor RTL Engine (EN | AR): Built custom Arabic Elementor header/footer templates (header-ar.json / footer-ar.json), runtime cache isolation, and floating language toggle pill."
+        ]
+    )
+
+    pdf.day_block(
+        "Day 8 - Fri, Nov 6, 2026 (Today): 100% Arabic Site (55 Pages + 19 Blogs), Transfer Pricing Blog & Indexing",
+        "100% AR + 149 URLs",
+        [
+            "100% Arabic Localization & Luxury RTL Styling Across All 55 Pages: Deployed complete executive Arabic translations and fixed RTL flex layouts across Arabic Homepage (/ar/), About Us (/ar/about-us-2/), Contact Us (/ar/contact-us-2/), all 36 Our Services & Business Setup pages, and all 7 Emirates Regional Hubs (Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Fujairah, Umm Al Quwain).",
+            "Arabic Header Spacing & SmartMenus Dropdown Fix: Added 28px gap before the Arabic CTA button, restored golden .sub-arrow indicators, and fixed SmartMenus RTL submenu positioning (rightToLeftSubMenus = false) so Our Services & Emirates dropdowns open smoothly.",
+            "100% Arabic Blog Archive (/ar/blog-2/) & All 19 Full Arabic Blog Detail Pages: Created archive-ar.json & single-post-ar.json templates and deployed full-length executive Arabic translations for all 19 blog posts.",
+            "Published New Trending Pillar Blog #18 (EN + AR) - UAE Transfer Pricing Guide 2026: Published /uae-transfer-pricing-guide-2026-local-master-file-arms-length-rules/ (EN) and /ar/uae-transfer-pricing-guide-2026-local-master-file-arms-length-rules-ar/ (AR) with 3 custom 16:9 infographics (15 files), 8 EN + 6 AR Schema FAQs, and upgraded /our-services/corporate-tax/transfer-pricing/ & /ar/transfer-pricing/.",
+            "Full 149-URL Live Sitemaps, Hreflang, IndexNow API & 12-Day GSC Schedule: Flushed Rank Math caches so post-sitemap.xml serves 38 URLs (19 EN + 19 AR) and page-sitemap.xml serves 111 URLs (56 EN + 55 AR); deployed bidirectional en-ae/ar-ae hreflang tags; pushed all 149 URLs via IndexNow API (HTTP 202 Accepted); and created the 12-Day GSC Indexing Schedule (12 URLs/day)."
+        ]
+    )
+
+    # Section 3: Bilingual Blog Inventory Table
+    pdf.section_title("3", "BILINGUAL PILLAR BLOG INVENTORY (19 EN + 19 AR = 38 LIVE BLOG URLS)")
+    w_blog = [22, 52, 56, 56]
+    pdf.table_row(["Date", "Pillar Topic & Target Service", "English URL (en-AE)", "100% Arabic URL (ar-AE)"], w_blog, is_header=True)
+    blogs = [
+        ("Nov 6, 2026", "UAE Transfer Pricing Guide 2026 (Target: Transfer Pricing)", "/uae-transfer-pricing-guide-2026-local-master-file-arms-length-rules/", "/ar/uae-transfer-pricing-guide-2026-local-master-file-arms-length-rules-ar/"),
+        ("Nov 5, 2026", "AFZ Lighter Package AED 11,000 (Target: Free Zone Setup)", "/afz-new-lighter-package-2026-ajman-free-zone-setup/", "/ar/afz-new-lighter-package-2026-ajman-free-zone-setup-ar/"),
+        ("Nov 2, 2026", "UAE AP & AR Outsourcing 2026 (Target: AP/AR Management)", "/uae-accounts-payable-receivable-outsourcing-guide-2026/", "/ar/uae-accounts-payable-receivable-outsourcing-guide-2026-ar/"),
+        ("Oct 30, 2026", "UAE Payroll & WPS Guide 2026 (Target: WPS Compliance)", "/uae-payroll-wps-compliance-guide-2026-mohre-sif-fines/", "/ar/uae-payroll-wps-compliance-guide-2026-mohre-sif-fines-ar/"),
+        ("Oct 29, 2026", "UAE Accounting & Bookkeeping 2026 (Target: Bookkeeping)", "/uae-accounting-bookkeeping-guide-2026-mandatory-corporate-tax-ifrs-rules/", "/ar/uae-accounting-bookkeeping-guide-2026-mandatory-corporate-tax-ifrs-rules-ar/"),
+        ("Oct 26, 2026", "UAE Statutory Audit Guide 2026 (Target: Statutory Audit)", "/uae-statutory-audit-guide-2026-mandatory-corporate-tax-rules-checklist/", "/ar/uae-statutory-audit-guide-2026-mandatory-corporate-tax-rules-checklist-ar/"),
+        ("Oct 23, 2026", "FTA Tax Audit Assistance 2026 (Target: FTA Audit Defense)", "/fta-tax-audit-assistance-uae-corporate-tax-vat-guide-2026/", "/ar/fta-tax-audit-assistance-uae-corporate-tax-vat-guide-2026-ar/"),
+        ("Oct 21, 2026", "Virtual CFO Services UAE 2026 (Target: Virtual CFO)", "/virtual-cfo-services-dubai-uae-fractional-cfo-guide-2026/", "/ar/virtual-cfo-services-dubai-uae-fractional-cfo-guide-2026-ar/"),
+        ("Localized Nov 6", "+ 11 Earlier Tax, VAT, Audit & Setup Pillar Blogs", "All 11 Earlier EN Pillar Blogs Live in post-sitemap.xml", "All 11 Corresponding Full Arabic Blogs Live under /ar/...-ar/"),
     ]
-    t_scorecard = Table(scorecard_data, colWidths=[105, 105, 105, 105, 95])
-    t_scorecard.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#f1f5f9")),
-        ('BOX', (0,0), (-1,-1), 0.5, c_border),
-        ('INNERGRID', (0,0), (-1,-1), 0.5, c_border),
-        ('TOPPADDING', (0,0), (-1,-1), 5),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
-        ('LEFTPADDING', (0,0), (-1,-1), 5),
-        ('RIGHTPADDING', (0,0), (-1,-1), 5),
-    ]))
-    story.append(t_scorecard)
-    story.append(Spacer(1, 8))
+    for idx, b in enumerate(blogs):
+        pdf.table_row(list(b), w_blog, shade=(idx % 2 == 1))
 
-    # 3. Master 8-Week Roadmap Deliverables Executed Today (Oct 30)
-    story.append(Paragraph("1. Master 8-Week SEO Roadmap Deliverables Executed Today (October 30, 2026)", h1_style))
-    
-    story.append(Paragraph("• <b>Technical Phase 1 — Canonical, UTM Clean-up & 301 Permanent Redirection:</b>", bullet_style))
-    story.append(Paragraph("– <b>Homepage Canonical:</b> Enforced strict <font face='Courier'>&lt;link rel=\"canonical\" href=\"https://www.rboaccounting.ae/\" /&gt;</font> sitewide.", subbullet_style))
-    story.append(Paragraph("– <b>301 UTM Redirection:</b> Implemented Apache mod_rewrite & PHP rules redirecting any homepage URL with UTM tracking query strings (<font face='Courier'>/?utm_source=...</font>) directly to clean canonical homepage with HTTP 301 Moved Permanently.", subbullet_style))
-    story.append(Paragraph("– <b>Google Business Profile Website URL Cleaned:</b> Stripped UTM tracking parameters from GBP manager, preserving 100% crawl equity.", subbullet_style))
+    out_primary = r"d:\Rboo\RBO_Accounting_Two_Week_SEO_Work_Report_Nov_6_2026.pdf"
+    pdf.output(out_primary)
 
-    story.append(Spacer(1, 3))
-    story.append(Paragraph("• <b>Technical Phase 1 — Titles Standardization Across All 50 Services & Emirates Pages:</b>", bullet_style))
-    story.append(Paragraph("– Rewrote Rank Math meta titles across all 8 Emirates pages and 36 Service subpages to the uniform formula: <font color='#c59b27'><b>\"[Service] in [Emirate/UAE] | RBO Accounting\"</b></font>.", subbullet_style))
-    story.append(Paragraph("– Live verified on: <i>Accounting & Bookkeeping Services in Ajman</i>, <i>Corporate Tax in Abu Dhabi</i>, <i>Corporate Tax Consultant in UAE</i>, <i>Audit and Assurance Services in UAE</i>, and <i>Accounts Payable Outsourcing UAE</i>.", subbullet_style))
-
-    story.append(Spacer(1, 3))
-    story.append(Paragraph("• <b>Technical Phase 1 — Master Exact-Anchor Internal Linking Directory:</b>", bullet_style))
-    story.append(Paragraph("– Injected responsive 4-column <b>Nationwide Accounting & Core Practice Directory</b> on Homepage (<font face='Courier'>/</font>) and Main Services Hub (<font face='Courier'>/our-services/</font>).", subbullet_style))
-    story.append(Paragraph("– Links directly to every Emirate and primary service page with exact anchor texts (e.g. <i>\"Bookkeeping services in Ajman\"</i>, <i>\"Audit and assurance UAE\"</i>, <i>\"Corporate tax consultant UAE\"</i>).", subbullet_style))
-    story.append(Paragraph("– <b>Zero CSS Regression:</b> 100% scoped inline styles; all service pages and theme layouts remain visually pristine.", subbullet_style))
-
-    story.append(Spacer(1, 3))
-    story.append(Paragraph("• <b>Content Phase 2 — Ajman Super-Page (3,205 Words) & Emirates FAQ Schema:</b>", bullet_style))
-    story.append(Paragraph("– Expanded Ajman page (<font face='Courier'>/areas-we-serve/ajman/</font>) to 3,205 words covering Bookkeeping, AFZA Free Zone Audits, Corporate Tax Form CT201, and Al Jurf industrial businesses.", subbullet_style))
-    story.append(Paragraph("– Injected and live verified Schema.org <font face='Courier'>FAQPage</font> JSON-LD rich snippets on: Ajman (8 FAQs), Abu Dhabi (6 FAQs), Sharjah (5 FAQs), and Dubai (5 FAQs).", subbullet_style))
-
-    story.append(Spacer(1, 3))
-    story.append(Paragraph("• <b>Content Phase 2 — Striking-Distance Query Clusters Boosted:</b>", bullet_style))
-    story.append(Paragraph("– Boosted 4 striking distance targets with exact meta titles, internal links, and live FAQ schemas: <i>Audit & Assurance UAE (Pos 5)</i>, <i>Corporate Tax Consultant UAE (Pos 11)</i>, <i>Business Tax Consulting Services (Pos 9)</i>, and <i>Accounts Payable Outsourcing UAE (Pos 24)</i>.", subbullet_style))
-
-    story.append(Spacer(1, 3))
-    story.append(Paragraph("• <b>Master Pillar Blog #5 Published (November 2, 2026):</b>", bullet_style))
-    story.append(Paragraph("– <b>Title:</b> <i>UAE Accounts Payable & Receivable (AP/AR) Outsourcing Guide 2026: 3-Way Matching, E-Invoicing Mandates, Cash Flow & Fraud Prevention</i>.", subbullet_style))
-    story.append(Paragraph("– <b>Primary Ranking Target:</b> Injected authoritative contextual links directly powering the striking-distance service page <font face='Courier'>/our-services/accounting/accounts-payable-and-receivable/</font> (GSC Position 24 -> Target: Page 1).", subbullet_style))
-    story.append(Paragraph("– <b>Trending Topics & Visuals:</b> Integrates the MoF 2026 UAE E-Invoicing mandate, FTA Article 55 input VAT substantiation, 2 bespoke 16:9 infographics, and 8 Schema.org <font face='Courier'>FAQPage</font> rich snippets.", subbullet_style))
-
-    story.append(Spacer(1, 3))
-    story.append(Paragraph("• <b>Top GSC Impression Pages Overhaul — Homepage & Sharjah Hub (November 2, 2026):</b>", bullet_style))
-    story.append(Paragraph("– <b>Master Homepage (ID: 172 — 1,035+ Combined Impressions):</b> Injected 2026 Corporate Tax & Compliance Governance Framework (4 Pillars: CT Form CT201, MoF 2026 E-Invoicing Peppol, Approved Statutory Audits, VAT Waivers), expanded Elementor accordion to 10 rich FAQs, and injected Schema.org <font face='Courier'>FAQPage</font> rich snippets.", subbullet_style))
-    story.append(Paragraph("– <b>Sharjah Regional Hub (ID: 2225 — /areas-we-serve/sharjah/):</b> Transformed into a regional Super-Page with Hamriyah Free Zone (HFZA) & SAIF Zone vs. SEDD Mainland Regulatory Matrix, 3-Phase Turnkey Roadmap, 10 Schema FAQs, and permanent 301 redirect for <font face='Courier'>/?page_id=2225</font>.", subbullet_style))
-    story.append(Paragraph("– <b>Strict Styling Isolation:</b> 100% scoped inline styles; all existing site templates and global styles strictly preserved.", subbullet_style))
-
-    story.append(Spacer(1, 3))
-    story.append(Paragraph("• <b>Authority Phase 3 — Google Business Profile Optimization & UAE Citations:</b>", bullet_style))
-    story.append(Paragraph("– <b>GBP Services List:</b> Added 7 core practice areas (Corporate Tax, VAT, Statutory Audit, AP/AR, WPS Payroll, Penalty Reconsideration, Business Setup) with tailored descriptions.", subbullet_style))
-    story.append(Paragraph("– <b>GBP Weekly Post #1 Published:</b> Live post published with instant \"Call now\" conversion action for corporate tax & audit inquiries.", subbullet_style))
-    story.append(Paragraph("– <b>High-Authority UAE Citation #1 (Live & Verified):</b> Successfully registered and live on <b>EnrollBusiness UAE</b> (<font color='#09203b'><b>uae.enrollbusiness.com/BusinessProfile/8027551/RBO%20Accounting%20Services%20FZE</b></font>). Listed with exact NAP (C1 Building, Umm Al Quwain Free Zone), full service portfolio, and website backlink.", subbullet_style))
-
-    story.append(Spacer(1, 6))
-
-    # 4. Weekly Achievements (Oct 23 - Oct 29, 2026)
-    story.append(Paragraph("2. Previous Days' Engineering Milestones (October 23 – October 30, 2026)", h1_style))
-    story.append(Paragraph("• <b>Published Master Pillar Blog #4 (Oct 30):</b> <i>UAE Payroll & WPS Compliance Guide 2026 (Ministerial Resolution 340, SIF File Generation, MOHRE Fine Waivers)</i> with 2 bespoke graphics and 8 Schema FAQs.", bullet_style))
-    story.append(Paragraph("• <b>Overhauled Top GSC High-Impression Pages (Oct 30):</b> Corporate Tax Planning UAE (Page 3034 - 194 impressions) with 6 Pillars Grid + Comparison Table; Corporate Tax Registration UAE (Page 2567 - 191 impressions) with Cabinet Decision 105 Penalty Amnesty callouts.", bullet_style))
-    story.append(Paragraph("• <b>Published Master Pillar Blog #3 (Oct 29):</b> <i>UAE Accounting & Bookkeeping Guide 2026 (Mandatory Corporate Tax & IFRS Rules)</i> covering Article 56 7-year document retention rules.", bullet_style))
-    story.append(Paragraph("• <b>Universal Hero Banner & CSS Alignment (Oct 29):</b> Repaired hero section spacing across all 36 service subpages, eliminating whitespace and standardizing mobile viewport responsiveness.", bullet_style))
-    story.append(Paragraph("• <b>Clutch.co Verified Profile (Oct 29):</b> Configured vendor profile on vendor.clutch.co with official AFZA credentials and service line allocations.", bullet_style))
-    story.append(Paragraph("• <b>Published Master Pillar Blog #2 (Oct 26):</b> <i>UAE Statutory Audit Guide 2026 (Ministerial Decisions 82 & 84, AED 50M Revenue Thresholds)</i>.", bullet_style))
-    story.append(Paragraph("• <b>Published Master Pillar Blog #1 (Oct 23):</b> <i>FTA Tax Audit Assistance Guide (5-Stage EmaraTax Official Protocol & Penalty Defense)</i>.", bullet_style))
-
-    story.append(Spacer(1, 6))
-
-    # 5. Master GSC Impact Table
-    story.append(Paragraph("3. High-Impression Search Console Overhaul Matrix", h1_style))
-    
-    gsc_headers = [
-        Paragraph("<b>Target Landing Page URL</b>", table_header_style),
-        Paragraph("<b>GSC Impressions</b>", table_header_style),
-        Paragraph("<b>Diagnosed Problem</b>", table_header_style),
-        Paragraph("<b>Technical Solution & Current Status</b>", table_header_style)
-    ]
-    gsc_rows = [
-        gsc_headers,
-        [
-            Paragraph("<b>Corporate Tax Planning</b><br/>/corporate-tax-planning/", table_body_style),
-            Paragraph("194", table_body_style),
-            Paragraph("Empty meta description, 0 structured pillars, basic 1-line FAQs.", table_body_style),
-            Paragraph("<b>Overhauled:</b> Injected 6 Core Pillars, comparison table, 10 rich FAQs & Schema. <font color='#166534'><b>[200 OK]</b></font>", table_body_style),
-        ],
-        [
-            Paragraph("<b>Corporate Tax Registration</b><br/>/registration/", table_body_style),
-            Paragraph("191", table_body_style),
-            Paragraph("Missing penalty appeal guidance, localhost URL references.", table_body_style),
-            Paragraph("<b>Overhauled:</b> Added AED 10k fine appeal callout under Cabinet Decision 105, canonical paths. <font color='#166534'><b>[200 OK]</b></font>", table_body_style),
-        ],
-        [
-            Paragraph("<b>Penalty Reconsideration</b><br/>/penalty-reconsideration/", table_body_style),
-            Paragraph("210", table_body_style),
-            Paragraph("Fatal 404 error on old URL (/vat-penalty-reconsideration/).", table_body_style),
-            Paragraph("<b>Resolved:</b> Added 301 permanent redirect, injected 8 Schema FAQs & 3-Tier Appeal Matrix. <font color='#166534'><b>[200 OK]</b></font>", table_body_style),
-        ],
-        [
-            Paragraph("<b>Free Zone Audit UAE</b><br/>/free-zone-audit/", table_body_style),
-            Paragraph("206", table_body_style),
-            Paragraph("Empty meta description (\"\"), no Free Zone authority matrix.", table_body_style),
-            Paragraph("<b>Upgraded:</b> High-CTR metadata, DMCC/AFZA/JAFZA matrix & 8 Schema FAQs. <font color='#166534'><b>[200 OK]</b></font>", table_body_style),
-        ],
-        [
-            Paragraph("<b>VAT Advisory Services</b><br/>/advisory/", table_body_style),
-            Paragraph("201", table_body_style),
-            Paragraph("Broken old URL (/vat-advisory-services/), 0 FAQs.", table_body_style),
-            Paragraph("<b>Resolved:</b> Added 301 redirect, 6 Core VAT Practice Pillars, 8 Schema FAQs. <font color='#166534'><b>[200 OK]</b></font>", table_body_style),
-        ],
-        [
-            Paragraph("<b>Statutory Audit Services</b><br/>/statutory-audit/", table_body_style),
-            Paragraph("189", table_body_style),
-            Paragraph("Generic copy, no IFRS audit lifecycle, 0 Schema FAQs.", table_body_style),
-            Paragraph("<b>Upgraded:</b> 5-Phase IFRS audit framework, AED 50M threshold rules & 8 Schema FAQs. <font color='#166534'><b>[200 OK]</b></font>", table_body_style),
-        ],
-    ]
-    t_gsc = Table(gsc_rows, colWidths=[120, 55, 145, 195])
-    t_gsc.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,0), c_primary),
-        ('BOX', (0,0), (-1,-1), 0.5, c_border),
-        ('INNERGRID', (0,0), (-1,-1), 0.5, c_border),
-        ('TOPPADDING', (0,0), (-1,-1), 4),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
-        ('LEFTPADDING', (0,0), (-1,-1), 5),
-        ('RIGHTPADDING', (0,0), (-1,-1), 5),
-        ('ROWBACKGROUNDS', (0,1), (-1,-1), [colors.white, colors.HexColor("#f8fafc")]),
-    ]))
-    story.append(t_gsc)
-
-    story.append(Spacer(1, 6))
-
-    # 6. Technical Infrastructure & DevOps Status
-    story.append(Paragraph("4. Technical Infrastructure, Deployment & Git Integrity", h1_style))
-    story.append(Paragraph("• <b>Live Production Server (cPanel FTP 185.243.77.60):</b> 100% of updated publisher scripts, Elementor containers, high-res web media, and responsive CSS were uploaded and verified. All live endpoints return <font color='#166534'><b>HTTP 200 OK</b></font>.", bullet_style))
-    story.append(Paragraph("• <b>Zero Styling Regressions:</b> All styling additions for new blogs and upgraded landing pages use strictly scoped inline styles, protecting 100% of existing service pages and global theme CSS.", bullet_style))
-    story.append(Paragraph("• <b>Git Version Control:</b> Master branch is 100% synchronized with GitHub repository (<font face='Courier'>devsynxoffical/RBO</font>). Commits <font face='Courier'>660041a</font>, <font face='Courier'>e008500</font>, and <font face='Courier'>4ff7c84</font> successfully pushed to <font face='Courier'>origin/main</font>.", bullet_style))
-    story.append(Paragraph("• <b>XML Sitemaps:</b> Freshly regenerated and validated across <font face='Courier'>sitemap_index.xml</font>, <font face='Courier'>post-sitemap.xml</font>, and <font face='Courier'>page-sitemap.xml</font>.", bullet_style))
-
-    story.append(Spacer(1, 6))
-
-    # 7. Monday Agenda & Strategic Action Items
-    story.append(Paragraph("5. Priority Action Items for Monday Morning", h1_style))
-    story.append(Paragraph("• <b>Search Console Indexing Push:</b> Manually request indexing for Homepage (<font face='Courier'>https://www.rboaccounting.ae/</font>) and Ajman Hub (<font face='Courier'>/areas-we-serve/ajman/</font>) once the 24-hour daily quota resets.", bullet_style))
-    story.append(Paragraph("• <b>Citation Campaign Expansion:</b> Register Profile #2 on <b>YellowPages UAE</b> (<font face='Courier'>yellowpages.ae</font>) and Profile #3 on <b>UAEContact</b> (<font face='Courier'>uaecontact.com</font>) using identical NAP credentials.", bullet_style))
-    story.append(Paragraph("• <b>Striking Distance Query Monitoring:</b> Track impression and ranking velocity in GSC for <i>\"audit and assurance UAE\"</i> (Pos 5) and <i>\"business tax consulting services\"</i> (Pos 9) following today's FAQ schema deployment.", bullet_style))
-    story.append(Paragraph("• <b>Google Business Profile Health Check:</b> Confirm engagement on today's live post and monitor for release of queued customer reviews.", bullet_style))
-
-    doc.build(story, canvasmaker=NumberedCanvas)
-    print(f"✅ Master PDF successfully generated at: {pdf_path}")
-    print(f"   Size: {os.path.getsize(pdf_path):,} bytes")
-
-    # Copy to Desktop and D:\ root
+    # Copy to all standard destinations
     targets = [
-        r"C:\Users\RANA\Desktop\RBO_Accounting_Weekly_SEO_Work_Report_Oct_2026.pdf",
-        r"D:\RBO_Accounting_Weekly_SEO_Work_Report_Oct_2026.pdf"
+        r"d:\Rboo\RBO_Accounting_Weekly_SEO_Work_Report_Oct_2026.pdf",
+        r"D:\RBO_Accounting_Two_Week_SEO_Work_Report_Nov_6_2026.pdf",
+        r"C:\Users\RANA\Desktop\RBO_Accounting_Two_Week_SEO_Work_Report_Nov_6_2026.pdf",
     ]
     for t in targets:
         try:
-            shutil.copy2(pdf_path, t)
-            print(f"✅ Copied outside to: {t}")
+            shutil.copyfile(out_primary, t)
         except Exception as e:
-            print(f"⚠️ Could not copy to {t}: {e}")
+            print(f"Warning copying to {t}: {e}")
+
+    shutil.copyfile(
+        r"d:\Rboo\RBO_Accounting_Two_Week_SEO_Work_Report_Nov_6_2026.html",
+        r"d:\Rboo\RBO_Accounting_Weekly_SEO_Work_Report_Oct_2026.html"
+    )
+    print("Successfully generated PDF and HTML reports.")
 
 if __name__ == "__main__":
     build_pdf()
