@@ -35,6 +35,16 @@ for pid, pdata in full_data.items():
         'id':    pdata.get('id', pid),
     }
 
+# Also include About Us Arabic (Live Post ID 5760)
+with open('about_us_ar_translated.json', 'r', encoding='utf-8') as f_about:
+    about_ar_data = f_about.read()
+
+payload['5760'] = {
+    'data':  about_ar_data,
+    'title': 'من نحن | شركة آر بي أو لخدمات المحاسبة والضرائب في الإمارات',
+    'id':    '5760',
+}
+
 payload_json = json.dumps(payload, ensure_ascii=False)
 print(f"Payload size: {len(payload_json) / 1024:.1f} KB")
 
@@ -64,6 +74,21 @@ with open('deploy_all_ar_final.php', 'rb') as f:
     php_content = f.read()
 ftp.storbinary('STOR deploy_all_ar_final.php', io.BytesIO(php_content))
 print(f"  ✓ Uploaded {len(php_content)/1024:.1f} KB")
+
+# Also upload updated rbo-seo-extras.php to mu-plugins
+print("Uploading wp-content/mu-plugins/rbo-seo-extras.php...")
+with open('wp-content/mu-plugins/rbo-seo-extras.php', 'rb') as f:
+    extras_content = f.read()
+ftp.storbinary('STOR wp-content/mu-plugins/rbo-seo-extras.php', io.BytesIO(extras_content))
+print(f"  ✓ Uploaded rbo-seo-extras.php ({len(extras_content)/1024:.1f} KB)")
+
+# Clean up any leftover old temp files if present
+for old_tmp in ['create_ar_about_page.php', 'check_live_pages.php', 'about_us_ar_translated.json']:
+    try:
+        ftp.delete(old_tmp)
+        print(f"  ✓ Cleaned up old temp file: {old_tmp}")
+    except:
+        pass
 
 ftp.quit()
 print("FTP connection closed")
@@ -130,3 +155,4 @@ for fname in ['deploy_all_ar_final.php', 'all_ar_posts_data.json']:
 
 ftp2.quit()
 print("\n✅ Deploy pipeline complete!")
+

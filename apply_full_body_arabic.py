@@ -59,7 +59,7 @@ def walk_and_translate(node):
     if isinstance(node, dict):
         new_dict = {}
         for k, v in node.items():
-            if k in ['title', 'description', 'text', 'editor', 'heading_title', 'html', 'caption', 'sub_title', 'cta_title', 'tab_title', 'tab_content']:
+            if k in ['title', 'title_text', 'description', 'description_text', 'item_title', 'placeholder', 'field_label', 'button_text', 'text', 'editor', 'heading_title', 'html', 'caption', 'sub_title', 'cta_title', 'tab_title', 'tab_content']:
                 new_dict[k] = translate_val(v)
             elif isinstance(v, (dict, list)):
                 new_dict[k] = walk_and_translate(v)

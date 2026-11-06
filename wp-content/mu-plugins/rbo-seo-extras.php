@@ -107,11 +107,12 @@ add_filter(
 			$uri             = (string) get_page_uri( $post_id );
 			$parent_id       = (int) wp_get_post_parent_id( $post_id );
 			$all_service_ids = array( 178, 787, 1547, 1670, 1692, 1706, 1722, 2419, 2458, 2488, 2501, 2508, 2522, 2532, 2567, 2732, 2897, 3034, 3098, 3125, 3228, 3320, 3341, 3351, 3358, 3368, 3382, 3392, 3402, 3412, 3413, 4420, 4421, 4422, 4423, 4424, 5604, 5615 );
-			// CRITICAL: NEVER apply service subpage classes to Homepage or Regional Hubs
+			// CRITICAL: NEVER apply service subpage classes to Homepage, Regional Hubs, or About Us pages
 			$is_homepage = ( $post_id === 172 || $post_id === 5606 || $post_id === 5617 || strpos( $uri, 'home-ar' ) !== false );
 			$is_hub      = ( strpos( $uri, 'areas-we-serve' ) !== false );
-			if ( ! $is_homepage && ! $is_hub ) {
-				if ( in_array( $post_id, $all_service_ids, true ) || ( $post_id >= 5626 && $post_id <= 5700 ) || strpos( $uri, 'our-services' ) !== false || strpos( $uri, 'refund' ) !== false || in_array( $parent_id, array( 178, 787, 4420, 4421, 4422, 4423, 4424 ), true ) ) {
+			$is_about    = ( $post_id === 175 || $post_id === 5626 || $post_id === 5760 || strpos( $uri, 'about-us' ) !== false );
+			if ( ! $is_homepage && ! $is_hub && ! $is_about ) {
+				if ( in_array( $post_id, $all_service_ids, true ) || ( $post_id >= 5627 && $post_id <= 5700 ) || strpos( $uri, 'our-services' ) !== false || strpos( $uri, 'refund' ) !== false || in_array( $parent_id, array( 178, 787, 4420, 4421, 4422, 4423, 4424 ), true ) ) {
 					$classes[] = 'rbo-services-subpage';
 					$classes[] = 'rbo-services-page';
 				}
