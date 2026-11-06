@@ -1337,28 +1337,54 @@ body.blog .elementor-post__card {
   transform: none !important;
 }
 
-/* 100% Clean Static Images - No Zoom, No Animation, No Gradient Overlay */
-.elementor-5259 .elementor-post__thumbnail,
-body.blog .elementor-post__thumbnail {
+/* 100% Full-Fit Static Images Across Entire Card Width - No Zoom, No Animation, No Gradient Overlay */
+.elementor-5259 .elementor-post__thumbnail__link,
+body.blog .elementor-post__thumbnail__link,
+.elementor-posts .elementor-post__thumbnail__link {
+  display: block !important;
   width: 100% !important;
-  height: 220px !important;
-  aspect-ratio: 16/9 !important;
-  overflow: hidden !important;
-  background: transparent !important;
   position: relative !important;
-  transition: none !important;
-  transform: none !important;
+  overflow: hidden !important;
+  padding-bottom: 56.25% !important; /* 16:9 ratio */
+  height: 0 !important;
+  margin: 0 !important;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+.elementor-5259 .elementor-post__thumbnail,
+body.blog .elementor-post__thumbnail,
+.elementor-posts .elementor-post__thumbnail {
+  position: absolute !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  background: #f1f5f9 !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .elementor-5259 .elementor-post__thumbnail img,
 body.blog .elementor-post__thumbnail img,
 .elementor-5259 .elementor-post__thumbnail__link img,
-body.blog .elementor-post__thumbnail__link img {
+body.blog .elementor-post__thumbnail__link img,
+.elementor-posts .elementor-post__thumbnail img {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
-  transition: none !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
   transform: none !important;
+  transition: none !important;
   filter: none !important;
 }
 
